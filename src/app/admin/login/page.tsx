@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { toast } from 'sonner'
 import { Eye, EyeOff } from 'lucide-react'
+import VWLogo from '@/components/VWLogo'
 
 export default function AdminLoginPage() {
   const router = useRouter()
@@ -41,8 +42,11 @@ export default function AdminLoginPage() {
         className="w-full max-w-sm"
       >
         <div className="text-center mb-10">
-          <span className="text-white text-2xl font-bold tracking-widest uppercase">VW Sài Gòn</span>
-          <p className="text-neutral-500 text-sm mt-2">Trang quản trị</p>
+          <div className="flex justify-center mb-3">
+            <VWLogo size={52} className="text-white" />
+          </div>
+          <p className="text-white font-semibold tracking-[0.15em] uppercase text-sm">Sài Gòn</p>
+          <p className="text-neutral-500 text-xs mt-1">Trang quản trị</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5 bg-white p-8">

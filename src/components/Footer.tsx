@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Phone, MapPin, Mail, Clock } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
+import VWLogo from '@/components/VWLogo'
 
 export default function Footer() {
   return (
@@ -8,9 +9,12 @@ export default function Footer() {
       <div className="container mx-auto px-6 py-16 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
-            <h3 className="text-white text-xl font-bold tracking-widest uppercase mb-4">
-              VW Sài Gòn
-            </h3>
+            <div className="flex items-center gap-2.5 mb-4">
+              <VWLogo size={36} className="text-white" />
+              <span className="text-white text-sm font-semibold tracking-[0.15em] uppercase">
+                Sài Gòn
+              </span>
+            </div>
             <p className="text-sm leading-relaxed text-neutral-400">
               Đại lý ủy quyền chính thức của Volkswagen tại TP. Hồ Chí Minh. Cam kết mang đến trải
               nghiệm lái xe đẳng cấp Đức.

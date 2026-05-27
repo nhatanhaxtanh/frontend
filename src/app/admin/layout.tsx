@@ -5,6 +5,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { authApi } from '@/lib/api'
 import { LayoutDashboard, Car, ClipboardList, Settings, LogOut, Menu, X } from 'lucide-react'
+import VWLogo from '@/components/VWLogo'
 import { cn } from '@/lib/utils'
 import { Toaster } from '@/components/ui/sonner'
 
@@ -67,8 +68,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         )}
       >
         <div className="h-16 flex items-center justify-between px-6 border-b border-neutral-800">
-          <Link href="/admin" className="text-white font-bold tracking-widest uppercase text-sm">
-            VW Admin
+          <Link href="/admin" className="flex items-center gap-2">
+            <VWLogo size={26} className="text-white" />
+            <span className="text-white font-semibold tracking-[0.12em] uppercase text-xs">Admin</span>
           </Link>
           <button className="lg:hidden text-neutral-400" onClick={() => setSidebarOpen(false)}>
             <X size={20} />

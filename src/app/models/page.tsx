@@ -3,11 +3,13 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { carModelApi } from '@/lib/api'
 import type { CarModel } from '@/lib/types'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ArrowRight } from 'lucide-react'
+import { getModelImage } from '@/lib/model-images'
 
 const FALLBACK: Partial<CarModel>[] = [
   { id: 1, name: 'Tiguan 2024', slug: 'tiguan-2024', category: 'SUV', priceDisplay: '1.699.000.000', shortDescription: 'SUV đô thị thông minh', seats: 5 },
@@ -71,12 +73,16 @@ export default function ModelsPage() {
               >
                 <Link href={`/models/${model.slug}`} className="group block">
                   <div className="bg-neutral-100 aspect-[16/10] overflow-hidden mb-5 relative">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-neutral-200 text-7xl font-black tracking-widest">VW</span>
-                    </div>
+                    <Image
+                      src={getModelImage(model.slug, model.imageUrl)}
+                      alt={model.name ?? ''}
+                      fill
+                      className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                    />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
                     <div className="absolute top-4 left-4">
-                      <Badge variant="outline" className="rounded-none text-xs bg-white border-neutral-300">{model.category}</Badge>
+                      <Badge variant="outline" className="rounded-none text-xs bg-white/90 border-neutral-300">{model.category}</Badge>
                     </div>
                   </div>
                   <div className="flex items-start justify-between">

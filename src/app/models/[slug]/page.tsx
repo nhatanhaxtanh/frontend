@@ -4,12 +4,14 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { carModelApi } from '@/lib/api'
 import type { CarModel } from '@/lib/types'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { ArrowLeft, Fuel, Users, Zap, Settings2 } from 'lucide-react'
+import { getModelImage } from '@/lib/model-images'
 
 export default function ModelDetailPage() {
   const params = useParams()
@@ -86,11 +88,34 @@ export default function ModelDetailPage() {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="bg-neutral-900 aspect-[16/10] flex items-center justify-center"
+              className="relative aspect-[16/10] overflow-hidden bg-neutral-900"
             >
-              <span className="text-neutral-700 text-9xl font-black tracking-widest">VW</span>
+              <Image
+                src={getModelImage(model.slug, model.imageUrl)}
+                alt={model.name}
+                fill
+                priority
+                className="object-cover object-center"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
             </motion.div>
           </div>
+        </div>
+      </div>
+
+      {/* Full-width image banner */}
+      <div className="relative h-64 md:h-96 overflow-hidden bg-neutral-900">
+        <Image
+          src={getModelImage(model.slug, model.imageUrl)}
+          alt={`${model.name} exterior`}
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent" />
+        <div className="absolute bottom-6 left-8 md:left-16">
+          <p className="text-white/60 text-xs tracking-widest uppercase">Volkswagen {model.category}</p>
+          <p className="text-white text-2xl font-bold">{model.name}</p>
         </div>
       </div>
 

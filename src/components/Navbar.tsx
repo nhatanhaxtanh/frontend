@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import VWLogo from '@/components/VWLogo'
 
 const navLinks = [
   { href: '/', label: 'Trang chủ' },
@@ -19,6 +20,10 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const pathname = usePathname()
   const isAdminPage = pathname.startsWith('/admin')
+  const isHome = pathname === '/'
+
+  // Transparent-to-solid chỉ áp dụng ở trang chủ; các trang khác luôn solid
+  const transparent = isHome && !scrolled
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -28,6 +33,8 @@ export default function Navbar() {
 
   useEffect(() => {
     setMobileOpen(false)
+    // Reset scroll state khi đổi trang để tránh flash
+    setScrolled(window.scrollY > 20)
   }, [pathname])
 
   if (isAdminPage) return null
@@ -36,45 +43,63 @@ export default function Navbar() {
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        scrolled ? 'bg-white/95 backdrop-blur border-b border-neutral-200 shadow-sm' : 'bg-transparent'
+        transparent
+          ? 'bg-transparent'
+          : 'bg-white/95 backdrop-blur border-b border-neutral-200 shadow-sm'
       )}
     >
       <div className="container mx-auto px-6 h-16 flex items-center justify-between max-w-7xl">
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2.5">
+          <VWLogo
+            size={32}
+            className={cn('transition-colors', transparent ? 'text-white' : 'text-black')}
+          />
           <span
             className={cn(
-              'text-xl font-bold tracking-widest uppercase transition-colors',
-              scrolled ? 'text-black' : 'text-white'
+              'text-sm font-semibold tracking-[0.15em] uppercase transition-colors',
+              transparent ? 'text-white' : 'text-black'
             )}
           >
-            VW Sài Gòn
+            Volkswagen Sài Gòn
           </span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                'text-sm font-medium tracking-wide transition-all duration-200 hover:opacity-70',
-                pathname === link.href ? 'underline underline-offset-4' : '',
-                scrolled ? 'text-black' : 'text-white'
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const active = pathname === link.href
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  'relative py-1 text-sm font-medium tracking-wide transition-colors duration-200 hover:opacity-60',
+                  transparent ? 'text-white' : 'text-black'
+                )}
+              >
+                {link.label}
+                {active && (
+                  <motion.span
+                    layoutId="nav-underline"
+                    className={cn(
+                      'absolute left-0 -bottom-0.5 h-[2px] w-full',
+                      transparent ? 'bg-white' : 'bg-black'
+                    )}
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )}
+              </Link>
+            )
+          })}
         </nav>
 
         <div className="hidden md:flex">
           <Link href="/dang-ky-lai-thu">
             <Button
-              variant={scrolled ? 'default' : 'outline'}
+              variant={transparent ? 'outline' : 'default'}
               size="sm"
               className={cn(
                 'rounded-none tracking-wide text-xs uppercase font-semibold transition-all',
-                !scrolled && 'border-white text-white hover:bg-white hover:text-black bg-transparent'
+                transparent && 'border-white text-white hover:bg-white hover:text-black bg-transparent'
               )}
             >
               Đăng ký lái thử
@@ -83,7 +108,7 @@ export default function Navbar() {
         </div>
 
         <button
-          className={cn('md:hidden transition-colors', scrolled ? 'text-black' : 'text-white')}
+          className={cn('md:hidden transition-colors', transparent ? 'text-white' : 'text-black')}
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
