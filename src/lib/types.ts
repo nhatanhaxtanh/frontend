@@ -1,0 +1,62 @@
+export interface CarModel {
+  id: number
+  name: string
+  slug: string
+  category: string
+  price: number
+  priceDisplay: string
+  shortDescription: string
+  description: string
+  engine: string
+  power: string
+  torque: string
+  seats: number
+  fuelType: string
+  transmission: string
+  imageUrl: string
+  images: string[]
+  featured: boolean
+  active: boolean
+  createdAt: string
+}
+
+export interface TestDriveRequest {
+  id: number
+  fullName: string
+  phone: string
+  email: string
+  preferredDate: string
+  preferredTime: string
+  modelId: number | null
+  modelName: string
+  notes: string
+  status: 'PENDING' | 'CONFIRMED' | 'COMPLETED' | 'CANCELLED'
+  createdAt: string
+}
+
+export interface TestDriveFormData {
+  fullName: string
+  phone: string
+  email: string
+  preferredDate: string
+  preferredTime: string
+  modelId: string
+  notes: string
+}
+
+export interface LoginDto {
+  username: string
+  password: string
+}
+
+export interface AuthResponse {
+  token: string
+  username: string
+}
+
+export interface ApiError {
+  message: string
+  status: number
+}
+
+export type TestDriveStatus = 'PENDING' | 'CONFIRMED' | 'COMPLETED' | 'CANCELLED'
