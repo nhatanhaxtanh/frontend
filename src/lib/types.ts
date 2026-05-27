@@ -14,6 +14,7 @@ export interface CarModel {
   fuelType: string
   transmission: string
   imageUrl: string
+  videoUrl?: string
   images: string[]
   featured: boolean
   active: boolean

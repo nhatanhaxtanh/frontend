@@ -11,11 +11,12 @@ import { Badge } from '@/components/ui/badge'
 import { getModelImage } from '@/lib/model-images'
 
 const FALLBACK_MODELS: Partial<CarModel>[] = [
-  { id: 1, name: 'Tiguan 2024', slug: 'tiguan-2024', category: 'SUV', priceDisplay: '1.699.000.000', shortDescription: 'SUV đô thị thông minh với công nghệ tiên tiến' },
-  { id: 2, name: 'Teramont 2024', slug: 'teramont-2024', category: 'SUV', priceDisplay: '2.199.000.000', shortDescription: 'SUV 7 chỗ rộng rãi, mạnh mẽ và sang trọng' },
-  { id: 3, name: 'Touareg 2024', slug: 'touareg-2024', category: 'SUV', priceDisplay: '2.999.000.000', shortDescription: 'SUV flagship đỉnh cao của dòng xe Volkswagen' },
-  { id: 4, name: 'Viloran 2024', slug: 'viloran-2024', category: 'MPV', priceDisplay: '1.999.000.000', shortDescription: 'MPV sang trọng cho gia đình hiện đại' },
-  { id: 5, name: 'Teramont X 2024', slug: 'teramont-x-2024', category: 'SUV', priceDisplay: '2.349.000.000', shortDescription: 'SUV 7 chỗ phiên bản Platinum cao cấp' },
+  { id: 1, name: 'Tiguan Facelift', slug: 'tiguan-facelift', category: 'SUV', priceDisplay: '1.699.000.000', shortDescription: 'SUV đô thị thông minh với công nghệ tiên tiến' },
+  { id: 2, name: 'Teramont USA Limited', slug: 'teramont-usa-limited', category: 'SUV', priceDisplay: '2.299.000.000', shortDescription: 'SUV 7 chỗ nhập Mỹ phiên bản Limited cao cấp' },
+  { id: 3, name: 'Teramont X Platinum', slug: 'teramont-x-platinum', category: 'SUV', priceDisplay: '2.349.000.000', shortDescription: 'SUV 7 chỗ phiên bản Platinum đỉnh cao' },
+  { id: 4, name: 'Touareg Highline', slug: 'touareg-highline', category: 'SUV', priceDisplay: '3.499.000.000', shortDescription: 'SUV flagship tích hợp mọi công nghệ đỉnh cao nhất' },
+  { id: 5, name: 'Viloran Luxury', slug: 'viloran-luxury', category: 'MPV', priceDisplay: '2.099.000.000', shortDescription: 'MPV executive sang trọng cho gia đình' },
+  { id: 6, name: 'Golf 1.5 eTSI', slug: 'golf-15-etsi', category: 'Hatchback', priceDisplay: '797.000.000', shortDescription: 'Hatchback thể thao, tiết kiệm nhiên liệu' },
 ]
 
 export default function FeaturedModels() {

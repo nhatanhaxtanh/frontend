@@ -12,14 +12,21 @@ import { ArrowRight } from 'lucide-react'
 import { getModelImage } from '@/lib/model-images'
 
 const FALLBACK: Partial<CarModel>[] = [
-  { id: 1, name: 'Tiguan 2024', slug: 'tiguan-2024', category: 'SUV', priceDisplay: '1.699.000.000', shortDescription: 'SUV đô thị thông minh', seats: 5 },
-  { id: 2, name: 'Teramont 2024', slug: 'teramont-2024', category: 'SUV', priceDisplay: '2.199.000.000', shortDescription: 'SUV 7 chỗ rộng rãi', seats: 7 },
-  { id: 3, name: 'Teramont X 2024', slug: 'teramont-x-2024', category: 'SUV', priceDisplay: '2.349.000.000', shortDescription: 'SUV 7 chỗ phiên bản Platinum', seats: 7 },
-  { id: 4, name: 'Touareg 2024', slug: 'touareg-2024', category: 'SUV', priceDisplay: '2.999.000.000', shortDescription: 'SUV flagship đỉnh cao', seats: 5 },
-  { id: 5, name: 'Viloran 2024', slug: 'viloran-2024', category: 'MPV', priceDisplay: '1.999.000.000', shortDescription: 'MPV sang trọng cho gia đình', seats: 7 },
+  { id: 1,  name: 'Tiguan Facelift',       slug: 'tiguan-facelift',       category: 'SUV',      priceDisplay: '1.699.000.000', shortDescription: 'SUV đô thị thông minh, thiết kế facelift mới nhất', seats: 5 },
+  { id: 2,  name: 'Teramont USA Base',     slug: 'teramont-usa-base',     category: 'SUV',      priceDisplay: '1.999.000.000', shortDescription: 'SUV 7 chỗ nhập Mỹ phiên bản Base', seats: 7 },
+  { id: 3,  name: 'Teramont USA Limited',  slug: 'teramont-usa-limited',  category: 'SUV',      priceDisplay: '2.299.000.000', shortDescription: 'SUV 7 chỗ nhập Mỹ phiên bản Limited cao cấp', seats: 7 },
+  { id: 4,  name: 'Teramont President',    slug: 'teramont-president',    category: 'SUV',      priceDisplay: '2.499.000.000', shortDescription: 'SUV 7 chỗ phiên bản President đỉnh cao', seats: 7 },
+  { id: 5,  name: 'Teramont X Platinum',   slug: 'teramont-x-platinum',   category: 'SUV',      priceDisplay: '2.349.000.000', shortDescription: 'SUV 7 chỗ Teramont X phiên bản Platinum', seats: 7 },
+  { id: 6,  name: 'Viloran Premium',       slug: 'viloran-premium',       category: 'MPV',      priceDisplay: '1.799.000.000', shortDescription: 'MPV sang trọng phiên bản Premium', seats: 7 },
+  { id: 7,  name: 'Viloran Luxury',        slug: 'viloran-luxury',        category: 'MPV',      priceDisplay: '2.099.000.000', shortDescription: 'MPV executive phiên bản Luxury tối thượng', seats: 7 },
+  { id: 8,  name: 'Golf 1.5 eTSI',        slug: 'golf-15-etsi',          category: 'Hatchback', priceDisplay: '797.000.000',  shortDescription: 'Hatchback thể thao, tiết kiệm nhiên liệu', seats: 5 },
+  { id: 9,  name: 'Golf 2.0',             slug: 'golf-20',               category: 'Hatchback', priceDisplay: '1.898.000.000', shortDescription: 'Hatchback hiệu suất cao động cơ 2.0 TSI', seats: 5 },
+  { id: 10, name: 'Touareg Elegance',      slug: 'touareg-elegance',      category: 'SUV',      priceDisplay: '2.899.000.000', shortDescription: 'SUV flagship phiên bản Elegance tinh tế', seats: 5 },
+  { id: 11, name: 'Touareg R-Line',        slug: 'touareg-rline',         category: 'SUV',      priceDisplay: '2.999.000.000', shortDescription: 'SUV flagship phiên bản R-Line thể thao', seats: 5 },
+  { id: 12, name: 'Touareg Highline',      slug: 'touareg-highline',      category: 'SUV',      priceDisplay: '3.499.000.000', shortDescription: 'SUV flagship phiên bản Highline tối thượng', seats: 5 },
 ]
 
-const CATEGORIES = ['Tất cả', 'SUV', 'MPV', 'Sedan']
+const CATEGORIES = ['Tất cả', 'SUV', 'MPV', 'Hatchback']
 
 export default function ModelsPage() {
   const [models, setModels] = useState<Partial<CarModel>[]>(FALLBACK)

@@ -15,11 +15,18 @@ import { CheckCircle2 } from 'lucide-react'
 const TIME_SLOTS = ['08:00', '09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00']
 
 const FALLBACK_MODELS = [
-  { id: 1, name: 'Tiguan 2024' },
-  { id: 2, name: 'Teramont 2024' },
-  { id: 3, name: 'Teramont X 2024' },
-  { id: 4, name: 'Touareg 2024' },
-  { id: 5, name: 'Viloran 2024' },
+  { id: 1,  name: 'Tiguan Facelift' },
+  { id: 2,  name: 'Teramont USA Base' },
+  { id: 3,  name: 'Teramont USA Limited' },
+  { id: 4,  name: 'Teramont President' },
+  { id: 5,  name: 'Teramont X Platinum' },
+  { id: 6,  name: 'Viloran Premium' },
+  { id: 7,  name: 'Viloran Luxury' },
+  { id: 8,  name: 'Golf 1.5 eTSI' },
+  { id: 9,  name: 'Golf 2.0' },
+  { id: 10, name: 'Touareg Elegance' },
+  { id: 11, name: 'Touareg R-Line' },
+  { id: 12, name: 'Touareg Highline' },
 ]
 
 interface FormState {

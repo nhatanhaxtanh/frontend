@@ -221,6 +221,10 @@ export default function AdminModelsPage() {
               <Label>URL ảnh chính</Label>
               <Input value={form.imageUrl || ''} onChange={(e) => set('imageUrl', e.target.value)} placeholder="https://..." className="rounded-none" />
             </div>
+            <div className="space-y-1.5">
+              <Label>YouTube Video ID</Label>
+              <Input value={form.videoUrl || ''} onChange={(e) => set('videoUrl', e.target.value)} placeholder="dQw4w9WgXcQ" className="rounded-none" />
+            </div>
             <div className="flex items-end gap-4 pb-1">
               <label className="flex items-center gap-2 text-sm cursor-pointer">
                 <input type="checkbox" checked={!!form.featured} onChange={(e) => set('featured', e.target.checked)} className="w-4 h-4" />

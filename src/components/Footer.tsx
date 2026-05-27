@@ -84,7 +84,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Mail size={14} className="shrink-0 text-neutral-500" />
-                <span>info@volkswaganphu.vn</span>
+                <span>qui.maiphu@vwanphu.vn</span>
               </li>
               <li className="flex items-center gap-2">
                 <Clock size={14} className="shrink-0 text-neutral-500" />

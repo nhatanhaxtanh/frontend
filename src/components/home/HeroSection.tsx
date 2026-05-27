@@ -9,18 +9,18 @@ import { Button } from '@/components/ui/button'
 
 const slides = [
   {
+    video: '/images/vid2.mp4',
+    label: 'Volkswagen Touareg 2024',
+    heading: 'Flagship SUV.',
+    sub: 'Đỉnh cao sang trọng.',
+    desc: 'Sức mạnh, công nghệ và thiết kế hội tụ trên một mẫu xe duy nhất.',
+  },
+  {
     image: '/images/hero.jpg',
     label: 'Đại lý ủy quyền chính thức',
     heading: 'Das Auto.',
     sub: 'Trải nghiệm đẳng cấp.',
     desc: 'Khám phá bộ sưu tập xe Volkswagen chính hãng tại TP. Hồ Chí Minh.',
-  },
-  {
-    image: '/images/hero2.jpg',
-    label: 'Volkswagen Touareg 2024',
-    heading: 'Flagship SUV.',
-    sub: 'Đỉnh cao sang trọng.',
-    desc: 'Sức mạnh, công nghệ và thiết kế hội tụ trên một mẫu xe duy nhất.',
   },
   {
     image: '/images/hero3.jpg',
@@ -77,14 +77,26 @@ export default function HeroSection() {
           transition={{ duration: 0.6, ease: 'easeInOut' }}
           className="absolute inset-0"
         >
-          <Image
-            src={slide.image}
-            alt={slide.heading}
-            fill
-            priority={index === 0}
-            className="object-cover object-center"
-            sizes="100vw"
-          />
+          {'video' in slide ? (
+            <video
+              key={slide.video}
+              src={slide.video}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover object-center"
+            />
+          ) : (
+            <Image
+              src={slide.image}
+              alt={slide.heading}
+              fill
+              priority={index === 0}
+              className="object-cover object-center"
+              sizes="100vw"
+            />
+          )}
         </motion.div>
       </AnimatePresence>
 
