@@ -12,7 +12,7 @@ export default function Footer() {
             <div className="flex items-center gap-2.5 mb-4">
               <VWLogo size={36} className="text-white" />
               <span className="text-white text-sm font-semibold tracking-[0.15em] uppercase">
-                Volkswagen Sài Gòn
+                Volkswagen An Phú
               </span>
             </div>
             <p className="text-sm leading-relaxed text-neutral-400">
@@ -84,7 +84,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Mail size={14} className="shrink-0 text-neutral-500" />
-                <span>info@volkswagensaigon.vn</span>
+                <span>info@volkswaganphu.vn</span>
               </li>
               <li className="flex items-center gap-2">
                 <Clock size={14} className="shrink-0 text-neutral-500" />
@@ -97,7 +97,7 @@ export default function Footer() {
         <Separator className="my-10 bg-neutral-800" />
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-neutral-500">
-          <p>© {new Date().getFullYear()} Volkswagen Sài Gòn. Bảo lưu mọi quyền.</p>
+          <p>© {new Date().getFullYear()} Volkswagen An Phú. Bảo lưu mọi quyền.</p>
           <div className="flex gap-6">
             <Link href="/chinh-sach-bao-mat" className="hover:text-white transition-colors">
               Chính sách bảo mật

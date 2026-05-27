@@ -29,6 +29,7 @@ interface FormState {
   preferredDate: string
   preferredTime: string
   modelId: string
+  modelName: string
   notes: string
 }
 
@@ -39,7 +40,7 @@ export default function TestDrivePage() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({})
   const [form, setForm] = useState<FormState>({
     fullName: '', phone: '', email: '', preferredDate: '',
-    preferredTime: '', modelId: '', notes: '',
+    preferredTime: '', modelId: '', modelName: '', notes: '',
   })
 
   useEffect(() => {
@@ -154,7 +155,12 @@ export default function TestDrivePage() {
 
             <div className="space-y-1.5">
               <Label>Dòng xe quan tâm</Label>
-              <Select value={form.modelId} onValueChange={(val) => set('modelId', val ?? '')}>
+              <Select value={form.modelId} onValueChange={(val) => {
+                const id = val ?? ''
+                const name = models.find((m) => String(m.id) === id)?.name ?? ''
+                setForm((prev) => ({ ...prev, modelId: id, modelName: name }))
+                if (errors.modelId) setErrors((prev) => ({ ...prev, modelId: '' }))
+              }}>
                 <SelectTrigger className="rounded-none">
                   <SelectValue placeholder="Chọn dòng xe (tùy chọn)" />
                 </SelectTrigger>

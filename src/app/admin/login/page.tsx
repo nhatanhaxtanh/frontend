@@ -45,7 +45,7 @@ export default function AdminLoginPage() {
           <div className="flex justify-center mb-3">
             <VWLogo size={52} className="text-white" />
           </div>
-          <p className="text-white font-semibold tracking-[0.15em] uppercase text-sm">Sài Gòn</p>
+          <p className="text-white font-semibold tracking-[0.15em] uppercase text-sm">An Phú</p>
           <p className="text-neutral-500 text-xs mt-1">Trang quản trị</p>
         </div>
 

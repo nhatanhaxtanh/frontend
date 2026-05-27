@@ -13,14 +13,14 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Volkswagen Sài Gòn — Đại lý ủy quyền chính thức",
-    template: "%s | Volkswagen Sài Gòn",
+    default: "Volkswagen An Phú — Đại lý ủy quyền chính thức",
+    template: "%s | Volkswagen An Phú",
   },
   description:
     "Đại lý ủy quyền chính thức của Volkswagen tại TP. Hồ Chí Minh. Khám phá các dòng xe Tiguan, Teramont, Touareg và đăng ký lái thử miễn phí.",
   keywords: [
     "Volkswagen",
-    "VW Sài Gòn",
+    "VW An Phú",
     "Tiguan",
     "Teramont",
     "xe Đức",

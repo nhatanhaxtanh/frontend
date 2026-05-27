@@ -11,7 +11,7 @@ import { toast } from 'sonner'
 const contactInfo = [
   { icon: MapPin, label: 'Địa chỉ', value: '507C Võ Nguyên Giáp, An Khánh, Thủ Đức, TP.HCM' },
   { icon: Phone, label: 'Điện thoại', value: '076 4949 837', href: 'tel:0764949837' },
-  { icon: Mail, label: 'Email', value: 'info@volkswagensaigon.vn', href: 'mailto:info@volkswagensaigon.vn' },
+  { icon: Mail, label: 'Email', value: 'info@volkswaganphu.vn', href: 'mailto:info@volkswaganphu.vn' },
   { icon: Clock, label: 'Giờ làm việc', value: '8:00 – 18:00, Thứ 2 – Chủ nhật' },
 ]
 
@@ -60,10 +60,6 @@ export default function ContactPage() {
                 ))}
               </div>
 
-              {/* Map placeholder */}
-              <div className="mt-10 bg-neutral-100 h-64 flex items-center justify-center border border-neutral-200">
-                <p className="text-neutral-400 text-sm">Bản đồ — 507C Võ Nguyên Giáp, Thủ Đức</p>
-              </div>
             </motion.div>
 
             {/* Contact Form */}
@@ -99,6 +95,20 @@ export default function ContactPage() {
             </motion.div>
           </div>
         </div>
+      </div>
+
+      {/* Google Maps */}
+      <div className="w-full h-[450px] border-t border-neutral-200">
+        <iframe
+          src="https://maps.google.com/maps?q=507C+V%C3%B5+Nguy%C3%AAn+Gi%C3%A1p%2C+An+Kh%C3%A1nh%2C+Th%E1%BB%A7+%C4%90%E1%BB%A9c%2C+TP.HCM&output=embed&hl=vi"
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title="Volkswagen An Phú — 507C Võ Nguyên Giáp"
+        />
       </div>
     </div>
   )

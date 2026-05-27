@@ -61,7 +61,7 @@ export default function Navbar() {
               transparent ? 'text-white' : 'text-black'
             )}
           >
-            Volkswagen Sài Gòn
+            Volkswagen An Phú
           </span>
         </Link>
 
