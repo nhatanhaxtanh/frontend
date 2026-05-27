@@ -10,7 +10,7 @@ import { toast } from 'sonner'
 
 const contactInfo = [
   { icon: MapPin, label: 'Địa chỉ', value: '507C Võ Nguyên Giáp, An Khánh, Thủ Đức, TP.HCM' },
-  { icon: Phone, label: 'Điện thoại', value: '076 4949 837', href: 'tel:0764949837' },
+  { icon: Phone, label: 'Điện thoại', value: '098 105 8232', href: 'tel:0981058232' },
   { icon: Mail, label: 'Email', value: 'info@volkswaganphu.vn', href: 'mailto:info@volkswaganphu.vn' },
   { icon: Clock, label: 'Giờ làm việc', value: '8:00 – 18:00, Thứ 2 – Chủ nhật' },
 ]
