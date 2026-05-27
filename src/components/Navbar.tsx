@@ -12,6 +12,7 @@ import VWLogo from '@/components/VWLogo'
 const navLinks = [
   { href: '/', label: 'Trang chủ' },
   { href: '/models', label: 'Dòng xe' },
+  { href: '/tin-tuc', label: 'Tin tức' },
   { href: '/lien-he', label: 'Liên hệ' },
 ]
 

@@ -12,7 +12,7 @@ export default function Footer() {
             <div className="flex items-center gap-2.5 mb-4">
               <VWLogo size={36} className="text-white" />
               <span className="text-white text-sm font-semibold tracking-[0.15em] uppercase">
-                Sài Gòn
+                Volkswagen Sài Gòn
               </span>
             </div>
             <p className="text-sm leading-relaxed text-neutral-400">
@@ -47,6 +47,11 @@ export default function Footer() {
               <li>
                 <Link href="/dang-ky-lai-thu" className="hover:text-white transition-colors">
                   Đăng ký lái thử
+                </Link>
+              </li>
+              <li>
+                <Link href="/tin-tuc" className="hover:text-white transition-colors">
+                  Tin tức &amp; Sự kiện
                 </Link>
               </li>
               <li>

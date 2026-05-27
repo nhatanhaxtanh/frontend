@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { CarModel, TestDriveFormData, TestDriveRequest, LoginDto, AuthResponse } from './types'
+import type { CarModel, TestDriveFormData, TestDriveRequest, LoginDto, AuthResponse, NewsPost } from './types'
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api',
@@ -40,6 +40,15 @@ export const testDriveApi = {
   updateStatus: (id: number, status: string) =>
     api.put(`/admin/test-drives/${id}/status`, { status }),
   delete: (id: number) => api.delete(`/admin/test-drives/${id}`),
+}
+
+export const newsApi = {
+  getAll: () => api.get<NewsPost[]>('/news'),
+  getBySlug: (slug: string) => api.get<NewsPost>(`/news/${slug}`),
+  adminGetAll: () => api.get<NewsPost[]>('/admin/news'),
+  create: (data: Partial<NewsPost>) => api.post<NewsPost>('/admin/news', data),
+  update: (id: number, data: Partial<NewsPost>) => api.put<NewsPost>(`/admin/news/${id}`, data),
+  delete: (id: number) => api.delete(`/admin/news/${id}`),
 }
 
 export const authApi = {

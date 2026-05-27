@@ -4,6 +4,7 @@ import ServicesSection from '@/components/home/ServicesSection'
 import TestDriveCTA from '@/components/home/TestDriveCTA'
 import TestimonialsSection from '@/components/home/TestimonialsSection'
 import WhyVWSection from '@/components/home/WhyVWSection'
+import NewsSection from '@/components/home/NewsSection'
 
 export default function HomePage() {
   return (
@@ -12,6 +13,7 @@ export default function HomePage() {
       <FeaturedModels />
       <WhyVWSection />
       <ServicesSection />
+      <NewsSection />
       <TestDriveCTA />
       <TestimonialsSection />
     </>

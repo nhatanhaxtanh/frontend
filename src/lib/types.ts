@@ -60,3 +60,15 @@ export interface ApiError {
 }
 
 export type TestDriveStatus = 'PENDING' | 'CONFIRMED' | 'COMPLETED' | 'CANCELLED'
+
+export interface NewsPost {
+  id: number
+  title: string
+  slug: string
+  category: string
+  imageUrl: string
+  excerpt: string
+  content: string
+  published: boolean
+  createdAt: string
+}
