@@ -5,7 +5,7 @@ import { Phone } from 'lucide-react'
 
 const PHONE = '0981058232'
 const PHONE_DISPLAY = '098 105 8232'
-const FACEBOOK_URL = 'https://facebook.com'
+const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61576384566535'
 const TWITTER_URL = 'https://x.com'
 const INSTAGRAM_URL = 'https://instagram.com'
 

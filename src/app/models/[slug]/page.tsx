@@ -86,9 +86,9 @@ const FALLBACK_MODELS: Record<string, CarModel> = {
   'viloran-luxury':       { id: 7,  name: 'Viloran Luxury',       slug: 'viloran-luxury',       category: 'MPV',       price: 2099000000, priceDisplay: '2.099.000.000', shortDescription: 'MPV executive phiên bản Luxury — trải nghiệm di chuyển đẳng cấp hạng nhất.', description: 'Viloran Luxury là phiên bản cao cấp nhất, biến mỗi chuyến đi thành trải nghiệm hạng nhất. Ghế hàng 2 kiểu thương gia có mát-xa 10 điểm, chỉnh điện và để chân đầy đủ.\n\nĐèn viền nội thất 30 màu, kính cách âm 2 lớp và hệ thống thông gió chủ động. Mái kính panorama toàn cảnh và âm thanh cao cấp.', engine: '2.0L TSI', power: '220 mã lực', torque: '350 Nm', seats: 7, fuelType: 'Xăng', transmission: 'DSG 7 cấp', imageUrl: '', videoUrl: 'PKg4sT5ErdA', images: [], featured: true, active: true, createdAt: '' },
   'golf-15-etsi':         { id: 8,  name: 'Golf 1.5 eTSI',        slug: 'golf-15-etsi',         category: 'Hatchback', price: 797000000,  priceDisplay: '797.000.000',   shortDescription: 'Hatchback thể thao tiết kiệm nhiên liệu với công nghệ eTSI Mild Hybrid.', description: 'Golf 1.5 eTSI trang bị công nghệ mild hybrid 48V, giảm tiêu hao nhiên liệu đến 15% so với phiên bản thường. Động cơ 1.5L TSI EVO kết hợp hộp số DSG 7 cấp mang lại trải nghiệm lái thú vị và tiết kiệm.\n\nThiết kế hatchback thể thao trẻ trung, Digital Cockpit 10 inch và màn hình cảm ứng 8.25 inch. Đèn LED matrix và mâm 16 inch thể thao.', engine: '1.5L eTSI', power: '130 mã lực', torque: '200 Nm', seats: 5, fuelType: 'Xăng Hybrid', transmission: 'DSG 7 cấp', imageUrl: '', videoUrl: 'oQp9KxVqiuQ', images: [], featured: true, active: true, createdAt: '' },
   'golf-20':              { id: 9,  name: 'Golf 2.0',             slug: 'golf-20',              category: 'Hatchback', price: 1898000000, priceDisplay: '1.898.000.000', shortDescription: 'Hatchback hiệu suất cao với động cơ 2.0 TSI mạnh mẽ và body kit R-Line thể thao.', description: 'Golf 2.0 TSI là phiên bản hiệu suất cao nhất của dòng Golf tại Việt Nam. Động cơ 2.0L TSI mạnh mẽ kết hợp hộp số DSG 7 cấp cho khả năng tăng tốc ấn tượng.\n\nBody kit R-Line thể thao, mâm 18 inch đen bóng, nội thất sport với ghế racing và vô lăng thể thao. Hệ thống lái thể thao Progressive Steering.', engine: '2.0L TSI', power: '190 mã lực', torque: '320 Nm', seats: 5, fuelType: 'Xăng', transmission: 'DSG 7 cấp', imageUrl: '', videoUrl: 'y9MeLRO1sIs', images: [], featured: true, active: true, createdAt: '' },
-  'touareg-elegance':     { id: 10, name: 'Touareg Elegance',     slug: 'touareg-elegance',     category: 'SUV',       price: 2899000000, priceDisplay: '2.899.000.000', shortDescription: 'SUV flagship phiên bản Elegance tinh tế, kết hợp sang trọng và công nghệ.', description: 'Touareg Elegance mang ngôn ngữ thiết kế thanh lịch với Innovision Cockpit màn hình cong 15 inch. Ngoại thất mâm 19 inch chrome, lưới tản nhiệt mạ bạc và đèn LED matrix tinh tế.\n\nHệ thống treo khí 4 cấp, động cơ V6 TDI 3.0L mạnh mẽ và dẫn động 4Motion. Air suspension cho phép thay đổi độ cao gầm theo địa hình.', engine: '3.0L V6 TDI', power: '231 mã lực', torque: '500 Nm', seats: 5, fuelType: 'Diesel', transmission: 'Tiptronic 8 cấp', imageUrl: '', videoUrl: 'do_O-fuB-RE', images: [], featured: true, active: true, createdAt: '' },
-  'touareg-rline':        { id: 11, name: 'Touareg R-Line',       slug: 'touareg-rline',        category: 'SUV',       price: 2999000000, priceDisplay: '2.999.000.000', shortDescription: 'SUV flagship phiên bản R-Line thể thao mạnh mẽ, cá tính vượt trội.', description: 'Touareg R-Line mang phong cách thể thao với body kit R-Line đặc trưng, mâm 20 inch đen bóng và hệ thống xả thể thao đôi. Nội thất sport với đường chỉ khâu màu đỏ và vô lăng thể thao.\n\n5 chế độ lái từ Eco đến Off-road, hệ thống treo khí và dẫn động 4Motion AWD toàn thời gian.', engine: '3.0L V6 TDI', power: '231 mã lực', torque: '500 Nm', seats: 5, fuelType: 'Diesel', transmission: 'Tiptronic 8 cấp', imageUrl: '', videoUrl: 'uJoRgj_b8ZY', images: [], featured: true, active: true, createdAt: '' },
-  'touareg-highline':     { id: 12, name: 'Touareg Highline',     slug: 'touareg-highline',     category: 'SUV',       price: 3499000000, priceDisplay: '3.499.000.000', shortDescription: 'SUV flagship phiên bản Highline — tích hợp mọi công nghệ đỉnh cao nhất.', description: 'Touareg Highline là phiên bản tối thượng, tích hợp toàn bộ công nghệ cao cấp nhất của Volkswagen. Head-up Display thực tế tăng cường AR, ghế massage 10 điểm và thông gió chủ động.\n\nNight Vision, Bose Surround 14 loa, da Nappa toàn bộ và ốp gỗ thực. Mâm 21 inch và cản thể thao tạo nên tổng thể đẳng cấp tối thượng.', engine: '3.0L V6 TDI', power: '231 mã lực', torque: '500 Nm', seats: 5, fuelType: 'Diesel', transmission: 'Tiptronic 8 cấp', imageUrl: '', videoUrl: '83qH1PkYUVo', images: [], featured: true, active: true, createdAt: '' },
+  'touareg-elegance':     { id: 10, name: 'Touareg Elegance',     slug: 'touareg-elegance',     category: 'SUV',       price: 2899000000, priceDisplay: '2.899.000.000', shortDescription: 'SUV flagship phiên bản Elegance tinh tế, kết hợp sang trọng và công nghệ.', description: 'Touareg Elegance mang ngôn ngữ thiết kế thanh lịch với Innovision Cockpit màn hình cong 15 inch. Ngoại thất mâm 19 inch chrome, lưới tản nhiệt mạ bạc và đèn LED matrix tinh tế.\n\nHệ thống treo khí 4 cấp, động cơ V6 TDI 3.0L mạnh mẽ và dẫn động 4Motion. Air suspension cho phép thay đổi độ cao gầm theo địa hình.', engine: '3.0L V6 TDI', power: '231 mã lực', torque: '500 Nm', seats: 5, fuelType: 'Xăng', transmission: 'Tiptronic 8 cấp', imageUrl: '', videoUrl: 'do_O-fuB-RE', images: [], featured: true, active: true, createdAt: '' },
+  'touareg-rline':        { id: 11, name: 'Touareg R-Line',       slug: 'touareg-rline',        category: 'SUV',       price: 2999000000, priceDisplay: '2.999.000.000', shortDescription: 'SUV flagship phiên bản R-Line thể thao mạnh mẽ, cá tính vượt trội.', description: 'Touareg R-Line mang phong cách thể thao với body kit R-Line đặc trưng, mâm 20 inch đen bóng và hệ thống xả thể thao đôi. Nội thất sport với đường chỉ khâu màu đỏ và vô lăng thể thao.\n\n5 chế độ lái từ Eco đến Off-road, hệ thống treo khí và dẫn động 4Motion AWD toàn thời gian.', engine: '3.0L V6 TDI', power: '231 mã lực', torque: '500 Nm', seats: 5, fuelType: 'Xăng', transmission: 'Tiptronic 8 cấp', imageUrl: '', videoUrl: 'uJoRgj_b8ZY', images: [], featured: true, active: true, createdAt: '' },
+  'touareg-highline':     { id: 12, name: 'Touareg Highline',     slug: 'touareg-highline',     category: 'SUV',       price: 3499000000, priceDisplay: '3.499.000.000', shortDescription: 'SUV flagship phiên bản Highline — tích hợp mọi công nghệ đỉnh cao nhất.', description: 'Touareg Highline là phiên bản tối thượng, tích hợp toàn bộ công nghệ cao cấp nhất của Volkswagen. Head-up Display thực tế tăng cường AR, ghế massage 10 điểm và thông gió chủ động.\n\nNight Vision, Bose Surround 14 loa, da Nappa toàn bộ và ốp gỗ thực. Mâm 21 inch và cản thể thao tạo nên tổng thể đẳng cấp tối thượng.', engine: '3.0L V6 TDI', power: '231 mã lực', torque: '500 Nm', seats: 5, fuelType: 'Xăng', transmission: 'Tiptronic 8 cấp', imageUrl: '', videoUrl: '83qH1PkYUVo', images: [], featured: true, active: true, createdAt: '' },
 }
 
 const DEFAULT_HIGHLIGHTS = [
@@ -248,7 +248,7 @@ export default function ModelDetailPage() {
       <div className="bg-neutral-100 py-16 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold text-black">Hình ảnh</h2>
+            <h2 className="text-2xl font-bold text-black">Hình ảnh <span className="text-neutral-400 font-normal text-base">({galleryIndex + 1}/{gallery.length})</span></h2>
             <div className="flex gap-2">
               <button
                 onClick={() => setGalleryIndex((i) => (i - 1 + gallery.length) % gallery.length)}
@@ -265,35 +265,37 @@ export default function ModelDetailPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {gallery.slice(0, 3).map((img, i) => (
-              <div
-                key={i}
-                className={cn(
-                  'relative overflow-hidden cursor-pointer group bg-neutral-200',
-                  i === 0 ? 'md:col-span-2 aspect-[16/9]' : 'aspect-square'
-                )}
-                onClick={() => { setLightboxIndex(i); setLightboxOpen(true) }}
-              >
-                <Image
-                  src={img}
-                  alt={`${model.name} ${i + 1}`}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300" />
-              </div>
-            ))}
+          {/* Main image */}
+          <div
+            className="relative aspect-[16/9] overflow-hidden cursor-pointer group bg-neutral-200 mb-3"
+            onClick={() => { setLightboxIndex(galleryIndex); setLightboxOpen(true) }}
+          >
+            <Image
+              key={gallery[galleryIndex]}
+              src={gallery[galleryIndex]}
+              alt={`${model.name} ${galleryIndex + 1}`}
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+              <span className="text-white text-xs uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity border border-white px-4 py-2">Xem lớn</span>
+            </div>
           </div>
 
-          <div className="flex gap-2 mt-3">
-            {gallery.map((_, i) => (
+          {/* Thumbnails */}
+          <div className="flex gap-2 overflow-x-auto pb-1">
+            {gallery.map((img, i) => (
               <button
                 key={i}
                 onClick={() => setGalleryIndex(i)}
-                className={cn('h-1 transition-all', galleryIndex === i ? 'bg-black w-8' : 'bg-neutral-300 w-4')}
-              />
+                className={cn(
+                  'relative shrink-0 w-20 h-14 overflow-hidden transition-all',
+                  galleryIndex === i ? 'ring-2 ring-black' : 'opacity-50 hover:opacity-100'
+                )}
+              >
+                <Image src={img} alt={`${model.name} ${i + 1}`} fill className="object-cover" sizes="80px" />
+              </button>
             ))}
           </div>
         </div>
