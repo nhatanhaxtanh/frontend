@@ -7,6 +7,7 @@ const PHONE = '0981058232'
 const PHONE_DISPLAY = '098 105 8232'
 const FACEBOOK_URL = 'https://facebook.com'
 const TWITTER_URL = 'https://x.com'
+const INSTAGRAM_URL = 'https://instagram.com'
 
 function FacebookIcon() {
   return (
@@ -33,6 +34,16 @@ type ButtonItem = {
   icon: React.ReactNode
 }
 
+function InstagramIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="0.5" fill="white" stroke="none" />
+    </svg>
+  )
+}
+
 const buttons: ButtonItem[] = [
   {
     key: 'facebook',
@@ -47,6 +58,13 @@ const buttons: ButtonItem[] = [
     href: TWITTER_URL,
     color: '#000000',
     icon: <TwitterIcon />,
+  },
+  {
+    key: 'instagram',
+    label: 'Instagram',
+    href: INSTAGRAM_URL,
+    color: '#E1306C',
+    icon: <InstagramIcon />,
   },
   {
     key: 'zalo',
