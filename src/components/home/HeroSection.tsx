@@ -30,7 +30,7 @@ const slides = [
     desc: 'SUV đô thị thông minh, trang bị công nghệ an toàn tiên tiến.',
   },
   {
-    image: '/images/hero4.jpg',
+    image: '/images/hero6.jpg',
     label: 'Volkswagen Teramont 2024',
     heading: 'Family King.',
     sub: 'Không gian, sức mạnh, đẳng cấp.',
