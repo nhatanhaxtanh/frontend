@@ -50,10 +50,11 @@ export default function TestDrivePopup() {
   const reshowTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const cycleStarted = useRef(false)
 
-  // Chỉ trigger lần đầu khi vào trang home
+  // Chỉ trigger lần đầu khi vào trang home, bỏ qua nếu đã từng đăng ký
   useEffect(() => {
     if (pathname !== '/') return
     if (cycleStarted.current) return
+    if (localStorage.getItem('td_submitted')) return
     const t = setTimeout(() => {
       setOpen(true)
       cycleStarted.current = true
@@ -111,6 +112,8 @@ export default function TestDrivePopup() {
         preferredTime: '',
         notes: '',
       })
+      localStorage.setItem('td_submitted', '1')
+      if (reshowTimer.current) clearTimeout(reshowTimer.current)
       setSubmitted(true)
     } catch {
       toast.error('Có lỗi xảy ra. Vui lòng gọi trực tiếp: 098 105 8232')
