@@ -48,15 +48,25 @@ export default function TestDrivePopup() {
   const [form, setForm] = useState({ fullName: '', phone: '', modelId: '', modelName: '' })
   const [errors, setErrors] = useState<{ fullName?: string; phone?: string }>({})
   const reshowTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const cycleStarted = useRef(false)
 
+  // Chỉ trigger lần đầu khi vào trang home
   useEffect(() => {
-    if (pathname.startsWith('/admin')) return
-    const t = setTimeout(() => setOpen(true), DELAY_MS)
+    if (pathname !== '/') return
+    if (cycleStarted.current) return
+    const t = setTimeout(() => {
+      setOpen(true)
+      cycleStarted.current = true
+    }, DELAY_MS)
+    return () => clearTimeout(t)
+  }, [pathname])
+
+  // Cleanup khi unmount
+  useEffect(() => {
     return () => {
-      clearTimeout(t)
       if (reshowTimer.current) clearTimeout(reshowTimer.current)
     }
-  }, [pathname])
+  }, [])
 
   useEffect(() => {
     carModelApi
