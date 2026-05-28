@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
-import { Plus, Pencil, Trash2, RefreshCw } from 'lucide-react'
+import { Plus, Pencil, Trash2, RefreshCw, ImageIcon, Loader2 } from 'lucide-react'
 
 const emptyForm = (): Partial<CarModel> => ({
   name: '', slug: '', category: 'SUV', price: 0, priceDisplay: '',
@@ -27,6 +27,7 @@ export default function AdminModelsPage() {
   const [editId, setEditId] = useState<number | null>(null)
   const [form, setForm] = useState<Partial<CarModel>>(emptyForm())
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState<number | null>(null)
 
   const fetch = async () => {
     setLoading(true)
@@ -70,6 +71,26 @@ export default function AdminModelsPage() {
     }
   }
 
+  const handleThumbnailUpload = async (id: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    e.target.value = ''
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error('Ảnh phải nhỏ hơn 2MB')
+      return
+    }
+    setUploading(id)
+    try {
+      const res = await carModelApi.uploadThumbnail(id, file)
+      setModels((prev) => prev.map((m) => (m.id === id ? { ...m, imageUrl: res.data.imageUrl } : m)))
+      toast.success('Cập nhật ảnh thành công')
+    } catch {
+      toast.error('Upload ảnh thất bại')
+    } finally {
+      setUploading(null)
+    }
+  }
+
   const handleDelete = async (id: number, name: string) => {
     if (!confirm(`Xóa "${name}"?`)) return
     try {
@@ -108,6 +129,7 @@ export default function AdminModelsPage() {
             <Table>
               <TableHeader>
                 <TableRow>
+                  <TableHead className="w-20">Ảnh</TableHead>
                   <TableHead>Tên xe</TableHead>
                   <TableHead>Danh mục</TableHead>
                   <TableHead>Giá từ</TableHead>
@@ -119,6 +141,34 @@ export default function AdminModelsPage() {
               <TableBody>
                 {models.map((model) => (
                   <TableRow key={model.id}>
+                    <TableCell>
+                      <label className="cursor-pointer group relative block w-16 h-12">
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => handleThumbnailUpload(model.id, e)}
+                          disabled={uploading === model.id}
+                        />
+                        {uploading === model.id ? (
+                          <div className="w-16 h-12 border border-neutral-200 flex items-center justify-center bg-neutral-50">
+                            <Loader2 size={14} className="animate-spin text-neutral-400" />
+                          </div>
+                        ) : model.imageUrl ? (
+                          <div className="w-16 h-12 border border-neutral-200 overflow-hidden relative">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={model.imageUrl} alt={model.name} className="w-full h-full object-cover" />
+                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center">
+                              <ImageIcon size={12} className="text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="w-16 h-12 border border-dashed border-neutral-300 group-hover:border-black transition-colors flex items-center justify-center">
+                            <ImageIcon size={14} className="text-neutral-400" />
+                          </div>
+                        )}
+                      </label>
+                    </TableCell>
                     <TableCell>
                       <div>
                         <p className="font-medium text-black">{model.name}</p>
@@ -168,13 +218,13 @@ export default function AdminModelsPage() {
               <Input
                 value={form.name || ''}
                 onChange={(e) => { set('name', e.target.value); if (!editId) set('slug', autoSlug(e.target.value)) }}
-                placeholder="VD: Tiguan 2024"
+                placeholder="VD: Tiguan Facelift"
                 className="rounded-none"
               />
             </div>
             <div className="space-y-1.5">
               <Label>Slug (URL)</Label>
-              <Input value={form.slug || ''} onChange={(e) => set('slug', e.target.value)} placeholder="tiguan-2024" className="rounded-none" />
+              <Input value={form.slug || ''} onChange={(e) => set('slug', e.target.value)} placeholder="tiguan-facelift" className="rounded-none" />
             </div>
             <div className="space-y-1.5">
               <Label>Danh mục</Label>

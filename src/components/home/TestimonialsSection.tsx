@@ -14,7 +14,7 @@ const testimonials = [
     name: 'Trần Thị Lan',
     role: 'Giám đốc Marketing',
     initials: 'TL',
-    text: 'Tiguan 2024 vượt kỳ vọng của tôi về cả thiết kế lẫn vận hành. Showroom sạch sẽ, nhân viên nhiệt tình và am hiểu sản phẩm.',
+    text: 'Tiguan vượt kỳ vọng của tôi về cả thiết kế lẫn vận hành. Showroom sạch sẽ, nhân viên nhiệt tình và am hiểu sản phẩm.',
   },
   {
     name: 'Phạm Đức Thành',

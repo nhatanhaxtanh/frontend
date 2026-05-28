@@ -4,6 +4,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingContact from "@/components/FloatingContact";
+import ScrollToTop from "@/components/ScrollToTop";
+import TestDrivePopup from "@/components/TestDrivePopup";
 import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -31,12 +33,6 @@ export const metadata: Metadata = {
     title: 'Volkswagen An Phú — Đại lý ủy quyền chính thức',
     description: 'Đại lý ủy quyền chính thức của Volkswagen tại TP. Hồ Chí Minh. Khám phá các dòng xe Tiguan, Teramont, Touareg và đăng ký lái thử miễn phí.',
     images: [{ url: '/images/hero.jpg', width: 1200, height: 630, alt: 'Volkswagen An Phú' }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Volkswagen An Phú — Đại lý ủy quyền chính thức',
-    description: 'Đại lý ủy quyền chính thức của Volkswagen tại TP. Hồ Chí Minh.',
-    images: ['/images/hero.jpg'],
   },
   alternates: { canonical: BASE_URL },
   robots: { index: true, follow: true },
@@ -89,6 +85,8 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <FloatingContact />
+        <ScrollToTop />
+        <TestDrivePopup />
         <Toaster richColors position="top-right" />
       </body>
     </html>

@@ -32,6 +32,13 @@ export const carModelApi = {
   create: (data: Partial<CarModel>) => api.post<CarModel>('/admin/models', data),
   update: (id: number, data: Partial<CarModel>) => api.put<CarModel>(`/admin/models/${id}`, data),
   delete: (id: number) => api.delete(`/admin/models/${id}`),
+  uploadThumbnail: (id: number, file: File) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    return api.post<CarModel>(`/admin/models/${id}/thumbnail`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+  },
 }
 
 export const testDriveApi = {

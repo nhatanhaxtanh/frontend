@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button'
 const slides = [
   {
     video: '/images/vid3.mp4',
-    label: 'Volkswagen Touareg 2024',
+    label: 'Volkswagen Touareg',
     heading: 'Flagship SUV.',
     sub: 'Đỉnh cao sang trọng.',
     desc: 'Sức mạnh, công nghệ và thiết kế hội tụ trên một mẫu xe duy nhất.',
@@ -24,14 +24,14 @@ const slides = [
   },
   {
     image: '/images/hero5.jpg',
-    label: 'Volkswagen Tiguan 2024',
+    label: 'Volkswagen Tiguan',
     heading: 'Urban Explorer.',
     sub: 'Chinh phục mọi hành trình.',
     desc: 'SUV đô thị thông minh, trang bị công nghệ an toàn tiên tiến.',
   },
   {
     image: '/images/hero6.jpg',
-    label: 'Volkswagen Teramont 2024',
+    label: 'Volkswagen Teramont',
     heading: 'Family King.',
     sub: 'Không gian, sức mạnh, đẳng cấp.',
     desc: 'SUV 7 chỗ rộng rãi, hoàn hảo cho gia đình hiện đại.',

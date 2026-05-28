@@ -23,12 +23,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         type: 'article',
         publishedTime: post.createdAt,
       },
-      twitter: {
-        card: 'summary_large_image',
-        title: `${title} | Volkswagen An Phú`,
-        description,
-        images: [imageUrl],
-      },
       alternates: { canonical: `${BASE_URL}/tin-tuc/${slug}` },
     }
   } catch {

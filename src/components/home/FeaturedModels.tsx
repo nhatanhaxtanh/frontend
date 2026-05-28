@@ -65,7 +65,7 @@ export default function FeaturedModels() {
             <h2 className="text-4xl md:text-5xl font-bold text-black mt-2 leading-tight">
               Bộ sưu tập
               <br />
-              Volkswagen 2024
+              Volkswagen
             </h2>
           </div>
 

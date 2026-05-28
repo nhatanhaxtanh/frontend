@@ -22,12 +22,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         images: [{ url: imageUrl, width: 1200, height: 630, alt: title }],
         type: 'website',
       },
-      twitter: {
-        card: 'summary_large_image',
-        title: `${title} | Volkswagen An Phú`,
-        description,
-        images: [imageUrl],
-      },
       alternates: { canonical: `${BASE_URL}/models/${slug}` },
     }
   } catch {
