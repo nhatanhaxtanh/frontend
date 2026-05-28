@@ -62,6 +62,16 @@ export interface ApiError {
 
 export type TestDriveStatus = 'PENDING' | 'CONFIRMED' | 'COMPLETED' | 'CANCELLED'
 
+export interface CarPromotion {
+  id?: number
+  carModelId: number
+  title: string
+  description: string
+  items: string[]
+  validUntil: string
+  active: boolean
+}
+
 export interface NewsPost {
   id: number
   title: string

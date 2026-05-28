@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { CarModel, TestDriveFormData, TestDriveRequest, LoginDto, AuthResponse, NewsPost } from './types'
+import type { CarModel, CarPromotion, TestDriveFormData, TestDriveRequest, LoginDto, AuthResponse, NewsPost } from './types'
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api',
@@ -39,6 +39,19 @@ export const carModelApi = {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
   },
+  galleryUpload: (id: number, file: File) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    return api.post<CarModel>(`/admin/models/${id}/images`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+  },
+  galleryRemove: (id: number, url: string) =>
+    api.delete<CarModel>(`/admin/models/${id}/images`, { data: { url } }),
+  getPromotion: (id: number) =>
+    api.get<CarPromotion>(`/admin/models/${id}/promotion`),
+  savePromotion: (id: number, data: Partial<CarPromotion>) =>
+    api.put<CarPromotion>(`/admin/models/${id}/promotion`, data),
 }
 
 export const testDriveApi = {

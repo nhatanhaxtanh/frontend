@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { carModelApi } from '@/lib/api'
-import type { CarModel } from '@/lib/types'
+import type { CarModel, CarPromotion } from '@/lib/types'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -10,9 +10,10 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
-import { Plus, Pencil, Trash2, RefreshCw, ImageIcon, Loader2 } from 'lucide-react'
+import { Plus, Pencil, Trash2, RefreshCw, ImageIcon, Loader2, MoreVertical, Images, Tag } from 'lucide-react'
 import { getModelImage } from '@/lib/model-images'
 
 const emptyForm = (): Partial<CarModel> => ({
@@ -29,6 +30,12 @@ export default function AdminModelsPage() {
   const [form, setForm] = useState<Partial<CarModel>>(emptyForm())
   const [saving, setSaving] = useState(false)
   const [uploading, setUploading] = useState<number | null>(null)
+  const [galleryModel, setGalleryModel] = useState<CarModel | null>(null)
+  const [galleryUploading, setGalleryUploading] = useState(false)
+  const [promoModel, setPromoModel] = useState<CarModel | null>(null)
+  const [promo, setPromo] = useState<Partial<CarPromotion> | null>(null)
+  const [promoLoading, setPromoLoading] = useState(false)
+  const [promoSaving, setPromoSaving] = useState(false)
 
   const fetch = async () => {
     setLoading(true)
@@ -89,6 +96,65 @@ export default function AdminModelsPage() {
       toast.error('Upload ảnh thất bại')
     } finally {
       setUploading(null)
+    }
+  }
+
+  const handleGalleryUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!galleryModel) return
+    const file = e.target.files?.[0]
+    if (!file) return
+    e.target.value = ''
+    if (file.size > 2 * 1024 * 1024) { toast.error('Ảnh phải nhỏ hơn 2MB'); return }
+    setGalleryUploading(true)
+    try {
+      const res = await carModelApi.galleryUpload(galleryModel.id, file)
+      setModels((prev) => prev.map((m) => (m.id === galleryModel.id ? res.data : m)))
+      setGalleryModel(res.data)
+      toast.success('Thêm ảnh thành công')
+    } catch {
+      toast.error('Upload ảnh thất bại')
+    } finally {
+      setGalleryUploading(false)
+    }
+  }
+
+  const handleGalleryRemove = async (url: string) => {
+    if (!galleryModel) return
+    try {
+      const res = await carModelApi.galleryRemove(galleryModel.id, url)
+      setModels((prev) => prev.map((m) => (m.id === galleryModel.id ? res.data : m)))
+      setGalleryModel(res.data)
+      toast.success('Đã xóa ảnh')
+    } catch {
+      toast.error('Xóa ảnh thất bại')
+    }
+  }
+
+  const openPromo = async (model: CarModel) => {
+    setPromoModel(model)
+    setPromoLoading(true)
+    try {
+      const res = await carModelApi.getPromotion(model.id)
+      setPromo(res.data)
+    } catch {
+      setPromo({ carModelId: model.id, title: '', description: '', items: [], validUntil: '', active: true })
+    } finally {
+      setPromoLoading(false)
+    }
+  }
+
+  const handleSavePromo = async () => {
+    if (!promoModel || !promo) return
+    setPromoSaving(true)
+    try {
+      await carModelApi.savePromotion(promoModel.id, promo)
+      toast.success('Lưu ưu đãi thành công')
+      setPromoModel(null)
+      setPromo(null)
+    } catch {
+      toast.error('Lưu thất bại')
+    } finally {
+      setPromoSaving(false)
     }
   }
 
@@ -191,14 +257,29 @@ export default function AdminModelsPage() {
                       </span>
                     </TableCell>
                     <TableCell>
-                      <div className="flex gap-1">
-                        <Button variant="ghost" size="sm" onClick={() => openEdit(model)} className="h-7 w-7 p-0">
-                          <Pencil size={14} />
-                        </Button>
-                        <Button variant="ghost" size="sm" onClick={() => handleDelete(model.id, model.name)} className="h-7 w-7 p-0 text-neutral-400 hover:text-red-600">
-                          <Trash2 size={14} />
-                        </Button>
-                      </div>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger className="h-7 w-7 flex items-center justify-center rounded hover:bg-neutral-100 transition-colors">
+                          <MoreVertical size={14} />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-52">
+                          <DropdownMenuItem onClick={() => openEdit(model)} className="gap-2 cursor-pointer">
+                            <Pencil size={14} /> Thông tin xe
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => setGalleryModel(model)} className="gap-2 cursor-pointer">
+                            <Images size={14} /> Ảnh chi tiết
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => openPromo(model)} className="gap-2 cursor-pointer">
+                            <Tag size={14} /> Form ưu đãi
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem
+                            onClick={() => handleDelete(model.id, model.name)}
+                            className="gap-2 cursor-pointer text-red-600 focus:text-red-600"
+                          >
+                            <Trash2 size={14} /> Xóa xe
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -300,6 +381,141 @@ export default function AdminModelsPage() {
             <Button variant="outline" onClick={() => setDialogOpen(false)} className="rounded-none">Hủy</Button>
             <Button onClick={handleSave} disabled={saving} className="rounded-none">
               {saving ? 'Đang lưu...' : editId ? 'Cập nhật' : 'Thêm xe'}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Gallery dialog */}
+      <Dialog open={!!galleryModel} onOpenChange={(o) => { if (!o) setGalleryModel(null) }}>
+        <DialogContent className="max-w-3xl rounded-none max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Ảnh chi tiết — {galleryModel?.name}</DialogTitle>
+          </DialogHeader>
+          <div className="py-4 space-y-4">
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-neutral-500">{galleryModel?.images?.length ?? 0} ảnh</p>
+              <label className="cursor-pointer">
+                <input type="file" accept="image/*" className="hidden" onChange={handleGalleryUpload} disabled={galleryUploading} />
+                <Button size="sm" className="rounded-none gap-2 pointer-events-none" disabled={galleryUploading}>
+                  {galleryUploading ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
+                  Thêm ảnh
+                </Button>
+              </label>
+            </div>
+            {(!galleryModel?.images || galleryModel.images.length === 0) ? (
+              <div className="border border-dashed border-neutral-300 rounded py-16 text-center text-neutral-400 text-sm">
+                Chưa có ảnh nào. Nhấn &quot;Thêm ảnh&quot; để upload.
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {galleryModel.images.map((url, i) => (
+                  <div key={i} className="relative group aspect-video bg-neutral-100 overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={url} alt="" className="w-full h-full object-cover" />
+                    <button
+                      onClick={() => handleGalleryRemove(url)}
+                      className="absolute top-1 right-1 w-6 h-6 bg-red-600 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-700"
+                    >
+                      <Trash2 size={11} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <div className="flex justify-end">
+            <Button variant="outline" onClick={() => setGalleryModel(null)} className="rounded-none">Đóng</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Promo dialog */}
+      <Dialog open={!!promoModel} onOpenChange={(o) => { if (!o) { setPromoModel(null); setPromo(null) } }}>
+        <DialogContent className="max-w-2xl rounded-none max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Form ưu đãi — {promoModel?.name}</DialogTitle>
+          </DialogHeader>
+          {promoLoading ? (
+            <div className="py-16 flex justify-center"><Loader2 className="animate-spin text-neutral-400" /></div>
+          ) : (
+            <div className="space-y-5 py-4">
+              <div className="space-y-1.5">
+                <Label>Tiêu đề ưu đãi</Label>
+                <Input
+                  value={promo?.title ?? ''}
+                  onChange={(e) => setPromo((p) => ({ ...p!, title: e.target.value }))}
+                  placeholder="VD: Ưu đãi tháng 6 — Giảm ngay 50 triệu"
+                  className="rounded-none"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label>Mô tả ngắn</Label>
+                <Textarea
+                  value={promo?.description ?? ''}
+                  onChange={(e) => setPromo((p) => ({ ...p!, description: e.target.value }))}
+                  placeholder="Mô tả chương trình ưu đãi..."
+                  className="rounded-none resize-none"
+                  rows={3}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Danh sách ưu đãi</Label>
+                {(promo?.items ?? []).map((item, i) => (
+                  <div key={i} className="flex gap-2">
+                    <Input
+                      value={item}
+                      onChange={(e) => {
+                        const items = [...(promo?.items ?? [])]
+                        items[i] = e.target.value
+                        setPromo((p) => ({ ...p!, items }))
+                      }}
+                      placeholder={`Ưu đãi ${i + 1}`}
+                      className="rounded-none"
+                    />
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-9 w-9 p-0 text-neutral-400 hover:text-red-600 shrink-0"
+                      onClick={() => setPromo((p) => ({ ...p!, items: (p?.items ?? []).filter((_, idx) => idx !== i) }))}
+                    >
+                      <Trash2 size={14} />
+                    </Button>
+                  </div>
+                ))}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="rounded-none gap-1"
+                  onClick={() => setPromo((p) => ({ ...p!, items: [...(p?.items ?? []), ''] }))}
+                >
+                  <Plus size={14} /> Thêm ưu đãi
+                </Button>
+              </div>
+              <div className="space-y-1.5">
+                <Label>Hiệu lực đến</Label>
+                <Input
+                  value={promo?.validUntil ?? ''}
+                  onChange={(e) => setPromo((p) => ({ ...p!, validUntil: e.target.value }))}
+                  placeholder="VD: 30/06/2026"
+                  className="rounded-none"
+                />
+              </div>
+              <label className="flex items-center gap-2 text-sm cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={!!promo?.active}
+                  onChange={(e) => setPromo((p) => ({ ...p!, active: e.target.checked }))}
+                  className="w-4 h-4"
+                />
+                Hiển thị trên trang xe
+              </label>
+            </div>
+          )}
+          <div className="flex justify-end gap-3 pt-2">
+            <Button variant="outline" onClick={() => { setPromoModel(null); setPromo(null) }} className="rounded-none">Hủy</Button>
+            <Button onClick={handleSavePromo} disabled={promoSaving || promoLoading} className="rounded-none">
+              {promoSaving ? 'Đang lưu...' : 'Lưu ưu đãi'}
             </Button>
           </div>
         </DialogContent>
