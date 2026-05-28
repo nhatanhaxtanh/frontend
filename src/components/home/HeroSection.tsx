@@ -23,7 +23,7 @@ const slides = [
     desc: 'Khám phá bộ sưu tập xe Volkswagen chính hãng tại TP. Hồ Chí Minh.',
   },
   {
-    image: '/images/hero3.jpg',
+    image: '/images/hero5.jpg',
     label: 'Volkswagen Tiguan 2024',
     heading: 'Urban Explorer.',
     sub: 'Chinh phục mọi hành trình.',
