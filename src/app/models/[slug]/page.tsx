@@ -10,6 +10,7 @@ import type { CarModel } from '@/lib/types'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft, ArrowRight, Fuel, Users, Zap, Settings2, Gauge, GitMerge, ChevronLeft, ChevronRight, X } from 'lucide-react'
 import { getModelImage } from '@/lib/model-images'
+import { getModelGallery } from '@/lib/model-gallery'
 import { cn } from '@/lib/utils'
 
 const HIGHLIGHTS: Record<string, { title: string; description: string }[]> = {
@@ -145,7 +146,7 @@ export default function ModelDetailPage() {
   const mainImage = getModelImage(model.slug, model.imageUrl)
   const gallery: string[] = model.images?.length
     ? model.images
-    : [mainImage, mainImage, mainImage]
+    : getModelGallery(model.slug, mainImage)
 
   const highlights = HIGHLIGHTS[model.slug] ?? DEFAULT_HIGHLIGHTS
 
