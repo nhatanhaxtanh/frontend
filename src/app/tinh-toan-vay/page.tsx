@@ -93,7 +93,7 @@ export default function LoanCalculatorPage() {
               {/* Dòng xe */}
               <div className="space-y-2">
                 <Label className="text-sm font-semibold uppercase tracking-widest text-neutral-500">Dòng xe</Label>
-                <Select value={modelId} onValueChange={setModelId}>
+                <Select value={modelId} onValueChange={(v) => { if (v) setModelId(v) }}>
                   <SelectTrigger className="rounded-none h-12 text-base">
                     <span>{selected?.name ?? 'Chọn dòng xe'}</span>
                   </SelectTrigger>
