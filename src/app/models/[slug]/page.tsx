@@ -386,44 +386,97 @@ export default function ModelDetailPage() {
 
       {/* Promotion */}
       {promotion && (
-        <div className="bg-neutral-950 py-16 px-6">
-          <div className="container mx-auto max-w-3xl">
+        <div className="relative bg-neutral-950 py-20 px-6 overflow-hidden">
+          {/* Background accent */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.04)_0%,_transparent_60%)]" />
+
+          <div className="relative container mx-auto max-w-7xl">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
+              className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start"
             >
-              <span className="text-xs tracking-[0.25em] text-neutral-500 uppercase">Chương trình ưu đãi</span>
-              <h2 className="text-2xl font-bold text-white mt-2 mb-3">{promotion.title}</h2>
-              {promotion.description && (
-                <p className="text-neutral-400 mb-6 leading-relaxed">{promotion.description}</p>
-              )}
-              <div className="space-y-3 mb-6">
-                {promotion.items?.map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <CheckCircle2 size={16} className="text-white shrink-0 mt-0.5" />
-                    <span className="text-neutral-300 text-sm leading-relaxed">{item}</span>
-                  </div>
-                ))}
-              </div>
-              {promotion.validUntil && (
-                <div className="flex items-center gap-2 text-neutral-500 text-xs mb-6">
-                  <Clock size={13} />
-                  <span>Hiệu lực đến {promotion.validUntil}</span>
+              {/* Left — content */}
+              <div className="lg:col-span-3">
+                {/* Badge */}
+                <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-4 py-1.5 mb-6">
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
+                  <span className="text-xs text-white/80 uppercase tracking-[0.2em] font-medium">Ưu đãi có hạn</span>
                 </div>
-              )}
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Link href="/dang-ky-lai-thu">
-                  <Button className="rounded-none bg-white text-black hover:bg-neutral-200 uppercase tracking-widest text-xs font-semibold px-8 h-11 w-full sm:w-auto">
-                    Đăng ký nhận ưu đãi
-                  </Button>
-                </Link>
-                <a href="tel:0981058232" className="w-full sm:w-auto">
-                  <Button variant="outline" className="rounded-none border-neutral-700 text-white hover:bg-white hover:text-black uppercase tracking-widest text-xs font-semibold px-8 h-11 bg-transparent w-full">
-                    Gọi ngay: 098 105 8232
-                  </Button>
-                </a>
+
+                <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight mb-4">
+                  {promotion.title}
+                </h2>
+
+                {promotion.description && (
+                  <p className="text-neutral-400 text-base leading-relaxed mb-8 max-w-lg">
+                    {promotion.description}
+                  </p>
+                )}
+
+                {/* Benefits grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {promotion.items?.map((item, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, x: -16 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: i * 0.08 }}
+                      className="flex items-start gap-3 bg-white/5 border border-white/10 px-4 py-3.5 hover:bg-white/10 transition-colors"
+                    >
+                      <CheckCircle2 size={17} className="text-white shrink-0 mt-0.5" />
+                      <span className="text-neutral-200 text-sm leading-relaxed">{item}</span>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {promotion.validUntil && (
+                  <div className="flex items-center gap-2 mt-6 text-neutral-500 text-xs">
+                    <Clock size={13} />
+                    <span>Chương trình có hiệu lực đến <strong className="text-neutral-300">{promotion.validUntil}</strong></span>
+                  </div>
+                )}
+              </div>
+
+              {/* Right — CTA card */}
+              <div className="lg:col-span-2">
+                <div className="bg-white p-8">
+                  <p className="text-xs tracking-[0.2em] text-neutral-400 uppercase mb-1">Nhận ưu đãi ngay</p>
+                  <h3 className="text-xl font-bold text-black mb-2">Đăng ký lái thử miễn phí</h3>
+                  <p className="text-neutral-500 text-sm leading-relaxed mb-6">
+                    Chuyên viên sẽ liên hệ xác nhận trong <strong className="text-black">24 giờ</strong>.
+                    Hoàn toàn miễn phí, không ràng buộc.
+                  </p>
+
+                  {/* Compact benefit list */}
+                  <div className="space-y-2 mb-6 pb-6 border-b border-neutral-100">
+                    {(promotion.items ?? []).slice(0, 3).map((item, i) => (
+                      <div key={i} className="flex items-start gap-2">
+                        <CheckCircle2 size={14} className="text-black shrink-0 mt-0.5" />
+                        <span className="text-neutral-600 text-xs leading-relaxed">{item}</span>
+                      </div>
+                    ))}
+                    {(promotion.items?.length ?? 0) > 3 && (
+                      <p className="text-xs text-neutral-400 pl-5">+{(promotion.items?.length ?? 0) - 3} ưu đãi khác</p>
+                    )}
+                  </div>
+
+                  <Link href="/dang-ky-lai-thu" className="block">
+                    <Button className="w-full rounded-none h-12 bg-black text-white hover:bg-neutral-800 uppercase tracking-widest text-xs font-bold">
+                      Đăng ký nhận ưu đãi →
+                    </Button>
+                  </Link>
+
+                  <div className="mt-4 text-center">
+                    <p className="text-neutral-400 text-xs mb-2">Hoặc gọi trực tiếp</p>
+                    <a href="tel:0981058232" className="text-black font-bold text-lg tracking-wide hover:text-neutral-700 transition-colors">
+                      098 105 8232
+                    </a>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>
