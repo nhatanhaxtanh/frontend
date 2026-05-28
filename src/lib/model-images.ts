@@ -20,7 +20,10 @@ const LOCAL_IMAGES: Record<string, string> = {
 }
 
 export function getModelImage(slug?: string, imageUrl?: string): string {
-  if (imageUrl && imageUrl.startsWith('http')) return imageUrl
+  if (imageUrl && (imageUrl.startsWith('http') || imageUrl.startsWith('/'))) {
+    // localhost URLs were uploaded in dev — not accessible in production Docker
+    if (!imageUrl.includes('localhost')) return imageUrl
+  }
   if (slug && LOCAL_IMAGES[slug]) return LOCAL_IMAGES[slug]
   return '/images/models/tiguan.jpg'
 }

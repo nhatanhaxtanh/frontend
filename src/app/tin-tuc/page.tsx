@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import type { NewsPost } from '@/lib/types'
 import NewsClient from './NewsClient'
 
+export const dynamic = 'force-dynamic'
+
 const BACKEND = process.env.BACKEND_URL
   ? `${process.env.BACKEND_URL}/api`
   : 'http://localhost:8080/api'
@@ -25,7 +27,7 @@ const FALLBACK: Partial<NewsPost>[] = [
 
 async function fetchPosts(): Promise<Partial<NewsPost>[]> {
   try {
-    const res = await fetch(`${BACKEND}/news`, { next: { revalidate: 3600 } })
+    const res = await fetch(`${BACKEND}/news`, { cache: 'no-store' })
     if (!res.ok) return FALLBACK
     const data = await res.json()
     return data.length > 0 ? data : FALLBACK
