@@ -50,6 +50,8 @@ export const carModelApi = {
     api.delete<CarModel>(`/admin/models/${id}/images`, { data: { url } }),
   getPromotion: (id: number) =>
     api.get<CarPromotion>(`/admin/models/${id}/promotion`),
+  getPromotionBySlug: (slug: string) =>
+    api.get<CarPromotion>(`/models/${slug}/promotion`),
   savePromotion: (id: number, data: Partial<CarPromotion>) =>
     api.put<CarPromotion>(`/admin/models/${id}/promotion`, data),
 }

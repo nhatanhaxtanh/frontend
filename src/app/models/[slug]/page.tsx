@@ -6,9 +6,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { carModelApi } from '@/lib/api'
-import type { CarModel } from '@/lib/types'
+import type { CarModel, CarPromotion } from '@/lib/types'
 import { Button } from '@/components/ui/button'
-import { ArrowLeft, ArrowRight, Fuel, Users, Zap, Settings2, Gauge, GitMerge, ChevronLeft, ChevronRight, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Fuel, Users, Zap, Settings2, Gauge, GitMerge, ChevronLeft, ChevronRight, X, CheckCircle2, Clock } from 'lucide-react'
 import { getModelImage } from '@/lib/model-images'
 import { getModelGallery } from '@/lib/model-gallery'
 import { cn } from '@/lib/utils'
@@ -102,6 +102,7 @@ export default function ModelDetailPage() {
   const slug = params?.slug as string
   const [model, setModel] = useState<CarModel | null>(null)
   const [loading, setLoading] = useState(true)
+  const [promotion, setPromotion] = useState<CarPromotion | null>(null)
   const [galleryIndex, setGalleryIndex] = useState(0)
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(0)
@@ -114,6 +115,9 @@ export default function ModelDetailPage() {
       .then((res) => setModel(res.data))
       .catch(() => setModel(FALLBACK_MODELS[slug] ?? null))
       .finally(() => setLoading(false))
+    carModelApi.getPromotionBySlug(slug)
+      .then((res) => setPromotion(res.data))
+      .catch(() => {})
   }, [slug])
 
   useEffect(() => {
@@ -394,6 +398,52 @@ export default function ModelDetailPage() {
                 className="absolute inset-0 w-full h-full"
               />
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Promotion */}
+      {promotion && (
+        <div className="bg-black py-20 px-6">
+          <div className="container mx-auto max-w-5xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="text-xs tracking-[0.25em] text-neutral-500 uppercase">Chương trình ưu đãi</span>
+              <h2 className="text-3xl font-bold text-white mt-2 mb-3">{promotion.title}</h2>
+              {promotion.description && (
+                <p className="text-neutral-400 mb-8 leading-relaxed max-w-2xl">{promotion.description}</p>
+              )}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+                {promotion.items?.map((item, i) => (
+                  <div key={i} className="flex items-start gap-3 bg-neutral-900 px-5 py-4">
+                    <CheckCircle2 size={18} className="text-white shrink-0 mt-0.5" />
+                    <span className="text-neutral-200 text-sm leading-relaxed">{item}</span>
+                  </div>
+                ))}
+              </div>
+              {promotion.validUntil && (
+                <div className="flex items-center gap-2 text-neutral-500 text-sm mb-8">
+                  <Clock size={14} />
+                  <span>Ưu đãi có hiệu lực đến {promotion.validUntil}</span>
+                </div>
+              )}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link href="/dang-ky-lai-thu">
+                  <Button className="rounded-none bg-white text-black hover:bg-neutral-200 uppercase tracking-widest text-xs font-semibold px-8 h-12 w-full sm:w-auto">
+                    Đăng ký ngay
+                  </Button>
+                </Link>
+                <a href="tel:0981058232" className="w-full sm:w-auto">
+                  <Button variant="outline" className="rounded-none border-neutral-700 text-white hover:bg-white hover:text-black uppercase tracking-widest text-xs font-semibold px-8 h-12 bg-transparent w-full">
+                    Gọi tư vấn: 098 105 8232
+                  </Button>
+                </a>
+              </div>
+            </motion.div>
           </div>
         </div>
       )}
