@@ -13,6 +13,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
 import { Plus, Pencil, Trash2, RefreshCw, ImageIcon, Loader2 } from 'lucide-react'
+import { getModelImage } from '@/lib/model-images'
 
 const emptyForm = (): Partial<CarModel> => ({
   name: '', slug: '', category: 'SUV', price: 0, priceDisplay: '',
@@ -154,17 +155,17 @@ export default function AdminModelsPage() {
                           <div className="w-16 h-12 border border-neutral-200 flex items-center justify-center bg-neutral-50">
                             <Loader2 size={14} className="animate-spin text-neutral-400" />
                           </div>
-                        ) : model.imageUrl ? (
+                        ) : (
                           <div className="w-16 h-12 border border-neutral-200 overflow-hidden relative">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={model.imageUrl} alt={model.name} className="w-full h-full object-cover" />
+                            <img
+                              src={getModelImage(model.slug, model.imageUrl)}
+                              alt={model.name}
+                              className="w-full h-full object-cover"
+                            />
                             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center">
                               <ImageIcon size={12} className="text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                             </div>
-                          </div>
-                        ) : (
-                          <div className="w-16 h-12 border border-dashed border-neutral-300 group-hover:border-black transition-colors flex items-center justify-center">
-                            <ImageIcon size={14} className="text-neutral-400" />
                           </div>
                         )}
                       </label>
