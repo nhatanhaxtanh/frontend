@@ -38,7 +38,7 @@ export default function TestDriveCTA() {
               Đăng ký lái thử hoàn toàn miễn phí. Chúng tôi sẽ liên hệ xác nhận lịch hẹn trong
               vòng 24 giờ.
             </p>
-            <div className="flex flex-col sm:flex-row items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/dang-ky-lai-thu">
                 <Button
                   size="lg"
