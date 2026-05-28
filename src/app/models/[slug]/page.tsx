@@ -46,6 +46,8 @@ async function fetchPromotion(slug: string): Promise<CarPromotion | null> {
   }
 }
 
+const BASE_URL = 'https://volkswagenanphu.vn'
+
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
@@ -53,12 +55,14 @@ export async function generateMetadata(
   const model = await fetchModel(slug) ?? FALLBACK_MODELS[slug] ?? null
   if (!model) return { title: 'Dòng xe | Volkswagen An Phú' }
   return {
-    title: `${model.name} | Volkswagen An Phú`,
+    title: `${model.name} — Giá & Thông số kỹ thuật | Volkswagen An Phú`,
     description: model.shortDescription,
+    alternates: { canonical: `${BASE_URL}/models/${slug}` },
     openGraph: {
       title: `${model.name} | Volkswagen An Phú`,
       description: model.shortDescription,
-      ...(model.imageUrl ? { images: [{ url: model.imageUrl }] } : {}),
+      url: `${BASE_URL}/models/${slug}`,
+      ...(model.imageUrl ? { images: [{ url: model.imageUrl, width: 1200, height: 630, alt: model.name }] } : {}),
     },
   }
 }
@@ -73,5 +77,28 @@ export default async function ModelDetailPage(
   ])
   const resolvedModel = model ?? FALLBACK_MODELS[slug] ?? null
   if (!resolvedModel) notFound()
-  return <ModelDetailClient model={resolvedModel} promotion={promotion} />
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: `Volkswagen ${resolvedModel.name}`,
+    description: resolvedModel.shortDescription,
+    brand: { '@type': 'Brand', name: 'Volkswagen' },
+    ...(resolvedModel.imageUrl ? { image: resolvedModel.imageUrl } : {}),
+    offers: {
+      '@type': 'Offer',
+      price: resolvedModel.price,
+      priceCurrency: 'VND',
+      availability: 'https://schema.org/InStock',
+      url: `${BASE_URL}/models/${slug}`,
+      seller: { '@type': 'AutoDealer', name: 'Volkswagen An Phú' },
+    },
+  }
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <ModelDetailClient model={resolvedModel} promotion={promotion} />
+    </>
+  )
 }
