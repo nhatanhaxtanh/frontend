@@ -213,6 +213,15 @@ export default function AdminModelsPage() {
               <Label>Hộp số</Label>
               <Input value={form.transmission || ''} onChange={(e) => set('transmission', e.target.value)} placeholder="DSG 7 cấp" className="rounded-none" />
             </div>
+            <div className="space-y-1.5">
+              <Label>Nhiên liệu</Label>
+              <Select value={form.fuelType || 'Xăng'} onValueChange={(v) => set('fuelType', v)}>
+                <SelectTrigger className="rounded-none"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {['Xăng', 'Xăng Hybrid', 'Diesel', 'Điện'].map((f) => <SelectItem key={f} value={f}>{f}</SelectItem>)}
+                </SelectContent>
+              </Select>
+            </div>
             <div className="col-span-2 space-y-1.5">
               <Label>Mô tả đầy đủ</Label>
               <Textarea value={form.description || ''} onChange={(e) => set('description', e.target.value)} rows={4} className="rounded-none resize-none" />
