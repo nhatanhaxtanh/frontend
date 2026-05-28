@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Phone } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import VWLogo from '@/components/VWLogo'
@@ -93,7 +93,17 @@ export default function Navbar() {
           })}
         </nav>
 
-        <div className="hidden md:flex">
+        <div className="hidden md:flex items-center gap-4">
+          <a
+            href="tel:0981058232"
+            className={cn(
+              'flex items-center gap-1.5 text-sm font-medium transition-colors hover:opacity-70',
+              transparent ? 'text-white' : 'text-black'
+            )}
+          >
+            <Phone size={14} strokeWidth={2.5} />
+            098 105 8232
+          </a>
           <Link href="/dang-ky-lai-thu">
             <Button
               variant={transparent ? 'outline' : 'default'}

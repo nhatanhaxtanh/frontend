@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Phone } from 'lucide-react'
 
 export default function TestDriveCTA() {
   return (
@@ -38,15 +38,24 @@ export default function TestDriveCTA() {
               Đăng ký lái thử hoàn toàn miễn phí. Chúng tôi sẽ liên hệ xác nhận lịch hẹn trong
               vòng 24 giờ.
             </p>
-            <Link href="/dang-ky-lai-thu">
-              <Button
-                size="lg"
-                className="rounded-none bg-white text-black hover:bg-neutral-200 font-semibold tracking-wide uppercase text-sm px-12 h-14"
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              <Link href="/dang-ky-lai-thu">
+                <Button
+                  size="lg"
+                  className="rounded-none bg-white text-black hover:bg-neutral-200 font-semibold tracking-wide uppercase text-sm px-12 h-14"
+                >
+                  Đăng ký lái thử ngay
+                  <ArrowRight size={16} className="ml-2" />
+                </Button>
+              </Link>
+              <a
+                href="tel:0981058232"
+                className="flex items-center gap-2 text-white hover:text-neutral-300 transition-colors font-medium"
               >
-                Đăng ký lái thử ngay
-                <ArrowRight size={16} className="ml-2" />
-              </Button>
-            </Link>
+                <Phone size={16} strokeWidth={2.5} />
+                098 105 8232
+              </a>
+            </div>
           </motion.div>
         </div>
       </div>
