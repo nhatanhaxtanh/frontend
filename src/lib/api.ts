@@ -71,6 +71,13 @@ export const newsApi = {
   create: (data: Partial<NewsPost>) => api.post<NewsPost>('/admin/news', data),
   update: (id: number, data: Partial<NewsPost>) => api.put<NewsPost>(`/admin/news/${id}`, data),
   delete: (id: number) => api.delete(`/admin/news/${id}`),
+  uploadImage: (id: number, file: File) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    return api.post<NewsPost>(`/admin/news/${id}/image`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+  },
 }
 
 export const heroApi = {
