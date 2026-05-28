@@ -2,10 +2,22 @@
 
 import { useState } from 'react'
 import { Phone } from 'lucide-react'
-import Image from 'next/image'
 
 const PHONE = '0981058232'
 const PHONE_DISPLAY = '098 105 8232'
+
+function ZaloIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="52" height="52">
+      <rect width="64" height="64" rx="32" fill="#0068FF" />
+      <g fill="white">
+        <path d="M14 22h14.5l-15 19.5H32v-3.5H17.8L33 19H14v3z" />
+        <path d="M35 19v23h3.5V28l8.5 14H50V19h-3.5v13.5L38.5 19H35z" />
+        <circle cx="44" cy="44" r="2.5" fill="white" opacity="0" />
+      </g>
+    </svg>
+  )
+}
 
 export default function FloatingContact() {
   const [phoneHovered, setPhoneHovered] = useState(false)
@@ -31,7 +43,7 @@ export default function FloatingContact() {
           style={{ width: 52, height: 52 }}
         >
           <span className="absolute inset-0 rounded-full animate-ping opacity-30" style={{ backgroundColor: '#0068FF' }} />
-          <Image src="/images/zalo-icon.png" alt="Zalo" width={52} height={52} className="rounded-full" />
+          <ZaloIcon />
         </a>
       </div>
 
