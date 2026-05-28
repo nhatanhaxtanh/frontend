@@ -24,7 +24,7 @@ const FALLBACK_MODELS = [
   { id: 12, name: 'Touareg Highline',     price: 3499000000 },
 ]
 
-const TERMS = [12, 24, 36, 48, 60, 72, 84]
+const TERMS = [12, 24, 36, 48, 60, 72, 84, 96]
 
 function fmt(n: number) {
   return new Intl.NumberFormat('vi-VN').format(Math.round(n))
@@ -117,7 +117,7 @@ export default function LoanCalculatorPage() {
                 <input
                   type="range"
                   min={0}
-                  max={80}
+                  max={85}
                   step={5}
                   value={loanPct}
                   onChange={(e) => setLoanPct(Number(e.target.value))}
@@ -125,7 +125,7 @@ export default function LoanCalculatorPage() {
                 />
                 <div className="flex justify-between text-xs text-neutral-400">
                   <span>0%</span>
-                  <span>80%</span>
+                  <span>85%</span>
                 </div>
                 <div className="grid grid-cols-2 gap-3 pt-1">
                   <div className="bg-neutral-50 border border-neutral-200 px-4 py-3">
@@ -142,7 +142,7 @@ export default function LoanCalculatorPage() {
               {/* Thời hạn */}
               <div className="space-y-2">
                 <Label className="text-sm font-semibold uppercase tracking-widest text-neutral-500">Thời hạn vay</Label>
-                <div className="grid grid-cols-7 gap-1.5">
+                <div className="grid grid-cols-8 gap-1.5">
                   {TERMS.map((t) => (
                     <button
                       key={t}
