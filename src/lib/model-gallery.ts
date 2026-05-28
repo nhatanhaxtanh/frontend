@@ -3,7 +3,7 @@
 // Khi thêm ảnh mới: tăng số tương ứng lên
 export const modelGalleryCount: Record<string, number> = {
   'tiguan-facelift': 0,
-  'teramont-usa-base': 0,
+  'teramont-usa-base': 18,
   'teramont-usa-limited': 13,
   'teramont-president': 0,
   'teramont-x-platinum': 0,
