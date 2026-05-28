@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 
 const slides = [
   {
-    video: '/images/vid2.mp4',
+    video: '/images/vid3.mp4',
     label: 'Volkswagen Touareg 2024',
     heading: 'Flagship SUV.',
     sub: 'Đỉnh cao sang trọng.',
