@@ -35,7 +35,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-sm leading-relaxed text-neutral-400">
-              Đại lý ủy quyền chính thức của Volkswagen tại TP. Hồ Chí Minh. Cam kết mang đến trải
+              Đại lý 4S Flagship lớn nhất Top 1 TP. Hồ Chí Minh. Cam kết mang đến trải
               nghiệm lái xe đẳng cấp Đức.
             </p>
             <div className="flex gap-3 mt-5">
