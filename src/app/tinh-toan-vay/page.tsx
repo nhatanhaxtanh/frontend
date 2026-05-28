@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, Calculator, Info } from 'lucide-react'
+import { ArrowLeft, Calculator } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -178,9 +178,6 @@ export default function LoanCalculatorPage() {
                   />
                   <span className="text-neutral-500 text-sm">% / năm</span>
                 </div>
-                <p className="text-xs text-neutral-400 flex items-center gap-1">
-                  <Info size={11} /> Lãi suất trung bình thị trường 2024 dao động 7 – 10% / năm
-                </p>
               </div>
             </div>
 
