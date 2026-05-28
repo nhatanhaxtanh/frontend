@@ -16,8 +16,8 @@ const services = [
     icon: CreditCard,
     title: 'Hỗ trợ tài chính',
     desc: 'Vay trả góp đến 85% giá trị xe, lãi suất ưu đãi, thủ tục đơn giản nhanh chóng.',
-    href: '/lien-he',
-    cta: 'Tìm hiểu thêm',
+    href: '/tinh-toan-vay',
+    cta: 'Tính toán ngay',
   },
   {
     icon: Truck,

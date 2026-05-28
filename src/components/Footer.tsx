@@ -93,7 +93,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/lien-he" className="hover:text-white transition-colors">
+                <Link href="/tinh-toan-vay" className="hover:text-white transition-colors">
                   Hỗ trợ tài chính
                 </Link>
               </li>
