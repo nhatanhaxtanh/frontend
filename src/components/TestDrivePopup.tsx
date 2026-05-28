@@ -126,7 +126,7 @@ export default function TestDrivePopup() {
     <Dialog open={open} onOpenChange={(o) => { if (!o) dismiss(true) }}>
       <DialogContent
         showCloseButton={false}
-        className="max-w-[calc(100%-1rem)] sm:max-w-xl p-0 overflow-hidden rounded-2xl gap-0 max-h-[92dvh] overflow-y-auto"
+        className="max-w-[calc(100%-1rem)] sm:max-w-xl p-0 overflow-hidden rounded-2xl gap-0 max-h-[92dvh] overflow-y-auto duration-300 ease-out data-open:slide-in-from-bottom-6 data-closed:slide-out-to-bottom-6"
       >
         {/* Header */}
         <div className="bg-neutral-950 px-8 pt-10 pb-8 relative">
