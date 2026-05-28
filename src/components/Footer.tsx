@@ -3,6 +3,34 @@ import { Phone, MapPin, Mail, Clock } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import VWLogo from '@/components/VWLogo'
 
+const socials = [
+  {
+    label: 'Facebook',
+    href: 'https://facebook.com',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+      </svg>
+    ),
+  },
+  {
+    label: 'Twitter / X',
+    href: 'https://x.com',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+      </svg>
+    ),
+  },
+  {
+    label: 'Zalo',
+    href: 'https://zalo.me/0981058232',
+    icon: (
+      <span className="text-xs font-bold leading-none">Z</span>
+    ),
+  },
+]
+
 export default function Footer() {
   return (
     <footer className="bg-neutral-950 text-neutral-300">
@@ -19,6 +47,20 @@ export default function Footer() {
               Đại lý ủy quyền chính thức của Volkswagen tại TP. Hồ Chí Minh. Cam kết mang đến trải
               nghiệm lái xe đẳng cấp Đức.
             </p>
+            <div className="flex gap-3 mt-5">
+              {socials.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="w-8 h-8 rounded-full bg-neutral-800 flex items-center justify-center text-neutral-400 hover:bg-white hover:text-black transition-colors duration-200"
+                >
+                  {s.icon}
+                </a>
+              ))}
+            </div>
           </div>
 
           <div>
