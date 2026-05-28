@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { MapPin, Phone, Mail, Clock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -7,6 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { toast } from 'sonner'
+import axios from 'axios'
 
 const contactInfo = [
   { icon: MapPin, label: 'Địa chỉ', value: '507C Võ Nguyên Giáp, An Khánh, Thủ Đức, TP.HCM' },
@@ -16,9 +18,21 @@ const contactInfo = [
 ]
 
 export default function ContactPage() {
-  const handleSubmit = (e: React.FormEvent) => {
+  const [form, setForm] = useState({ fullName: '', phone: '', email: '', message: '' })
+  const [loading, setLoading] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    toast.success('Tin nhắn đã được gửi! Chúng tôi sẽ phản hồi sớm nhất.')
+    setLoading(true)
+    try {
+      await axios.post('/api/contact', form)
+      toast.success('Tin nhắn đã được gửi! Chúng tôi sẽ phản hồi sớm nhất.')
+      setForm({ fullName: '', phone: '', email: '', message: '' })
+    } catch {
+      toast.error('Gửi tin nhắn thất bại. Vui lòng thử lại hoặc liên hệ trực tiếp qua điện thoại.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -59,7 +73,6 @@ export default function ContactPage() {
                   </div>
                 ))}
               </div>
-
             </motion.div>
 
             {/* Contact Form */}
@@ -73,23 +86,23 @@ export default function ContactPage() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1.5">
                     <Label>Họ tên</Label>
-                    <Input placeholder="Nguyễn Văn A" className="rounded-none" required />
+                    <Input value={form.fullName} onChange={(e) => setForm({ ...form, fullName: e.target.value })} placeholder="Nguyễn Văn A" className="rounded-none" required />
                   </div>
                   <div className="space-y-1.5">
                     <Label>Điện thoại</Label>
-                    <Input placeholder="0901 234 567" className="rounded-none" required />
+                    <Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="0901 234 567" className="rounded-none" required />
                   </div>
                 </div>
                 <div className="space-y-1.5">
                   <Label>Email</Label>
-                  <Input type="email" placeholder="example@email.com" className="rounded-none" />
+                  <Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="example@email.com" className="rounded-none" />
                 </div>
                 <div className="space-y-1.5">
                   <Label>Nội dung</Label>
-                  <Textarea placeholder="Nội dung tin nhắn..." className="rounded-none resize-none" rows={5} required />
+                  <Textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="Nội dung tin nhắn..." className="rounded-none resize-none" rows={5} required />
                 </div>
-                <Button type="submit" className="w-full rounded-none h-12 uppercase tracking-widest font-semibold text-sm">
-                  Gửi tin nhắn
+                <Button type="submit" disabled={loading} className="w-full rounded-none h-12 uppercase tracking-widest font-semibold text-sm">
+                  {loading ? 'Đang gửi...' : 'Gửi tin nhắn'}
                 </Button>
               </form>
             </motion.div>
