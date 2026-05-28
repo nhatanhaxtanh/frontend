@@ -11,22 +11,61 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const BASE_URL = 'https://volkswagenanphu.vn'
+
 export const metadata: Metadata = {
+  metadataBase: new URL(BASE_URL),
   title: {
     default: "Volkswagen An Phú — Đại lý ủy quyền chính thức",
     template: "%s | Volkswagen An Phú",
   },
   description:
     "Đại lý ủy quyền chính thức của Volkswagen tại TP. Hồ Chí Minh. Khám phá các dòng xe Tiguan, Teramont, Touareg và đăng ký lái thử miễn phí.",
-  keywords: [
-    "Volkswagen",
-    "VW An Phú",
-    "Tiguan",
-    "Teramont",
-    "xe Đức",
-    "đại lý VW",
-  ],
+  keywords: ["Volkswagen", "VW An Phú", "Tiguan", "Teramont", "Touareg", "xe Đức", "đại lý Volkswagen", "đại lý VW TP.HCM"],
+  openGraph: {
+    type: 'website',
+    locale: 'vi_VN',
+    url: BASE_URL,
+    siteName: 'Volkswagen An Phú',
+    title: 'Volkswagen An Phú — Đại lý ủy quyền chính thức',
+    description: 'Đại lý ủy quyền chính thức của Volkswagen tại TP. Hồ Chí Minh. Khám phá các dòng xe Tiguan, Teramont, Touareg và đăng ký lái thử miễn phí.',
+    images: [{ url: '/images/hero.jpg', width: 1200, height: 630, alt: 'Volkswagen An Phú' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Volkswagen An Phú — Đại lý ủy quyền chính thức',
+    description: 'Đại lý ủy quyền chính thức của Volkswagen tại TP. Hồ Chí Minh.',
+    images: ['/images/hero.jpg'],
+  },
+  alternates: { canonical: BASE_URL },
+  robots: { index: true, follow: true },
 };
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AutoDealer',
+  name: 'Volkswagen An Phú',
+  url: 'https://volkswagenanphu.vn',
+  logo: 'https://volkswagenanphu.vn/images/logo.png',
+  image: 'https://volkswagenanphu.vn/images/hero.jpg',
+  description: 'Đại lý ủy quyền chính thức của Volkswagen tại TP. Hồ Chí Minh.',
+  telephone: '+84981058232',
+  email: 'qui.maiphu@vwanphu.vn',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '507C Võ Nguyên Giáp, An Khánh',
+    addressLocality: 'Thủ Đức',
+    addressRegion: 'TP. Hồ Chí Minh',
+    addressCountry: 'VN',
+  },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    opens: '08:00',
+    closes: '18:00',
+  },
+  sameAs: [],
+}
 
 export default function RootLayout({
   children,
@@ -38,6 +77,12 @@ export default function RootLayout({
       lang="vi"
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">
         <Navbar />
         <main className="flex-1">{children}</main>
