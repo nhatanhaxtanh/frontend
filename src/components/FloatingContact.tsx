@@ -2,25 +2,10 @@
 
 import { useState } from 'react'
 import { Phone } from 'lucide-react'
+import Image from 'next/image'
 
 const PHONE = '0981058232'
 const PHONE_DISPLAY = '098 105 8232'
-
-function ZaloIcon() {
-  return (
-    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6">
-      <rect width="48" height="48" rx="10" fill="white" fillOpacity="0" />
-      <path
-        d="M8 13.5C8 10.46 10.46 8 13.5 8h21C37.54 8 40 10.46 40 13.5v21C40 37.54 37.54 40 34.5 40h-21C10.46 40 8 37.54 8 34.5v-21z"
-        fill="white"
-        fillOpacity="0.15"
-      />
-      <text x="50%" y="54%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="20" fontWeight="800" fontFamily="Arial, sans-serif">
-        Z
-      </text>
-    </svg>
-  )
-}
 
 export default function FloatingContact() {
   const [phoneHovered, setPhoneHovered] = useState(false)
@@ -42,11 +27,11 @@ export default function FloatingContact() {
           onMouseEnter={() => setZaloHovered(true)}
           onMouseLeave={() => setZaloHovered(false)}
           aria-label="Chat Zalo"
-          className="relative flex items-center justify-center w-13 h-13 rounded-full shadow-lg transition-transform duration-200 hover:scale-110 active:scale-95"
-          style={{ width: 52, height: 52, backgroundColor: '#0068FF' }}
+          className="relative flex items-center justify-center rounded-full shadow-lg transition-transform duration-200 hover:scale-110 active:scale-95 overflow-hidden"
+          style={{ width: 52, height: 52 }}
         >
           <span className="absolute inset-0 rounded-full animate-ping opacity-30" style={{ backgroundColor: '#0068FF' }} />
-          <ZaloIcon />
+          <Image src="/images/zalo-icon.png" alt="Zalo" width={52} height={52} className="rounded-full" />
         </a>
       </div>
 
