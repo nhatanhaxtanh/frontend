@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { CarModel, CarPromotion, TestDriveFormData, TestDriveRequest, LoginDto, AuthResponse, NewsPost } from './types'
+import type { CarModel, CarPromotion, HeroSlide, TestDriveFormData, TestDriveRequest, LoginDto, AuthResponse, NewsPost } from './types'
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api',
@@ -71,6 +71,28 @@ export const newsApi = {
   create: (data: Partial<NewsPost>) => api.post<NewsPost>('/admin/news', data),
   update: (id: number, data: Partial<NewsPost>) => api.put<NewsPost>(`/admin/news/${id}`, data),
   delete: (id: number) => api.delete(`/admin/news/${id}`),
+}
+
+export const heroApi = {
+  getAll: () => api.get<HeroSlide[]>('/hero-slides'),
+  adminGetAll: () => api.get<HeroSlide[]>('/admin/hero-slides'),
+  create: (data: Partial<HeroSlide>) => api.post<HeroSlide>('/admin/hero-slides', data),
+  update: (id: number, data: Partial<HeroSlide>) => api.put<HeroSlide>(`/admin/hero-slides/${id}`, data),
+  delete: (id: number) => api.delete(`/admin/hero-slides/${id}`),
+  uploadImage: (id: number, file: File) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    return api.post<HeroSlide>(`/admin/hero-slides/${id}/image`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+  },
+  uploadVideo: (id: number, file: File) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    return api.post<HeroSlide>(`/admin/hero-slides/${id}/video`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+  },
 }
 
 export const authApi = {

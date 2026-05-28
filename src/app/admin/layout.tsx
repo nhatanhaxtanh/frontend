@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { authApi } from '@/lib/api'
-import { LayoutDashboard, Car, ClipboardList, Settings, LogOut, Menu, X, Newspaper } from 'lucide-react'
+import { LayoutDashboard, Car, ClipboardList, Settings, LogOut, Menu, X, Newspaper, MonitorPlay } from 'lucide-react'
 import VWLogo from '@/components/VWLogo'
 import { cn } from '@/lib/utils'
 import { Toaster } from '@/components/ui/sonner'
@@ -14,6 +14,7 @@ const navItems = [
   { href: '/admin/models', label: 'Dòng xe', icon: Car },
   { href: '/admin/test-drives', label: 'Đăng ký lái thử', icon: ClipboardList },
   { href: '/admin/news', label: 'Tin tức', icon: Newspaper },
+  { href: '/admin/hero', label: 'Hero Banner', icon: MonitorPlay },
   { href: '/admin/settings', label: 'Cài đặt', icon: Settings },
 ]
 

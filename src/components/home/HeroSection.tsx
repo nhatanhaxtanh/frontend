@@ -6,36 +6,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { heroApi } from '@/lib/api'
+import type { HeroSlide } from '@/lib/types'
 
-const slides = [
-  {
-    video: '/images/vid3.mp4',
-    label: 'Volkswagen Touareg',
-    heading: 'Flagship SUV.',
-    sub: 'Đỉnh cao sang trọng.',
-    desc: 'Sức mạnh, công nghệ và thiết kế hội tụ trên một mẫu xe duy nhất.',
-  },
-  {
-    image: '/images/hero.jpg',
-    label: 'Đại lý ủy quyền chính thức',
-    heading: 'Das Auto.',
-    sub: 'Trải nghiệm đẳng cấp.',
-    desc: 'Khám phá bộ sưu tập xe Volkswagen chính hãng tại TP. Hồ Chí Minh.',
-  },
-  {
-    image: '/images/hero5.jpg',
-    label: 'Volkswagen Tiguan',
-    heading: 'Urban Explorer.',
-    sub: 'Chinh phục mọi hành trình.',
-    desc: 'SUV đô thị thông minh, trang bị công nghệ an toàn tiên tiến.',
-  },
-  {
-    image: '/images/hero6.jpg',
-    label: 'Volkswagen Teramont',
-    heading: 'Family King.',
-    sub: 'Không gian, sức mạnh, đẳng cấp.',
-    desc: 'SUV 7 chỗ rộng rãi, hoàn hảo cho gia đình hiện đại.',
-  },
+const FALLBACK_SLIDES: HeroSlide[] = [
+  { id: 1, label: 'Volkswagen Touareg', heading: 'Flagship SUV.', sub: 'Đỉnh cao sang trọng.', description: 'Sức mạnh, công nghệ và thiết kế hội tụ trên một mẫu xe duy nhất.', imageUrl: null, videoUrl: '/images/vid3.mp4', sortOrder: 0, active: true },
+  { id: 2, label: 'Đại lý 4S Flagship lớn nhất Top 1 TP. Hồ Chí Minh', heading: 'Das Auto.', sub: 'Trải nghiệm đẳng cấp.', description: 'Khám phá bộ sưu tập xe Volkswagen chính hãng tại TP. Hồ Chí Minh.', imageUrl: '/images/hero.jpg', videoUrl: null, sortOrder: 1, active: true },
+  { id: 3, label: 'Volkswagen Tiguan', heading: 'Urban Explorer.', sub: 'Chinh phục mọi hành trình.', description: 'SUV đô thị thông minh, trang bị công nghệ an toàn tiên tiến.', imageUrl: '/images/hero5.jpg', videoUrl: null, sortOrder: 2, active: true },
+  { id: 4, label: 'Volkswagen Teramont', heading: 'Family King.', sub: 'Không gian, sức mạnh, đẳng cấp.', description: 'SUV 7 chỗ rộng rãi, hoàn hảo cho gia đình hiện đại.', imageUrl: '/images/hero6.jpg', videoUrl: null, sortOrder: 3, active: true },
 ]
 
 const variants = {
@@ -45,8 +23,15 @@ const variants = {
 }
 
 export default function HeroSection() {
+  const [slides, setSlides] = useState<HeroSlide[]>(FALLBACK_SLIDES)
   const [index, setIndex] = useState(0)
   const [direction, setDirection] = useState(1)
+
+  useEffect(() => {
+    heroApi.getAll()
+      .then((res) => { if (res.data.length > 0) setSlides(res.data) })
+      .catch(() => {})
+  }, [])
 
   const go = useCallback((next: number, dir: number) => {
     setDirection(dir)
@@ -59,7 +44,7 @@ export default function HeroSection() {
   useEffect(() => {
     const id = setInterval(() => go((index + 1) % slides.length, 1), 5000)
     return () => clearInterval(id)
-  }, [index, go])
+  }, [index, go, slides.length])
 
   const slide = slides[index]
 
@@ -77,26 +62,26 @@ export default function HeroSection() {
           transition={{ duration: 0.6, ease: 'easeInOut' }}
           className="absolute inset-0"
         >
-          {'video' in slide ? (
+          {slide.videoUrl ? (
             <video
-              key={slide.video}
-              src={slide.video}
+              key={slide.videoUrl}
+              src={slide.videoUrl}
               autoPlay
               loop
               muted
               playsInline
               className="absolute inset-0 w-full h-full object-cover object-center"
             />
-          ) : (
+          ) : slide.imageUrl ? (
             <Image
-              src={slide.image}
+              src={slide.imageUrl}
               alt={slide.heading}
               fill
               priority={index === 0}
               className="object-cover object-center"
               sizes="100vw"
             />
-          )}
+          ) : null}
         </motion.div>
       </AnimatePresence>
 
@@ -122,7 +107,7 @@ export default function HeroSection() {
               <span className="text-neutral-300">{slide.sub}</span>
             </h1>
             <p className="text-neutral-300 text-lg md:text-xl max-w-xl mx-auto mb-10 leading-relaxed">
-              {slide.desc}
+              {slide.description}
             </p>
           </motion.div>
         </AnimatePresence>

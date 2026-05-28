@@ -72,6 +72,18 @@ export interface CarPromotion {
   active: boolean
 }
 
+export interface HeroSlide {
+  id: number
+  label: string
+  heading: string
+  sub: string
+  description: string
+  imageUrl: string | null
+  videoUrl: string | null
+  sortOrder: number
+  active: boolean
+}
+
 export interface NewsPost {
   id: number
   title: string
