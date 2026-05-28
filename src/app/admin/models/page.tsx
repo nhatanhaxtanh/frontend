@@ -16,6 +16,36 @@ import { Badge } from '@/components/ui/badge'
 import { Plus, Pencil, Trash2, RefreshCw, ImageIcon, Loader2, MoreVertical, Images, Tag } from 'lucide-react'
 import { getModelImage } from '@/lib/model-images'
 
+const DEFAULT_PROMOS: Record<string, Partial<CarPromotion>> = {
+  'tiguan-facelift': { title: 'Ưu đãi đặc biệt — Tiguan Facelift', description: 'Cơ hội sở hữu Tiguan Facelift với ưu đãi hấp dẫn. Liên hệ ngay để nhận tư vấn chi tiết.', items: ['Giảm ngay 30 triệu tiền mặt', 'Tặng bảo hiểm thân vỏ 1 năm trị giá 15 triệu', 'Gói phụ kiện chính hãng 10 triệu', 'Hỗ trợ vay 0% lãi suất 12 tháng đầu'], validUntil: '30/06/2026', active: true },
+  'teramont-usa-base': { title: 'Ưu đãi — Teramont USA Base', description: 'Sở hữu SUV 7 chỗ nhập Mỹ với chính sách ưu đãi tốt nhất trong năm.', items: ['Giảm 50 triệu tiền mặt', 'Tặng bảo hiểm thân vỏ 1 năm', 'Camera hành trình cao cấp', 'Hỗ trợ vay lãi suất ưu đãi'], validUntil: '30/06/2026', active: true },
+  'teramont-usa-limited': { title: 'Ưu đãi — Teramont USA Limited', description: 'Phiên bản Limited cao cấp với gói ưu đãi đặc biệt dành cho khách hàng thành viên.', items: ['Giảm 60 triệu tiền mặt', 'Tặng bảo hiểm thân vỏ + nội thất 1 năm', 'Phủ nano thân xe miễn phí', 'Ưu đãi lãi suất 0% tối đa 18 tháng'], validUntil: '30/06/2026', active: true },
+  'teramont-president': { title: 'Ưu đãi — Teramont President', description: 'Phiên bản đỉnh cao của Teramont với gói ưu đãi sang trọng đặc biệt.', items: ['Giảm 80 triệu tiền mặt', 'Tặng bảo hiểm toàn diện 1 năm', 'Phủ nano & dán PPF miễn phí', 'Tặng thẻ bảo dưỡng 3 năm'], validUntil: '30/06/2026', active: true },
+  'teramont-x-platinum': { title: 'Ưu đãi — Teramont X Platinum', description: 'Phiên bản Platinum độc quyền với chương trình ưu đãi đặc biệt giới hạn.', items: ['Giảm 70 triệu tiền mặt', 'Tặng bảo hiểm thân vỏ + nội thất 1 năm', 'Dán PPF toàn thân miễn phí', 'Gói chăm sóc xe VIP 2 năm'], validUntil: '30/06/2026', active: true },
+  'viloran-premium': { title: 'Ưu đãi — Viloran Premium', description: 'MPV 7 chỗ sang trọng với ưu đãi hấp dẫn cho gia đình hiện đại.', items: ['Giảm 40 triệu tiền mặt', 'Tặng bảo hiểm thân vỏ 1 năm', 'Gói phụ kiện gia đình 8 triệu', 'Hỗ trợ vay 0% lãi suất 12 tháng'], validUntil: '30/06/2026', active: true },
+  'viloran-luxury': { title: 'Ưu đãi — Viloran Luxury', description: 'Trải nghiệm MPV hạng nhất với gói ưu đãi chăm sóc toàn diện.', items: ['Giảm 60 triệu tiền mặt', 'Tặng bảo hiểm toàn diện 1 năm', 'Dán PPF kính + nóc xe', 'Gói VIP: bảo dưỡng 3 năm miễn phí'], validUntil: '30/06/2026', active: true },
+  'golf-15-etsi': { title: 'Ưu đãi — Golf 1.5 eTSI', description: 'Hatchback hybrid tiết kiệm với ưu đãi dành cho khách hàng trẻ năng động.', items: ['Giảm 20 triệu tiền mặt', 'Tặng bảo hiểm thân vỏ 1 năm', 'Gói phụ kiện thể thao 5 triệu', 'Hỗ trợ vay lãi suất 0% 6 tháng'], validUntil: '30/06/2026', active: true },
+  'golf-20': { title: 'Ưu đãi — Golf 2.0 TSI', description: 'Hatchback hiệu suất cao với ưu đãi đặc biệt cho người yêu xe thể thao.', items: ['Giảm 30 triệu tiền mặt', 'Tặng bảo hiểm thân vỏ 1 năm', 'Phủ nano thân xe miễn phí', 'Hỗ trợ vay lãi suất ưu đãi'], validUntil: '30/06/2026', active: true },
+  'touareg-elegance': { title: 'Ưu đãi — Touareg Elegance', description: 'SUV flagship đẳng cấp với chương trình ưu đãi dành riêng cho khách hàng VIP.', items: ['Giảm 100 triệu tiền mặt', 'Tặng bảo hiểm toàn diện 2 năm', 'Dán PPF toàn thân cao cấp', 'Gói bảo dưỡng VIP 3 năm miễn phí'], validUntil: '30/06/2026', active: true },
+  'touareg-rline': { title: 'Ưu đãi — Touareg R-Line', description: 'Phiên bản thể thao của Touareg với ưu đãi hấp dẫn cho người yêu tốc độ.', items: ['Giảm 100 triệu tiền mặt', 'Tặng bảo hiểm toàn diện 1 năm', 'Dán PPF + phủ nano toàn thân', 'Ưu đãi đặc biệt khi mua trực tiếp showroom'], validUntil: '30/06/2026', active: true },
+  'touareg-highline': { title: 'Ưu đãi — Touareg Highline', description: 'Đỉnh cao của Touareg với gói ưu đãi chăm sóc VIP toàn diện nhất.', items: ['Giảm 120 triệu tiền mặt', 'Tặng bảo hiểm toàn diện 2 năm', 'Dán PPF toàn thân + phủ nano', 'Thẻ VIP chăm sóc xe 3 năm miễn phí', 'Tặng camera 360° chính hãng'], validUntil: '30/06/2026', active: true },
+}
+
+const LOCAL_GALLERY: Record<string, string> = {
+  'tiguan-facelift': '/images/models/tiguanfacelit.jpg',
+  'teramont-usa-base': '/images/models/usa.jpeg',
+  'teramont-usa-limited': '/images/models/limited.PNG',
+  'teramont-president': '/images/models/teramontpresident.jpg',
+  'teramont-x-platinum': '/images/models/teramontxplatinum.jpg',
+  'viloran-premium': '/images/models/viloranpremium.jpg',
+  'viloran-luxury': '/images/models/viloranluxury.jpg',
+  'golf-15-etsi': '/images/models/golf15.jpg',
+  'golf-20': '/images/models/Golf20.jpg',
+  'touareg-elegance': '/images/models/TouaregElegance.jpg',
+  'touareg-rline': '/images/models/TouaregRline.jpeg',
+  'touareg-highline': '/images/models/TouaregHighline.jpg',
+}
+
 const emptyForm = (): Partial<CarModel> => ({
   name: '', slug: '', category: 'SUV', price: 0, priceDisplay: '',
   shortDescription: '', description: '', engine: '', power: '', torque: '',
@@ -137,7 +167,10 @@ export default function AdminModelsPage() {
       const res = await carModelApi.getPromotion(model.id)
       setPromo(res.data)
     } catch {
-      setPromo({ carModelId: model.id, title: '', description: '', items: [], validUntil: '', active: true })
+      setPromo({
+        carModelId: model.id,
+        ...(DEFAULT_PROMOS[model.slug] ?? { title: '', description: '', items: [], validUntil: '', active: true }),
+      })
     } finally {
       setPromoLoading(false)
     }
@@ -404,9 +437,21 @@ export default function AdminModelsPage() {
               </label>
             </div>
             {(!galleryModel?.images || galleryModel.images.length === 0) ? (
-              <div className="border border-dashed border-neutral-300 rounded py-16 text-center text-neutral-400 text-sm">
-                Chưa có ảnh nào. Nhấn &quot;Thêm ảnh&quot; để upload.
-              </div>
+              galleryModel && LOCAL_GALLERY[galleryModel.slug] ? (
+                <div className="space-y-3">
+                  <p className="text-xs text-neutral-400 italic">Ảnh mặc định — upload ảnh thực để thay thế</p>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <div className="relative aspect-video bg-neutral-100 overflow-hidden opacity-60">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={LOCAL_GALLERY[galleryModel.slug]} alt="" className="w-full h-full object-cover" />
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="border border-dashed border-neutral-300 rounded py-16 text-center text-neutral-400 text-sm">
+                  Chưa có ảnh nào. Nhấn &quot;Thêm ảnh&quot; để upload.
+                </div>
+              )
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {galleryModel.images.map((url, i) => (
