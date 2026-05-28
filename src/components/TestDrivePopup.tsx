@@ -45,8 +45,8 @@ export default function TestDrivePopup() {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [models, setModels] = useState(FALLBACK_MODELS)
-  const [form, setForm] = useState({ fullName: '', phone: '', modelId: '', modelName: '' })
-  const [errors, setErrors] = useState<{ fullName?: string; phone?: string }>({})
+  const [form, setForm] = useState({ fullName: '', phone: '', email: '', modelId: '', modelName: '' })
+  const [errors, setErrors] = useState<{ fullName?: string; phone?: string; email?: string }>({})
   const reshowTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const cycleStarted = useRef(false)
 
@@ -96,6 +96,7 @@ export default function TestDrivePopup() {
     const e: typeof errors = {}
     if (!form.fullName.trim()) e.fullName = 'Vui lòng nhập họ tên'
     if (!form.phone.match(/^[0-9+\s\-]{9,15}$/)) e.phone = 'Số điện thoại không hợp lệ'
+    if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Email không hợp lệ'
     setErrors(e)
     return Object.keys(e).length === 0
   }
@@ -107,7 +108,6 @@ export default function TestDrivePopup() {
     try {
       await testDriveApi.submit({
         ...form,
-        email: '',
         preferredDate: '',
         preferredTime: '',
         notes: '',
@@ -185,6 +185,21 @@ export default function TestDrivePopup() {
                   />
                   {errors.phone && <p className="text-red-500 text-xs">{errors.phone}</p>}
                 </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="popup-email" className="text-sm font-medium">
+                  Email <span className="text-neutral-400 font-normal">(để nhận xác nhận)</span>
+                </Label>
+                <Input
+                  id="popup-email"
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => set('email', e.target.value)}
+                  placeholder="example@gmail.com"
+                  className="rounded-none h-12 text-base"
+                />
+                {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
               </div>
 
               <div className="space-y-2">
