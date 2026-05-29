@@ -41,8 +41,13 @@ export default function LoanCalculatorPage() {
     carModelApi.getAll()
       .then((res) => {
         const data = res.data
-          .filter((m) => m.price && m.price > 0)
-          .map((m) => ({ id: m.id ?? 0, name: m.name ?? '', price: m.price ?? 0, priceDisplay: m.priceDisplay ?? '' }))
+          .map((m) => {
+            const price = (m.price && m.price > 0)
+              ? m.price
+              : parseInt((m.priceDisplay ?? '').replace(/\./g, '')) || 0
+            return { id: m.id ?? 0, name: m.name ?? '', price, priceDisplay: m.priceDisplay ?? '' }
+          })
+          .filter((m) => m.price > 0)
         if (data.length > 0) setModels(data)
       })
       .catch(() => {})

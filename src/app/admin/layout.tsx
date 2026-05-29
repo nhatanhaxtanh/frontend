@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { authApi } from '@/lib/api'
-import { LayoutDashboard, Car, ClipboardList, Settings, LogOut, Menu, X, Newspaper, MonitorPlay, Sun, Moon } from 'lucide-react'
+import { LayoutDashboard, Car, ClipboardList, Settings, LogOut, Menu, X, Newspaper, MonitorPlay } from 'lucide-react'
 import VWLogo from '@/components/VWLogo'
 import { cn } from '@/lib/utils'
 import { Toaster } from '@/components/ui/sonner'
@@ -24,22 +24,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [ready, setReady] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [adminUser, setAdminUser] = useState('')
-  const [dark, setDark] = useState(false)
-
-  useEffect(() => {
-    const saved = localStorage.getItem('admin_dark') === '1'
-    setDark(saved)
-    if (saved) document.documentElement.classList.add('dark')
-    return () => document.documentElement.classList.remove('dark')
-  }, [])
-
-  const toggleDark = () => {
-    const next = !dark
-    setDark(next)
-    document.documentElement.classList.toggle('dark', next)
-    localStorage.setItem('admin_dark', next ? '1' : '0')
-  }
-
   useEffect(() => {
     if (pathname === '/admin/login') {
       setReady(true)
@@ -76,7 +60,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   if (pathname === '/admin/login') return <>{children}<Toaster richColors position="top-right" /></>
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950 flex">
+    <div className="min-h-screen bg-neutral-50 flex">
       {/* Sidebar */}
       <aside
         className={cn(
@@ -137,21 +121,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Main */}
       <div className="flex-1 lg:ml-64 flex flex-col min-h-screen">
-        <header className="h-16 bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800 flex items-center px-6 gap-4 sticky top-0 z-20">
+        <header className="h-16 bg-white border-b border-neutral-200 flex items-center px-6 gap-4 sticky top-0 z-20">
           <button className="lg:hidden text-neutral-600" onClick={() => setSidebarOpen(true)}>
             <Menu size={22} />
           </button>
           <div className="flex-1" />
-          <Link href="/" target="_blank" className="text-xs text-neutral-400 hover:text-black dark:hover:text-white transition-colors">
+          <Link href="/" target="_blank" className="text-xs text-neutral-400 hover:text-black transition-colors">
             Xem trang web →
           </Link>
-          <button
-            onClick={toggleDark}
-            className="p-2 rounded text-neutral-400 hover:text-black dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
-            aria-label="Toggle dark mode"
-          >
-            {dark ? <Sun size={16} /> : <Moon size={16} />}
-          </button>
+
         </header>
         <main className="flex-1 p-6">{children}</main>
       </div>
