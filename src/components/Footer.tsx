@@ -2,6 +2,30 @@ import Link from 'next/link'
 import { Phone, MapPin, Mail, Clock } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import VWLogo from '@/components/VWLogo'
+import type { CarModel } from '@/lib/types'
+
+const BACKEND = process.env.BACKEND_URL
+  ? `${process.env.BACKEND_URL}/api`
+  : 'http://localhost:8080/api'
+
+const FALLBACK_MODELS = [
+  { name: 'Tiguan Facelift',  slug: 'tiguan-facelift'  },
+  { name: 'Teramont',         slug: 'teramont-usa-base' },
+  { name: 'Teramont X',       slug: 'teramont-x-platinum' },
+  { name: 'Touareg',          slug: 'touareg-elegance'  },
+  { name: 'Viloran',          slug: 'viloran-premium'   },
+]
+
+async function fetchModels() {
+  try {
+    const res = await fetch(`${BACKEND}/models`, { cache: 'no-store' })
+    if (!res.ok) return FALLBACK_MODELS
+    const data: CarModel[] = await res.json()
+    return data.filter((m) => m.active).map((m) => ({ name: m.name, slug: m.slug }))
+  } catch {
+    return FALLBACK_MODELS
+  }
+}
 
 const socials = [
   {
@@ -22,7 +46,9 @@ const socials = [
   },
 ]
 
-export default function Footer() {
+export default async function Footer() {
+  const models = await fetchModels()
+
   return (
     <footer className="bg-neutral-950 text-neutral-300">
       <div className="container mx-auto px-6 py-16 max-w-7xl">
@@ -59,13 +85,10 @@ export default function Footer() {
               Dòng xe
             </h4>
             <ul className="space-y-2 text-sm">
-              {['Tiguan', 'Teramont', 'Teramont X', 'Touareg', 'Viloran'].map((model) => (
-                <li key={model}>
-                  <Link
-                    href={`/models/${model.toLowerCase().replace(' ', '-')}`}
-                    className="hover:text-white transition-colors"
-                  >
-                    {model}
+              {models.map((m) => (
+                <li key={m.slug}>
+                  <Link href={`/models/${m.slug}`} className="hover:text-white transition-colors">
+                    {m.name}
                   </Link>
                 </li>
               ))}
