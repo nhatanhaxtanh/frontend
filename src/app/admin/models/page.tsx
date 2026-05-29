@@ -351,8 +351,21 @@ export default function AdminModelsPage() {
               </Select>
             </div>
             <div className="space-y-1.5">
-              <Label>Giá hiển thị (VD: 1.699.000.000)</Label>
-              <Input value={form.priceDisplay || ''} onChange={(e) => set('priceDisplay', e.target.value)} placeholder="1.699.000.000" className="rounded-none" />
+              <Label>Giá xe (VNĐ)</Label>
+              <Input
+                type="number"
+                value={form.price || ''}
+                onChange={(e) => {
+                  const n = parseInt(e.target.value) || 0
+                  set('price', n)
+                  set('priceDisplay', n > 0 ? new Intl.NumberFormat('vi-VN').format(n) : '')
+                }}
+                placeholder="1699000000"
+                className="rounded-none"
+              />
+              {(form.price ?? 0) > 0 && (
+                <p className="text-xs text-neutral-400">Hiển thị: {new Intl.NumberFormat('vi-VN').format(form.price!)}₫</p>
+              )}
             </div>
             <div className="space-y-1.5">
               <Label>Số chỗ</Label>

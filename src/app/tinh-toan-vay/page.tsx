@@ -10,18 +10,18 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { carModelApi } from '@/lib/api'
 
 const FALLBACK_MODELS = [
-  { id: 1,  name: 'Tiguan Facelift',      price: 1699000000 },
-  { id: 2,  name: 'Teramont USA Base',    price: 1999000000 },
-  { id: 3,  name: 'Teramont USA Limited', price: 2299000000 },
-  { id: 4,  name: 'Teramont President',   price: 2499000000 },
-  { id: 5,  name: 'Teramont X Platinum',  price: 2349000000 },
-  { id: 6,  name: 'Viloran Premium',      price: 1799000000 },
-  { id: 7,  name: 'Viloran Luxury',       price: 2099000000 },
-  { id: 8,  name: 'Golf 1.5 eTSI',        price: 797000000  },
-  { id: 9,  name: 'Golf 2.0',             price: 1898000000 },
-  { id: 10, name: 'Touareg Elegance',     price: 2899000000 },
-  { id: 11, name: 'Touareg R-Line',       price: 2999000000 },
-  { id: 12, name: 'Touareg Highline',     price: 3499000000 },
+  { id: 1,  name: 'Tiguan Facelift',      price: 1699000000, priceDisplay: '1.699.000.000' },
+  { id: 2,  name: 'Teramont USA Base',    price: 1999000000, priceDisplay: '1.999.000.000' },
+  { id: 3,  name: 'Teramont USA Limited', price: 2299000000, priceDisplay: '2.299.000.000' },
+  { id: 4,  name: 'Teramont President',   price: 2499000000, priceDisplay: '2.499.000.000' },
+  { id: 5,  name: 'Teramont X Platinum',  price: 2349000000, priceDisplay: '2.349.000.000' },
+  { id: 6,  name: 'Viloran Premium',      price: 1799000000, priceDisplay: '1.799.000.000' },
+  { id: 7,  name: 'Viloran Luxury',       price: 2099000000, priceDisplay: '2.099.000.000' },
+  { id: 8,  name: 'Golf 1.5 eTSI',        price: 797000000,  priceDisplay: '797.000.000'   },
+  { id: 9,  name: 'Golf 2.0',             price: 1898000000, priceDisplay: '1.898.000.000' },
+  { id: 10, name: 'Touareg Elegance',     price: 2899000000, priceDisplay: '2.899.000.000' },
+  { id: 11, name: 'Touareg R-Line',       price: 2999000000, priceDisplay: '2.999.000.000' },
+  { id: 12, name: 'Touareg Highline',     price: 3499000000, priceDisplay: '3.499.000.000' },
 ]
 
 const TERMS = [12, 24, 36, 48, 60, 72, 84, 96]
@@ -42,7 +42,7 @@ export default function LoanCalculatorPage() {
       .then((res) => {
         const data = res.data
           .filter((m) => m.price && m.price > 0)
-          .map((m) => ({ id: m.id ?? 0, name: m.name ?? '', price: m.price ?? 0 }))
+          .map((m) => ({ id: m.id ?? 0, name: m.name ?? '', price: m.price ?? 0, priceDisplay: m.priceDisplay ?? '' }))
         if (data.length > 0) setModels(data)
       })
       .catch(() => {})
@@ -100,12 +100,12 @@ export default function LoanCalculatorPage() {
                   <SelectContent className="min-w-[380px]">
                     {models.map((m) => (
                       <SelectItem key={m.id} value={String(m.id)}>
-                        {m.name} — {fmt(m.price)}₫
+                        {m.name} — {m.priceDisplay}₫
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                <p className="text-xs text-neutral-400">Giá xe: <span className="font-semibold text-black">{fmt(carPrice)}₫</span></p>
+                <p className="text-xs text-neutral-400">Giá xe: <span className="font-semibold text-black">{selected?.priceDisplay}₫</span></p>
               </div>
 
               {/* % vay */}
