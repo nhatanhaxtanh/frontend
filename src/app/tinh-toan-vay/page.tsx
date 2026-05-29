@@ -210,14 +210,6 @@ export default function LoanCalculatorPage() {
                     <span className="text-neutral-400">Lãi suất</span>
                     <span className="text-white font-medium">{rate || 0}% / năm</span>
                   </div>
-                  <div className="flex justify-between text-sm border-t border-white/10 pt-4">
-                    <span className="text-neutral-400">Tổng tiền lãi</span>
-                    <span className="text-white font-medium">{interest > 0 ? `${fmt(interest)}₫` : '—'}</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-neutral-400">Tổng thanh toán</span>
-                    <span className="text-white font-medium">{total > 0 ? `${fmt(total)}₫` : '—'}</span>
-                  </div>
                 </div>
 
                 <Link href="/dang-ky-lai-thu">
