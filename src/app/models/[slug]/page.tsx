@@ -25,7 +25,7 @@ const FALLBACK_MODELS: Record<string, CarModel> = {
 async function fetchModel(slug: string): Promise<CarModel | null> {
   try {
     const res = await fetch(`${BACKEND}/models/${slug}`, {
-      next: { revalidate: 3600 },
+      cache: 'no-store',
     })
     if (!res.ok) return null
     return res.json()
@@ -37,7 +37,7 @@ async function fetchModel(slug: string): Promise<CarModel | null> {
 async function fetchPromotion(slug: string): Promise<CarPromotion | null> {
   try {
     const res = await fetch(`${BACKEND}/models/${slug}/promotion`, {
-      next: { revalidate: 3600 },
+      cache: 'no-store',
     })
     if (!res.ok) return null
     return res.json()
