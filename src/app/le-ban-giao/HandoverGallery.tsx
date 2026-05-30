@@ -118,7 +118,7 @@ function GalleryItem({
   return (
     <div
       onClick={onClick}
-      className={`relative overflow-hidden cursor-pointer group bg-neutral-100 border border-neutral-200 rounded-xl ${className}`}
+      className={`relative overflow-hidden cursor-pointer group bg-neutral-100 border border-neutral-200 rounded-3xl ${className}`}
     >
       <Image
         src={src}
