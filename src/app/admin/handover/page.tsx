@@ -1,259 +1,322 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { handoverApi } from '@/lib/api'
 import type { HandoverPhoto } from '@/lib/types'
 import { toast } from 'sonner'
-import { Plus, Trash2, RefreshCw, ImageIcon, Loader2, Pencil } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import Image from 'next/image'
+import { Plus, RefreshCw, Pencil, Trash2, ImageIcon, Loader2, ChevronUp, ChevronDown, Eye, EyeOff } from 'lucide-react'
+
+const emptyForm = (sortOrder = 0): Partial<HandoverPhoto> => ({
+  caption: '', sortOrder, active: true,
+})
 
 export default function AdminHandoverPage() {
   const [photos, setPhotos] = useState<HandoverPhoto[]>([])
   const [loading, setLoading] = useState(true)
-  const [uploading, setUploading] = useState(false)
   const [dialogOpen, setDialogOpen] = useState(false)
-  const [editPhoto, setEditPhoto] = useState<HandoverPhoto | null>(null)
-  const [caption, setCaption] = useState('')
-  const [active, setActive] = useState(true)
+  const [editId, setEditId] = useState<number | null>(null)
+  const [form, setForm] = useState<Partial<HandoverPhoto>>(emptyForm())
   const [saving, setSaving] = useState(false)
+  const [uploadingId, setUploadingId] = useState<number | null>(null)
+  const [pendingFile, setPendingFile] = useState<File | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const replaceInputRef = useRef<HTMLInputElement>(null)
 
-  const fetch = useCallback(async () => {
+  const fetch = async () => {
     setLoading(true)
     try {
       const res = await handoverApi.adminGetAll()
       setPhotos(res.data)
     } catch {
-      toast.error('Không tải được danh sách ảnh')
+      toast.error('Không thể tải dữ liệu')
     } finally {
       setLoading(false)
     }
-  }, [])
+  }
 
-  useEffect(() => { fetch() }, [fetch])
+  useEffect(() => { fetch() }, [])
 
-  const openEdit = (photo: HandoverPhoto) => {
-    setEditPhoto(photo)
-    setCaption(photo.caption ?? '')
-    setActive(photo.active)
+  const sorted = [...photos].sort((a, b) => a.sortOrder - b.sortOrder)
+
+  const openCreate = () => {
+    setForm(emptyForm(photos.length))
+    setEditId(null)
+    setPendingFile(null)
     setDialogOpen(true)
   }
 
+  const openEdit = (p: HandoverPhoto) => {
+    setForm({ ...p })
+    setEditId(p.id)
+    setPendingFile(null)
+    setDialogOpen(true)
+  }
+
+  const set = (key: keyof HandoverPhoto, value: unknown) =>
+    setForm((prev) => ({ ...prev, [key]: value }))
+
+  const validateFile = (file: File): boolean => {
+    const ext = file.name.split('.').pop()?.toLowerCase()
+    if (!['jpg', 'jpeg', 'webp'].includes(ext ?? '')) {
+      toast.error('Chỉ chấp nhận file JPG, JPEG, WEBP')
+      return false
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error('File vượt quá 2MB')
+      return false
+    }
+    return true
+  }
+
   const handleSave = async () => {
-    if (!editPhoto) return
+    if (!editId && !pendingFile) { toast.error('Vui lòng chọn ảnh'); return }
     setSaving(true)
+    let createdId: number | null = null
     try {
-      await handoverApi.update(editPhoto.id, { ...editPhoto, caption, active })
-      toast.success('Đã lưu')
+      if (editId) {
+        await handoverApi.update(editId, form)
+        if (pendingFile) await handoverApi.uploadImage(editId, pendingFile)
+        toast.success('Cập nhật thành công')
+      } else {
+        const res = await handoverApi.create(form)
+        createdId = res.data.id
+        await handoverApi.uploadImage(createdId, pendingFile!)
+        toast.success('Thêm ảnh thành công')
+      }
       setDialogOpen(false)
       fetch()
     } catch {
+      if (createdId) await handoverApi.delete(createdId).catch(() => null)
       toast.error('Lưu thất bại')
     } finally {
       setSaving(false)
     }
   }
 
-  const handleAddPhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!fileInputRef.current) return
-    fileInputRef.current.value = ''
-    if (!file) return
-
-    const ext = file.name.split('.').pop()?.toLowerCase()
-    if (!['jpg', 'jpeg', 'webp'].includes(ext ?? '')) {
-      toast.error('Chỉ chấp nhận file JPG, JPEG, WEBP')
-      return
-    }
-    if (file.size > 2 * 1024 * 1024) {
-      toast.error('File vượt quá 2MB')
-      return
-    }
-
-    setUploading(true)
-    let createdId: number | null = null
+  const handleDelete = async (id: number) => {
+    if (!confirm('Xóa ảnh này?')) return
     try {
-      const created = await handoverApi.create({ sortOrder: photos.length, active: true })
-      createdId = created.data.id
-      await handoverApi.uploadImage(createdId, file)
-      toast.success('Thêm ảnh thành công')
-      fetch()
+      await handoverApi.delete(id)
+      setPhotos((prev) => prev.filter((p) => p.id !== id))
+      toast.success('Đã xóa')
     } catch {
-      if (createdId !== null) await handoverApi.delete(createdId).catch(() => null)
-      toast.error('Thêm ảnh thất bại')
-    } finally {
-      setUploading(false)
+      toast.error('Xóa thất bại')
     }
   }
 
-  const handleDelete = async (id: number) => {
-    if (!confirm('Xoá ảnh này?')) return
+  const handleToggleActive = async (photo: HandoverPhoto) => {
     try {
-      await handoverApi.delete(id)
-      toast.success('Đã xoá')
+      await handoverApi.update(photo.id, { ...photo, active: !photo.active })
+      setPhotos((prev) => prev.map((p) => p.id === photo.id ? { ...p, active: !p.active } : p))
+    } catch {
+      toast.error('Cập nhật thất bại')
+    }
+  }
+
+  const handleReorder = async (photo: HandoverPhoto, dir: -1 | 1) => {
+    const idx = sorted.findIndex((p) => p.id === photo.id)
+    const swapIdx = idx + dir
+    if (swapIdx < 0 || swapIdx >= sorted.length) return
+    const other = sorted[swapIdx]
+    try {
+      await Promise.all([
+        handoverApi.update(photo.id, { ...photo, sortOrder: other.sortOrder }),
+        handoverApi.update(other.id, { ...other, sortOrder: photo.sortOrder }),
+      ])
       fetch()
     } catch {
-      toast.error('Xoá thất bại')
+      toast.error('Sắp xếp thất bại')
+    }
+  }
+
+  const handleReplaceImage = async (id: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    e.target.value = ''
+    if (!file || !validateFile(file)) return
+    setUploadingId(id)
+    try {
+      const res = await handoverApi.uploadImage(id, file)
+      setPhotos((prev) => prev.map((p) => p.id === id ? res.data : p))
+      toast.success('Đổi ảnh thành công')
+    } catch {
+      toast.error('Upload thất bại')
+    } finally {
+      setUploadingId(null)
     }
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div>
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-semibold text-neutral-900">Nghi lễ bàn giao</h1>
-          <p className="text-sm text-neutral-500 mt-0.5">Quản lý ảnh nghi lễ bàn giao xe</p>
+          <h1 className="text-2xl font-bold text-black">Lễ bàn giao</h1>
+          <p className="text-neutral-500 text-sm mt-1">{photos.length} ảnh</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={fetch} disabled={loading}>
+          <Button onClick={fetch} variant="outline" size="sm" className="rounded-none">
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
           </Button>
-          <Button
-            size="sm"
-            className="rounded-none"
-            disabled={uploading}
-            onClick={() => fileInputRef.current?.click()}
-          >
-            {uploading ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
-            Thêm ảnh
+          <Button onClick={openCreate} size="sm" className="rounded-none gap-2">
+            <Plus size={14} /> Thêm ảnh
           </Button>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept=".jpg,.jpeg,.webp"
-            className="hidden"
-            onChange={handleAddPhoto}
-          />
         </div>
       </div>
 
       {loading ? (
-        <div className="flex justify-center py-20">
-          <Loader2 size={28} className="animate-spin text-neutral-400" />
-        </div>
-      ) : photos.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-20 text-neutral-400 gap-3">
-          <ImageIcon size={40} strokeWidth={1} />
-          <p className="text-sm">Chưa có ảnh nào. Nhấn &quot;Thêm ảnh&quot; để bắt đầu.</p>
-        </div>
+        <div className="p-12 text-center text-neutral-400">Đang tải...</div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-          {photos.map((photo) => (
+        <div className="space-y-4">
+          {sorted.map((photo, i) => (
             <div
               key={photo.id}
-              className={`flex flex-col border bg-white overflow-hidden ${
-                photo.active ? 'border-neutral-200' : 'border-dashed border-neutral-300'
-              }`}
+              className={`bg-white border p-5 ${photo.active ? 'border-neutral-200' : 'border-neutral-100 opacity-60'}`}
             >
-              {/* Image */}
-              <div className={`relative aspect-square bg-neutral-100 ${!photo.active ? 'opacity-50' : ''}`}>
-                {photo.imageUrl ? (
-                  <Image
-                    src={photo.imageUrl}
-                    alt={photo.caption ?? ''}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center text-neutral-400">
-                    <ImageIcon size={24} strokeWidth={1} />
-                  </div>
-                )}
-                {!photo.active && (
-                  <div className="absolute top-1.5 left-1.5 bg-neutral-700/80 text-white text-[10px] px-1.5 py-0.5">
-                    Đã ẩn
-                  </div>
-                )}
-              </div>
+              <div className="flex gap-5">
+                {/* Preview */}
+                <div className="shrink-0 w-32 h-20 bg-neutral-100 overflow-hidden relative">
+                  {photo.imageUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={photo.imageUrl} alt="" className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-neutral-300">
+                      <ImageIcon size={24} />
+                    </div>
+                  )}
+                </div>
 
-              {/* Caption & actions */}
-              <div className="px-2 py-2 flex flex-col gap-1.5">
-                <p className="text-xs text-neutral-500 truncate min-h-[1rem]">
-                  {photo.caption || <span className="italic text-neutral-300">Chưa có chú thích</span>}
-                </p>
-                <div className="flex gap-1">
-                  <button
-                    onClick={() => openEdit(photo)}
-                    className="flex-1 flex items-center justify-center gap-1 py-1 text-xs border border-neutral-200 hover:bg-neutral-50 transition-colors text-neutral-600"
-                  >
-                    <Pencil size={11} /> Sửa
-                  </button>
-                  <button
-                    onClick={() => handleDelete(photo.id)}
-                    className="flex items-center justify-center px-2 py-1 text-xs border border-red-100 hover:bg-red-50 transition-colors text-red-500"
-                  >
-                    <Trash2 size={11} />
-                  </button>
+                {/* Info + actions */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="font-medium text-black text-sm">
+                        {photo.caption || <span className="text-neutral-400 italic font-normal">Chưa có chú thích</span>}
+                      </p>
+                      <p className="text-neutral-400 text-xs mt-1">#{photo.id}</p>
+                    </div>
+                    <div className="flex items-center gap-1 shrink-0">
+                      <button onClick={() => handleReorder(photo, -1)} disabled={i === 0}
+                        className="w-7 h-7 flex items-center justify-center border border-neutral-200 hover:bg-neutral-50 disabled:opacity-30">
+                        <ChevronUp size={13} />
+                      </button>
+                      <button onClick={() => handleReorder(photo, 1)} disabled={i === sorted.length - 1}
+                        className="w-7 h-7 flex items-center justify-center border border-neutral-200 hover:bg-neutral-50 disabled:opacity-30">
+                        <ChevronDown size={13} />
+                      </button>
+                      <button onClick={() => handleToggleActive(photo)}
+                        className={`w-7 h-7 flex items-center justify-center border transition-colors ${photo.active ? 'border-green-200 text-green-600 hover:bg-green-50' : 'border-neutral-200 text-neutral-400 hover:bg-neutral-50'}`}
+                        title={photo.active ? 'Đang hiển thị' : 'Đang ẩn'}>
+                        {photo.active ? <Eye size={13} /> : <EyeOff size={13} />}
+                      </button>
+                      <button onClick={() => openEdit(photo)}
+                        className="w-7 h-7 flex items-center justify-center border border-neutral-200 hover:bg-neutral-50">
+                        <Pencil size={13} />
+                      </button>
+                      <button onClick={() => handleDelete(photo.id)}
+                        className="w-7 h-7 flex items-center justify-center border border-neutral-200 text-red-500 hover:bg-red-50 hover:border-red-200">
+                        <Trash2 size={13} />
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Replace image */}
+                  <div className="mt-3">
+                    <label className="cursor-pointer">
+                      <input
+                        type="file"
+                        accept=".jpg,.jpeg,.webp"
+                        className="hidden"
+                        ref={photo.id === uploadingId ? replaceInputRef : undefined}
+                        onChange={(e) => handleReplaceImage(photo.id, e)}
+                        disabled={uploadingId === photo.id}
+                      />
+                      <Button size="sm" variant="outline" className="rounded-none gap-1.5 text-xs h-7 px-3 pointer-events-none"
+                        disabled={uploadingId === photo.id}>
+                        {uploadingId === photo.id
+                          ? <Loader2 size={11} className="animate-spin" />
+                          : <ImageIcon size={11} />}
+                        Đổi ảnh
+                      </Button>
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
           ))}
+
+          {sorted.length === 0 && (
+            <div className="p-12 text-center text-neutral-400 bg-white border border-neutral-200">
+              Chưa có ảnh nào.
+            </div>
+          )}
         </div>
       )}
 
-      <p className="text-xs text-neutral-400">Ảnh JPG/WEBP, tối đa 2MB.</p>
-
-      {/* Edit Dialog */}
+      {/* Create / Edit dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="max-w-sm">
+        <DialogContent className="max-w-md rounded-none">
           <DialogHeader>
-            <DialogTitle>Chỉnh sửa ảnh</DialogTitle>
+            <DialogTitle>{editId ? 'Chỉnh sửa ảnh' : 'Thêm ảnh mới'}</DialogTitle>
           </DialogHeader>
+          <div className="space-y-4 py-4">
+            {/* File picker (create) or current image (edit) */}
+            {editId && form.imageUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={form.imageUrl} alt="" className="w-full h-40 object-cover bg-neutral-100" />
+            ) : null}
 
-          {editPhoto?.imageUrl && (
-            <div className="relative aspect-video w-full overflow-hidden bg-neutral-100">
-              <Image
-                src={editPhoto.imageUrl}
-                alt=""
-                fill
-                className="object-cover"
-                sizes="400px"
-              />
-            </div>
-          )}
-
-          <div className="space-y-4 pt-1">
             <div className="space-y-1.5">
-              <Label htmlFor="caption">Chú thích</Label>
+              <Label>{editId ? 'Đổi ảnh (tuỳ chọn)' : 'Chọn ảnh *'}</Label>
+              <label className="cursor-pointer block">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".jpg,.jpeg,.webp"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0]
+                    if (file && validateFile(file)) setPendingFile(file)
+                    else setPendingFile(null)
+                  }}
+                />
+                <Button type="button" variant="outline" size="sm" className="rounded-none gap-2 pointer-events-none w-full justify-center"
+                  onClick={() => fileInputRef.current?.click()}>
+                  <ImageIcon size={13} />
+                  {pendingFile ? pendingFile.name : 'Chọn file JPG / WEBP (tối đa 2MB)'}
+                </Button>
+              </label>
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>Chú thích</Label>
               <Input
-                id="caption"
-                placeholder="Nhập chú thích ảnh..."
-                value={caption}
-                onChange={(e) => setCaption(e.target.value)}
+                value={form.caption ?? ''}
+                onChange={(e) => set('caption', e.target.value)}
+                placeholder="Mô tả ngắn về bức ảnh..."
+                className="rounded-none"
               />
             </div>
 
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                role="switch"
-                aria-checked={active}
-                onClick={() => setActive((v) => !v)}
-                className={`relative w-9 h-5 rounded-full transition-colors ${active ? 'bg-black' : 'bg-neutral-300'}`}
-              >
-                <span
-                  className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${active ? 'translate-x-4' : ''}`}
-                />
-              </button>
-              <Label className="cursor-pointer" onClick={() => setActive((v) => !v)}>
-                {active ? 'Hiển thị trên website' : 'Đang ẩn'}
-              </Label>
-            </div>
+            <label className="flex items-center gap-2 text-sm cursor-pointer">
+              <input
+                type="checkbox"
+                checked={!!form.active}
+                onChange={(e) => set('active', e.target.checked)}
+                className="w-4 h-4"
+              />
+              Hiển thị trên website
+            </label>
+          </div>
 
-            <div className="flex gap-2 pt-1">
-              <Button variant="outline" className="flex-1" onClick={() => setDialogOpen(false)}>
-                Huỷ
-              </Button>
-              <Button className="flex-1 rounded-none" onClick={handleSave} disabled={saving}>
-                {saving && <Loader2 size={14} className="animate-spin" />}
-                Lưu
-              </Button>
-            </div>
+          <div className="flex justify-end gap-3 pt-2">
+            <Button variant="outline" onClick={() => setDialogOpen(false)} className="rounded-none">Hủy</Button>
+            <Button onClick={handleSave} disabled={saving} className="rounded-none">
+              {saving ? <Loader2 size={14} className="animate-spin mr-1" /> : null}
+              {saving ? 'Đang lưu...' : editId ? 'Cập nhật' : 'Thêm ảnh'}
+            </Button>
           </div>
         </DialogContent>
       </Dialog>

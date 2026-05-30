@@ -6,13 +6,13 @@ import Link from 'next/link'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Nghi Lễ Bàn Giao Xe | Volkswagen An Phú',
-  description: 'Những khoảnh khắc đáng nhớ trong nghi lễ bàn giao xe Volkswagen tại đại lý An Phú TP.HCM.',
-  alternates: { canonical: 'https://volkswagenanphu.vn/nghi-le-ban-giao' },
+  title: 'Lễ Bàn Giao Xe | Volkswagen An Phú',
+  description: 'Những khoảnh khắc đáng nhớ trong lễ bàn giao xe Volkswagen tại đại lý An Phú TP.HCM.',
+  alternates: { canonical: 'https://volkswagenanphu.vn/le-ban-giao' },
   openGraph: {
-    title: 'Nghi Lễ Bàn Giao Xe | Volkswagen An Phú',
-    description: 'Những khoảnh khắc đáng nhớ trong nghi lễ bàn giao xe Volkswagen tại đại lý An Phú.',
-    url: 'https://volkswagenanphu.vn/nghi-le-ban-giao',
+    title: 'Lễ Bàn Giao Xe | Volkswagen An Phú',
+    description: 'Những khoảnh khắc đáng nhớ trong lễ bàn giao xe Volkswagen tại đại lý An Phú.',
+    url: 'https://volkswagenanphu.vn/le-ban-giao',
   },
 }
 
@@ -39,9 +39,9 @@ export default async function HandoverPage() {
       <div className="bg-neutral-950 py-24 px-6">
         <div className="container mx-auto max-w-7xl">
           <span className="text-xs tracking-[0.25em] text-neutral-500 uppercase">Volkswagen An Phú</span>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mt-2">Nghi Lễ Bàn Giao</h1>
+          <h1 className="text-5xl md:text-6xl font-bold text-white mt-2">Lễ Bàn Giao</h1>
           <p className="text-neutral-400 mt-4 max-w-xl leading-relaxed">
-            Mỗi chiếc xe Volkswagen được trao đến tay chủ nhân mới trong một nghi lễ trang trọng —
+            Mỗi chiếc xe Volkswagen được trao đến tay chủ nhân mới trong một lễ bàn giao trang trọng —
             khoảnh khắc khởi đầu của những hành trình đáng nhớ.
           </p>
         </div>
@@ -63,7 +63,7 @@ export default async function HandoverPage() {
                     <>
                       <Image
                         src={photo.imageUrl}
-                        alt={photo.caption ?? 'Nghi lễ bàn giao xe Volkswagen'}
+                        alt={photo.caption ?? 'Lễ bàn giao xe Volkswagen'}
                         width={600}
                         height={400}
                         className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
@@ -86,7 +86,7 @@ export default async function HandoverPage() {
       {/* CTA */}
       <div className="border-t border-neutral-200 bg-neutral-50 py-16 px-6 text-center">
         <p className="text-neutral-500 text-sm mb-6 max-w-md mx-auto">
-          Trải nghiệm nghi lễ bàn giao xe đặc biệt khi sở hữu xe Volkswagen tại An Phú
+          Trải nghiệm lễ bàn giao xe đặc biệt khi sở hữu xe Volkswagen tại An Phú
         </p>
         <Link
           href="/dang-ky-lai-thu"

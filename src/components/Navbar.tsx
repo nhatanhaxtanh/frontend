@@ -14,7 +14,7 @@ const navLinks = [
   { href: '/models', label: 'Dòng xe' },
   { href: '/tinh-toan-vay', label: 'Tính toán vay' },
   { href: '/tin-tuc', label: 'Tin tức' },
-  { href: '/nghi-le-ban-giao', label: 'Nghi lễ bàn giao' },
+  { href: '/le-ban-giao', label: 'Lễ bàn giao' },
   { href: '/lien-he', label: 'Liên hệ' },
 ]
 

@@ -15,7 +15,7 @@ const navItems = [
   { href: '/admin/test-drives', label: 'Đăng ký lái thử', icon: ClipboardList },
   { href: '/admin/news', label: 'Tin tức', icon: Newspaper },
   { href: '/admin/hero', label: 'Hero Banner', icon: MonitorPlay },
-  { href: '/admin/handover', label: 'Nghi lễ bàn giao', icon: Award },
+  { href: '/admin/handover', label: 'Lễ bàn giao', icon: Award },
   { href: '/admin/settings', label: 'Cài đặt', icon: Settings },
 ]
 
