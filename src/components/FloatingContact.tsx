@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { Phone } from 'lucide-react'
 
 const PHONE = '0981058232'
@@ -32,6 +33,7 @@ const buttons: ButtonItem[] = [
     label: 'Facebook',
     href: FACEBOOK_URL,
     color: '#1877F2',
+    ping: true,
     icon: <FacebookIcon />,
   },
   {
@@ -54,6 +56,9 @@ const buttons: ButtonItem[] = [
 
 export default function FloatingContact() {
   const [hovered, setHovered] = useState<string | null>(null)
+  const pathname = usePathname()
+
+  if (pathname.startsWith('/admin')) return null
 
   return (
     <div className="fixed bottom-6 right-5 z-50 flex flex-col items-end gap-3">
