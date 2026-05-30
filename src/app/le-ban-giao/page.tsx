@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import type { HandoverPhoto } from '@/lib/types'
 import Link from 'next/link'
 import HandoverGallery from './HandoverGallery'
+import HandoverHero from './HandoverHero'
 
 export const dynamic = 'force-dynamic'
 
@@ -36,16 +37,7 @@ export default async function HandoverPage() {
   return (
     <div className="pt-16">
       {/* Hero */}
-      <div className="bg-neutral-950 py-24 px-6">
-        <div className="container mx-auto max-w-7xl">
-          <span className="text-xs tracking-[0.25em] text-neutral-500 uppercase">Volkswagen An Phú</span>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mt-2">Lễ Bàn Giao</h1>
-          <p className="text-neutral-400 mt-4 max-w-xl leading-relaxed">
-            Mỗi chiếc xe Volkswagen được trao đến tay chủ nhân mới trong một lễ bàn giao trang trọng —
-            khoảnh khắc khởi đầu của những hành trình đáng nhớ.
-          </p>
-        </div>
-      </div>
+      <HandoverHero />
 
       {/* Gallery */}
       <div className="bg-white py-16 px-6">

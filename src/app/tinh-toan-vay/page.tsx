@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowLeft, Calculator } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -77,14 +78,16 @@ export default function LoanCalculatorPage() {
           <Link href="/" className="flex items-center gap-2 text-neutral-500 hover:text-white text-sm mb-8 transition-colors w-fit">
             <ArrowLeft size={14} /> Trang chủ
           </Link>
-          <span className="text-xs tracking-[0.25em] text-neutral-400 uppercase">Hỗ trợ tài chính</span>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mt-2 mb-3 flex items-center gap-4">
-            <Calculator size={36} className="text-neutral-500" />
-            Tính toán khoản vay
-          </h1>
-          <p className="text-neutral-400 text-base max-w-xl">
-            Ước tính khoản trả góp hàng tháng cho dòng xe bạn quan tâm. Kết quả chỉ mang tính tham khảo — lãi suất thực tế do ngân hàng quyết định.
-          </p>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <span className="text-xs tracking-[0.25em] text-neutral-400 uppercase">Hỗ trợ tài chính</span>
+            <h1 className="text-4xl md:text-5xl font-bold text-white mt-2 mb-3 flex items-center gap-4">
+              <Calculator size={36} className="text-neutral-500" />
+              Tính toán khoản vay
+            </h1>
+            <p className="text-neutral-400 text-base max-w-xl">
+              Ước tính khoản trả góp hàng tháng cho dòng xe bạn quan tâm. Kết quả chỉ mang tính tham khảo — lãi suất thực tế do ngân hàng quyết định.
+            </p>
+          </motion.div>
         </div>
       </div>
 
@@ -93,7 +96,7 @@ export default function LoanCalculatorPage() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
 
             {/* ── Inputs ── */}
-            <div className="lg:col-span-3 space-y-8">
+            <motion.div className="lg:col-span-3 space-y-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
 
               {/* Dòng xe */}
               <div className="space-y-2">
@@ -184,10 +187,10 @@ export default function LoanCalculatorPage() {
                   <span className="text-neutral-500 text-sm">% / năm</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* ── Result card ── */}
-            <div className="lg:col-span-2 lg:sticky lg:top-24">
+            <motion.div className="lg:col-span-2 lg:sticky lg:top-24" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.35 }}>
               <div className="bg-neutral-950 text-white p-8">
                 <p className="text-xs tracking-[0.2em] text-neutral-400 uppercase mb-1">Kết quả ước tính</p>
                 <h2 className="text-lg font-bold mb-6">{selected?.name}</h2>
@@ -232,7 +235,7 @@ export default function LoanCalculatorPage() {
                   * Kết quả chỉ mang tính tham khảo. Lãi suất và điều kiện vay thực tế phụ thuộc vào ngân hàng và hồ sơ tín dụng của khách hàng.
                 </p>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

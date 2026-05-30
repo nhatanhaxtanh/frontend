@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import type { HandoverPhoto } from '@/lib/types'
 import Lightbox from '@/components/Lightbox'
@@ -23,13 +23,14 @@ export default function HandoverGallery({ photos }: { photos: HandoverPhoto[] })
       {/* ── Mobile: 2-column uniform grid ── */}
       <div className="grid grid-cols-2 gap-2 sm:hidden">
         {images.map((src, i) => (
-          <GalleryItem
-            key={i}
-            src={src}
-            caption={photos[i]?.caption}
-            onClick={() => open(i)}
-            className="aspect-[4/3]"
-          />
+          <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.06 }}>
+            <GalleryItem
+              src={src}
+              caption={photos[i]?.caption}
+              onClick={() => open(i)}
+              className="aspect-[4/3]"
+            />
+          </motion.div>
         ))}
       </div>
 
@@ -46,29 +47,33 @@ export default function HandoverGallery({ photos }: { photos: HandoverPhoto[] })
           <>
             {/* Hero row: first image large + 2 stacked right */}
             <div className="grid grid-cols-3 gap-3" style={{ gridAutoRows: '240px' }}>
-              <div className="col-span-2 row-span-2">
+              <motion.div className="col-span-2 row-span-2" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
                 <GalleryItem
                   src={images[0]}
                   caption={photos[0].caption}
                   onClick={() => open(0)}
                   className="h-full"
                 />
-              </div>
+              </motion.div>
               {images[1] && (
-                <GalleryItem
-                  src={images[1]}
-                  caption={photos[1]?.caption}
-                  onClick={() => open(1)}
-                  className="h-full"
-                />
+                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }}>
+                  <GalleryItem
+                    src={images[1]}
+                    caption={photos[1]?.caption}
+                    onClick={() => open(1)}
+                    className="h-full"
+                  />
+                </motion.div>
               )}
               {images[2] && (
-                <GalleryItem
-                  src={images[2]}
-                  caption={photos[2]?.caption}
-                  onClick={() => open(2)}
-                  className="h-full"
-                />
+                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 }}>
+                  <GalleryItem
+                    src={images[2]}
+                    caption={photos[2]?.caption}
+                    onClick={() => open(2)}
+                    className="h-full"
+                  />
+                </motion.div>
               )}
             </div>
 
@@ -76,13 +81,14 @@ export default function HandoverGallery({ photos }: { photos: HandoverPhoto[] })
             {images.length > 3 && (
               <div className="grid grid-cols-3 gap-3" style={{ gridAutoRows: '220px' }}>
                 {images.slice(3).map((src, i) => (
-                  <GalleryItem
-                    key={i}
-                    src={src}
-                    caption={photos[i + 3]?.caption}
-                    onClick={() => open(i + 3)}
-                    className="h-full"
-                  />
+                  <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.08 }}>
+                    <GalleryItem
+                      src={src}
+                      caption={photos[i + 3]?.caption}
+                      onClick={() => open(i + 3)}
+                      className="h-full"
+                    />
+                  </motion.div>
                 ))}
               </div>
             )}
