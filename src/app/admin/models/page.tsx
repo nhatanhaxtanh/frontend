@@ -70,8 +70,17 @@ export default function AdminModelsPage() {
   const fetch = async () => {
     setLoading(true)
     try {
-      const res = await carModelApi.getAll()
-      setModels(res.data)
+      const res = await carModelApi.adminGetAll()
+      const data = res.data
+      // Nếu tất cả sortOrder giống nhau (vd: đều = 0), khởi tạo giá trị tuần tự
+      if (data.length > 1 && data.every(m => m.sortOrder === data[0].sortOrder)) {
+        const sorted = [...data].sort((a, b) => a.id - b.id)
+        await Promise.all(sorted.map((m, i) => carModelApi.update(m.id, { ...m, sortOrder: i })))
+        const res2 = await carModelApi.adminGetAll()
+        setModels(res2.data)
+      } else {
+        setModels(data)
+      }
     } catch {
       toast.error('Không thể tải dữ liệu')
     } finally {

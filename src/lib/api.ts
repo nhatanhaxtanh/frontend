@@ -27,6 +27,7 @@ api.interceptors.response.use(
 
 export const carModelApi = {
   getAll: () => api.get<CarModel[]>('/models'),
+  adminGetAll: () => api.get<CarModel[]>('/admin/models'),
   getFeatured: () => api.get<CarModel[]>('/models/featured'),
   getBySlug: (slug: string) => api.get<CarModel>(`/models/${slug}`),
   create: (data: Partial<CarModel>) => api.post<CarModel>('/admin/models', data),
