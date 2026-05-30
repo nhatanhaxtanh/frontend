@@ -16,6 +16,7 @@ export interface CarModel {
   imageUrl: string
   videoUrl?: string
   images: string[]
+  sortOrder: number
   featured: boolean
   active: boolean
   createdAt: string

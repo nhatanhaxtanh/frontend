@@ -13,7 +13,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
-import { Plus, Pencil, Trash2, RefreshCw, ImageIcon, Loader2, MoreVertical, Images, Tag } from 'lucide-react'
+import { Plus, Pencil, Trash2, RefreshCw, ImageIcon, Loader2, MoreVertical, Images, Tag, ChevronUp, ChevronDown } from 'lucide-react'
 import { getModelImage } from '@/lib/model-images'
 
 const DEFAULT_PROMOS: Record<string, Partial<CarPromotion>> = {
@@ -46,10 +46,10 @@ const LOCAL_GALLERY: Record<string, string> = {
   'touareg-highline': '/images/models/TouaregHighline.jpg',
 }
 
-const emptyForm = (): Partial<CarModel> => ({
+const emptyForm = (sortOrder = 0): Partial<CarModel> => ({
   name: '', slug: '', category: 'SUV', price: 0, priceDisplay: '',
   shortDescription: '', description: '', engine: '', power: '', torque: '',
-  seats: 5, fuelType: 'Xăng', transmission: '', imageUrl: '', featured: false, active: true,
+  seats: 5, fuelType: 'Xăng', transmission: '', imageUrl: '', sortOrder, featured: false, active: true,
 })
 
 export default function AdminModelsPage() {
@@ -81,7 +81,7 @@ export default function AdminModelsPage() {
 
   useEffect(() => { fetch() }, [])
 
-  const openCreate = () => { setForm(emptyForm()); setEditId(null); setDialogOpen(true) }
+  const openCreate = () => { setForm(emptyForm(models.length)); setEditId(null); setDialogOpen(true) }
   const openEdit = (m: CarModel) => { setForm({ ...m }); setEditId(m.id); setDialogOpen(true) }
 
   const set = (key: keyof CarModel, value: unknown) => setForm((prev) => ({ ...prev, [key]: value }))
@@ -202,6 +202,23 @@ export default function AdminModelsPage() {
     }
   }
 
+  const handleReorder = async (model: CarModel, dir: -1 | 1) => {
+    const sorted = [...models].sort((a, b) => a.sortOrder - b.sortOrder)
+    const idx = sorted.findIndex((m) => m.id === model.id)
+    const swapIdx = idx + dir
+    if (swapIdx < 0 || swapIdx >= sorted.length) return
+    const other = sorted[swapIdx]
+    try {
+      await Promise.all([
+        carModelApi.update(model.id, { ...model, sortOrder: other.sortOrder }),
+        carModelApi.update(other.id, { ...other, sortOrder: model.sortOrder }),
+      ])
+      fetch()
+    } catch {
+      toast.error('Sắp xếp thất bại')
+    }
+  }
+
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
@@ -229,6 +246,7 @@ export default function AdminModelsPage() {
             <Table>
               <TableHeader>
                 <TableRow>
+                  <TableHead className="w-16">Thứ tự</TableHead>
                   <TableHead className="w-20">Ảnh</TableHead>
                   <TableHead>Tên xe</TableHead>
                   <TableHead>Danh mục</TableHead>
@@ -239,8 +257,26 @@ export default function AdminModelsPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {models.map((model) => (
+                {[...models].sort((a, b) => a.sortOrder - b.sortOrder).map((model, i, arr) => (
                   <TableRow key={model.id}>
+                    <TableCell>
+                      <div className="flex flex-col gap-0.5">
+                        <button
+                          onClick={() => handleReorder(model, -1)}
+                          disabled={i === 0}
+                          className="w-6 h-6 flex items-center justify-center border border-neutral-200 hover:bg-neutral-50 disabled:opacity-30 disabled:cursor-not-allowed"
+                        >
+                          <ChevronUp size={12} />
+                        </button>
+                        <button
+                          onClick={() => handleReorder(model, 1)}
+                          disabled={i === arr.length - 1}
+                          className="w-6 h-6 flex items-center justify-center border border-neutral-200 hover:bg-neutral-50 disabled:opacity-30 disabled:cursor-not-allowed"
+                        >
+                          <ChevronDown size={12} />
+                        </button>
+                      </div>
+                    </TableCell>
                     <TableCell>
                       <label className="cursor-pointer group relative block w-16 h-12">
                         <input
