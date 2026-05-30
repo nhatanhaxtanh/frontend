@@ -85,6 +85,15 @@ export interface HeroSlide {
   active: boolean
 }
 
+export interface HandoverPhoto {
+  id: number
+  imageUrl: string | null
+  caption: string | null
+  sortOrder: number
+  active: boolean
+  createdAt: string
+}
+
 export interface NewsPost {
   id: number
   title: string
