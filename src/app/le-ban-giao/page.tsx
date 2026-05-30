@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import type { HandoverPhoto } from '@/lib/types'
-import Image from 'next/image'
 import Link from 'next/link'
+import HandoverGallery from './HandoverGallery'
 
 export const dynamic = 'force-dynamic'
 
@@ -50,36 +50,7 @@ export default async function HandoverPage() {
       {/* Gallery */}
       <div className="bg-white py-16 px-6">
         <div className="container mx-auto max-w-7xl">
-          {photos.length === 0 ? (
-            <p className="text-center text-neutral-400 py-20 text-sm">Chưa có hình ảnh nào.</p>
-          ) : (
-            <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 [column-fill:_balance]">
-              {photos.map((photo) => (
-                <div
-                  key={photo.id}
-                  className="break-inside-avoid mb-4 overflow-hidden group relative bg-neutral-100 border border-neutral-200"
-                >
-                  {photo.imageUrl && (
-                    <>
-                      <Image
-                        src={photo.imageUrl}
-                        alt={photo.caption ?? 'Lễ bàn giao xe Volkswagen'}
-                        width={600}
-                        height={400}
-                        className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
-                        sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                      />
-                      {photo.caption && (
-                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent px-4 py-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                          <p className="text-white text-xs">{photo.caption}</p>
-                        </div>
-                      )}
-                    </>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
+          <HandoverGallery photos={photos} />
         </div>
       </div>
 

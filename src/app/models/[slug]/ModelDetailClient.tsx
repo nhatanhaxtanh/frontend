@@ -6,7 +6,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import type { CarModel, CarPromotion } from '@/lib/types'
 import { Button } from '@/components/ui/button'
-import { ArrowLeft, Fuel, Users, Zap, Settings2, Gauge, GitMerge, ChevronLeft, ChevronRight, X, CheckCircle2, Clock } from 'lucide-react'
+import { ArrowLeft, Fuel, Users, Zap, Settings2, Gauge, GitMerge, ChevronLeft, ChevronRight, CheckCircle2, Clock } from 'lucide-react'
+import Lightbox from '@/components/Lightbox'
 import { getModelImage } from '@/lib/model-images'
 import { getModelGallery } from '@/lib/model-gallery'
 import { cn } from '@/lib/utils'
@@ -407,27 +408,12 @@ export default function ModelDetailClient({ model, promotion }: Props) {
       {/* Lightbox */}
       <AnimatePresence>
         {lightboxOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center px-4"
-            onClick={() => setLightboxOpen(false)}
-          >
-            <button className="absolute top-6 right-6 text-white hover:text-neutral-300" onClick={() => setLightboxOpen(false)}>
-              <X size={28} />
-            </button>
-            <button className="absolute left-6 text-white hover:text-neutral-300 p-2" onClick={(e) => { e.stopPropagation(); setLightboxIndex((i) => (i - 1 + gallery.length) % gallery.length) }}>
-              <ChevronLeft size={32} />
-            </button>
-            <div className="relative w-full max-w-4xl aspect-[16/9]" onClick={(e) => e.stopPropagation()}>
-              <Image src={gallery[lightboxIndex]} alt={model.name} fill className="object-contain" sizes="100vw" />
-            </div>
-            <button className="absolute right-6 text-white hover:text-neutral-300 p-2" onClick={(e) => { e.stopPropagation(); setLightboxIndex((i) => (i + 1) % gallery.length) }}>
-              <ChevronRight size={32} />
-            </button>
-            <div className="absolute bottom-6 text-neutral-500 text-sm">{lightboxIndex + 1} / {gallery.length}</div>
-          </motion.div>
+          <Lightbox
+            images={gallery}
+            index={lightboxIndex}
+            onClose={() => setLightboxOpen(false)}
+            onChange={setLightboxIndex}
+          />
         )}
       </AnimatePresence>
     </div>
