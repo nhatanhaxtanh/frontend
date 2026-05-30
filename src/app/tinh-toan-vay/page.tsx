@@ -3,7 +3,6 @@
 import { useState, useMemo, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowLeft, Calculator } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -73,18 +72,12 @@ export default function LoanCalculatorPage() {
   return (
     <div className="pt-16 min-h-screen bg-white">
       {/* Header */}
-      <div className="bg-neutral-950 py-16 px-6">
-        <div className="container mx-auto max-w-5xl">
-          <Link href="/" className="flex items-center gap-2 text-neutral-500 hover:text-white text-sm mb-8 transition-colors w-fit">
-            <ArrowLeft size={14} /> Trang chủ
-          </Link>
+      <div className="bg-neutral-950 py-24 px-6">
+        <div className="container mx-auto max-w-7xl">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <span className="text-xs tracking-[0.25em] text-neutral-400 uppercase">Hỗ trợ tài chính</span>
-            <h1 className="text-4xl md:text-5xl font-bold text-white mt-2 mb-3 flex items-center gap-4">
-              <Calculator size={36} className="text-neutral-500" />
-              Tính toán khoản vay
-            </h1>
-            <p className="text-neutral-400 text-base max-w-xl">
+            <span className="text-xs tracking-[0.25em] text-neutral-500 uppercase">Hỗ trợ tài chính</span>
+            <h1 className="text-5xl md:text-6xl font-bold text-white mt-2">Tính toán khoản vay</h1>
+            <p className="text-neutral-400 mt-4 max-w-xl leading-relaxed">
               Ước tính khoản trả góp hàng tháng cho dòng xe bạn quan tâm. Kết quả chỉ mang tính tham khảo — lãi suất thực tế do ngân hàng quyết định.
             </p>
           </motion.div>
@@ -92,7 +85,7 @@ export default function LoanCalculatorPage() {
       </div>
 
       <div className="py-16 px-6">
-        <div className="container mx-auto max-w-5xl">
+        <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
 
             {/* ── Inputs ── */}
