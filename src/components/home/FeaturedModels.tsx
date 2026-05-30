@@ -123,7 +123,7 @@ export default function FeaturedModels() {
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
                   </div>
-                  <Badge variant="outline" className="text-xs rounded-none border-neutral-300 text-neutral-500 mb-1">
+                  <Badge variant="outline" className="text-xs rounded-lg border-neutral-300 text-neutral-500 mb-1">
                     {model.category}
                   </Badge>
                   <h3 className="font-bold text-lg text-black group-hover:underline underline-offset-2">

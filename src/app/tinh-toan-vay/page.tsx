@@ -99,7 +99,7 @@ export default function LoanCalculatorPage() {
               <div className="space-y-2">
                 <Label className="text-sm font-semibold uppercase tracking-widest text-neutral-500">Dòng xe</Label>
                 <Select value={modelId} onValueChange={(v) => { if (v) setModelId(v) }}>
-                  <SelectTrigger className="rounded-none h-12 text-base">
+                  <SelectTrigger className="rounded-lg h-12 text-base">
                     <span>{selected?.name ?? 'Chọn dòng xe'}</span>
                   </SelectTrigger>
                   <SelectContent className="min-w-[380px]">
@@ -126,7 +126,7 @@ export default function LoanCalculatorPage() {
                   step={5}
                   value={loanPct}
                   onChange={(e) => setLoanPct(Number(e.target.value))}
-                  className="w-full h-1.5 bg-neutral-200 rounded-none accent-black cursor-pointer"
+                  className="w-full h-1.5 bg-neutral-200 rounded-lg accent-black cursor-pointer"
                 />
                 <div className="flex justify-between text-xs text-neutral-400">
                   <span>0%</span>
@@ -179,7 +179,7 @@ export default function LoanCalculatorPage() {
                     step={0.1}
                     value={rate}
                     onChange={(e) => setRate(e.target.value)}
-                    className="rounded-none h-12 text-base w-36"
+                    className="rounded-lg h-12 text-base w-36"
                   />
                   <span className="text-neutral-500 text-sm">% / năm</span>
                 </div>
@@ -218,12 +218,12 @@ export default function LoanCalculatorPage() {
                 </div>
 
                 <Link href="/dang-ky-lai-thu">
-                  <Button className="w-full rounded-none h-12 bg-white text-black hover:bg-neutral-200 uppercase tracking-widest text-xs font-bold mb-3">
+                  <Button className="w-full rounded-lg h-12 bg-white text-black hover:bg-neutral-200 uppercase tracking-widest text-xs font-bold mb-3">
                     Đăng ký lái thử
                   </Button>
                 </Link>
                 <Link href="/lien-he">
-                  <Button variant="outline" className="w-full rounded-none h-11 border-white/20 text-white hover:bg-white/10 uppercase tracking-widest text-xs bg-transparent">
+                  <Button variant="outline" className="w-full rounded-lg h-11 border-white/20 text-white hover:bg-white/10 uppercase tracking-widest text-xs bg-transparent">
                     Tư vấn tài chính
                   </Button>
                 </Link>

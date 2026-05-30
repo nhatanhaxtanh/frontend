@@ -57,7 +57,7 @@ export default function AdminLoginPage() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="admin"
-              className="rounded-none"
+              className="rounded-lg"
               required
               autoComplete="username"
             />
@@ -71,7 +71,7 @@ export default function AdminLoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="rounded-none pr-10"
+                className="rounded-lg pr-10"
                 required
                 autoComplete="current-password"
               />
@@ -87,7 +87,7 @@ export default function AdminLoginPage() {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full rounded-none h-11 uppercase tracking-widest font-semibold text-xs"
+            className="w-full rounded-lg h-11 uppercase tracking-widest font-semibold text-xs"
           >
             {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
           </Button>

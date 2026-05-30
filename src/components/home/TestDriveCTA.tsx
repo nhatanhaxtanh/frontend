@@ -42,7 +42,7 @@ export default function TestDriveCTA() {
               <Link href="/dang-ky-lai-thu">
                 <Button
                   size="lg"
-                  className="rounded-none bg-white text-black hover:bg-neutral-200 font-semibold tracking-wide uppercase text-sm px-12 h-14"
+                  className="rounded-lg bg-white text-black hover:bg-neutral-200 font-semibold tracking-wide uppercase text-sm px-12 h-14"
                 >
                   Đăng ký lái thử ngay
                   <ArrowRight size={16} className="ml-2" />

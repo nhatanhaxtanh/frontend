@@ -61,7 +61,7 @@ export default async function HandoverPage() {
         </p>
         <Link
           href="/dang-ky-lai-thu"
-          className="inline-block bg-black text-white text-xs tracking-[0.2em] uppercase px-8 py-3 hover:bg-neutral-800 transition-colors duration-200 font-semibold"
+          className="inline-block bg-black text-white text-xs tracking-[0.2em] uppercase px-8 py-3 hover:bg-neutral-800 transition-colors duration-200 font-semibold rounded-lg"
         >
           Đăng ký lái thử
         </Link>

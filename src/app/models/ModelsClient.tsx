@@ -65,7 +65,7 @@ export default function ModelsClient({ models }: { models: Partial<CarModel>[] }
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
                     <div className="absolute top-4 left-4">
-                      <Badge variant="outline" className="rounded-none text-xs bg-white/90 border-neutral-300">{model.category}</Badge>
+                      <Badge variant="outline" className="rounded-lg text-xs bg-white/90 border-neutral-300">{model.category}</Badge>
                     </div>
                   </div>
                   <div className="flex items-start justify-between">
@@ -100,7 +100,7 @@ export default function ModelsClient({ models }: { models: Partial<CarModel>[] }
             <h3 className="text-white text-2xl font-bold mb-3">Chưa tìm được xe phù hợp?</h3>
             <p className="text-neutral-400 text-sm mb-6">Liên hệ đội ngũ tư vấn để được hỗ trợ chọn xe phù hợp nhất với nhu cầu của bạn.</p>
             <Link href="/lien-he">
-              <Button className="rounded-none bg-white text-black hover:bg-neutral-200 uppercase tracking-wide text-xs font-semibold px-8">
+              <Button className="rounded-lg bg-white text-black hover:bg-neutral-200 uppercase tracking-wide text-xs font-semibold px-8">
                 Tư vấn ngay
               </Button>
             </Link>

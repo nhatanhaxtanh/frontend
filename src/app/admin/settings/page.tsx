@@ -49,17 +49,17 @@ export default function AdminSettingsPage() {
           <form onSubmit={handleChangePassword} className="space-y-4">
             <div className="space-y-1.5">
               <Label>Mật khẩu hiện tại</Label>
-              <Input type="password" value={oldPass} onChange={(e) => setOldPass(e.target.value)} className="rounded-none" required />
+              <Input type="password" value={oldPass} onChange={(e) => setOldPass(e.target.value)} className="rounded-lg" required />
             </div>
             <div className="space-y-1.5">
               <Label>Mật khẩu mới</Label>
-              <Input type="password" value={newPass} onChange={(e) => setNewPass(e.target.value)} className="rounded-none" required />
+              <Input type="password" value={newPass} onChange={(e) => setNewPass(e.target.value)} className="rounded-lg" required />
             </div>
             <div className="space-y-1.5">
               <Label>Xác nhận mật khẩu mới</Label>
-              <Input type="password" value={confirmPass} onChange={(e) => setConfirmPass(e.target.value)} className="rounded-none" required />
+              <Input type="password" value={confirmPass} onChange={(e) => setConfirmPass(e.target.value)} className="rounded-lg" required />
             </div>
-            <Button type="submit" disabled={loading} className="rounded-none w-full">
+            <Button type="submit" disabled={loading} className="rounded-lg w-full">
               {loading ? 'Đang cập nhật...' : 'Đổi mật khẩu'}
             </Button>
           </form>

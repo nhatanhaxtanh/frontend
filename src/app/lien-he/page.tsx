@@ -86,22 +86,22 @@ export default function ContactPage() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1.5">
                     <Label>Họ tên</Label>
-                    <Input value={form.fullName} onChange={(e) => setForm({ ...form, fullName: e.target.value })} placeholder="Nguyễn Văn A" className="rounded-none" required />
+                    <Input value={form.fullName} onChange={(e) => setForm({ ...form, fullName: e.target.value })} placeholder="Nguyễn Văn A" className="rounded-lg" required />
                   </div>
                   <div className="space-y-1.5">
                     <Label>Điện thoại</Label>
-                    <Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="0901 234 567" className="rounded-none" required />
+                    <Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="0901 234 567" className="rounded-lg" required />
                   </div>
                 </div>
                 <div className="space-y-1.5">
                   <Label>Email</Label>
-                  <Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="example@email.com" className="rounded-none" />
+                  <Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="example@email.com" className="rounded-lg" />
                 </div>
                 <div className="space-y-1.5">
                   <Label>Nội dung</Label>
-                  <Textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="Nội dung tin nhắn..." className="rounded-none resize-none" rows={5} required />
+                  <Textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="Nội dung tin nhắn..." className="rounded-lg resize-none" rows={5} required />
                 </div>
-                <Button type="submit" disabled={loading} className="w-full rounded-none h-12 uppercase tracking-widest font-semibold text-sm">
+                <Button type="submit" disabled={loading} className="w-full rounded-lg h-12 uppercase tracking-widest font-semibold text-sm">
                   {loading ? 'Đang gửi...' : 'Gửi tin nhắn'}
                 </Button>
               </form>

@@ -84,7 +84,7 @@ export default function AdminTestDrivesPage() {
           <h1 className="text-2xl font-bold text-black">Đăng ký lái thử</h1>
           <p className="text-neutral-500 text-sm mt-1">{data.length} tổng cộng</p>
         </div>
-        <Button onClick={fetch} variant="outline" size="sm" className="rounded-none gap-2">
+        <Button onClick={fetch} variant="outline" size="sm" className="rounded-lg gap-2">
           <RefreshCw size={14} /> Tải lại
         </Button>
       </div>
@@ -95,14 +95,14 @@ export default function AdminTestDrivesPage() {
             placeholder="Tìm theo tên, SĐT, dòng xe..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="rounded-none sm:max-w-xs"
+            className="rounded-lg sm:max-w-xs"
           />
           <Tabs value={tab} onValueChange={setTab}>
-            <TabsList className="rounded-none h-9">
-              <TabsTrigger value="all" className="rounded-none text-xs">Tất cả</TabsTrigger>
-              <TabsTrigger value="pending" className="rounded-none text-xs">Chờ</TabsTrigger>
-              <TabsTrigger value="confirmed" className="rounded-none text-xs">Đã xác nhận</TabsTrigger>
-              <TabsTrigger value="completed" className="rounded-none text-xs">Hoàn thành</TabsTrigger>
+            <TabsList className="rounded-lg h-9">
+              <TabsTrigger value="all" className="rounded-lg text-xs">Tất cả</TabsTrigger>
+              <TabsTrigger value="pending" className="rounded-lg text-xs">Chờ</TabsTrigger>
+              <TabsTrigger value="confirmed" className="rounded-lg text-xs">Đã xác nhận</TabsTrigger>
+              <TabsTrigger value="completed" className="rounded-lg text-xs">Hoàn thành</TabsTrigger>
             </TabsList>
           </Tabs>
         </div>
@@ -143,7 +143,7 @@ export default function AdminTestDrivesPage() {
                         value={item.status}
                         onValueChange={(val) => val && handleStatusChange(item.id, val)}
                       >
-                        <SelectTrigger className={`rounded-none h-7 text-xs w-36 border ${STATUS_COLORS[item.status]}`}>
+                        <SelectTrigger className={`rounded-lg h-7 text-xs w-36 border ${STATUS_COLORS[item.status]}`}>
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>

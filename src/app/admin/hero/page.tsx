@@ -155,10 +155,10 @@ export default function AdminHeroPage() {
           <p className="text-neutral-500 text-sm mt-1">{slides.length} slide</p>
         </div>
         <div className="flex gap-2">
-          <Button onClick={fetch} variant="outline" size="sm" className="rounded-none">
+          <Button onClick={fetch} variant="outline" size="sm" className="rounded-lg">
             <RefreshCw size={14} />
           </Button>
-          <Button onClick={openCreate} size="sm" className="rounded-none gap-2">
+          <Button onClick={openCreate} size="sm" className="rounded-lg gap-2">
             <Plus size={14} /> Thêm slide
           </Button>
         </div>
@@ -254,7 +254,7 @@ export default function AdminHeroPage() {
                       <Button
                         size="sm"
                         variant="outline"
-                        className="rounded-none gap-1.5 text-xs h-7 px-3 pointer-events-none"
+                        className="rounded-lg gap-1.5 text-xs h-7 px-3 pointer-events-none"
                         disabled={uploadingImage === slide.id}
                       >
                         {uploadingImage === slide.id
@@ -275,7 +275,7 @@ export default function AdminHeroPage() {
                       <Button
                         size="sm"
                         variant="outline"
-                        className="rounded-none gap-1.5 text-xs h-7 px-3 pointer-events-none"
+                        className="rounded-lg gap-1.5 text-xs h-7 px-3 pointer-events-none"
                         disabled={uploadingVideo === slide.id}
                       >
                         {uploadingVideo === slide.id
@@ -300,7 +300,7 @@ export default function AdminHeroPage() {
 
       {/* Edit / Create dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="max-w-lg rounded-none max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-lg rounded-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{editId ? 'Chỉnh sửa slide' : 'Thêm slide mới'}</DialogTitle>
           </DialogHeader>
@@ -311,7 +311,7 @@ export default function AdminHeroPage() {
                 value={form.label || ''}
                 onChange={(e) => set('label', e.target.value)}
                 placeholder="VD: Volkswagen Touareg"
-                className="rounded-none"
+                className="rounded-lg"
               />
             </div>
             <div className="space-y-1.5">
@@ -320,7 +320,7 @@ export default function AdminHeroPage() {
                 value={form.heading || ''}
                 onChange={(e) => set('heading', e.target.value)}
                 placeholder="VD: Flagship SUV."
-                className="rounded-none"
+                className="rounded-lg"
               />
             </div>
             <div className="space-y-1.5">
@@ -329,7 +329,7 @@ export default function AdminHeroPage() {
                 value={form.sub || ''}
                 onChange={(e) => set('sub', e.target.value)}
                 placeholder="VD: Đỉnh cao sang trọng."
-                className="rounded-none"
+                className="rounded-lg"
               />
             </div>
             <div className="space-y-1.5">
@@ -338,7 +338,7 @@ export default function AdminHeroPage() {
                 value={form.description || ''}
                 onChange={(e) => set('description', e.target.value)}
                 placeholder="Mô tả ngắn hiển thị dưới tiêu đề..."
-                className="rounded-none resize-none"
+                className="rounded-lg resize-none"
                 rows={3}
               />
             </div>
@@ -348,7 +348,7 @@ export default function AdminHeroPage() {
                 value={form.imageUrl || ''}
                 onChange={(e) => set('imageUrl', e.target.value)}
                 placeholder="/images/hero.jpg hoặc https://..."
-                className="rounded-none"
+                className="rounded-lg"
               />
             </div>
             <div className="space-y-1.5">
@@ -357,7 +357,7 @@ export default function AdminHeroPage() {
                 value={form.videoUrl || ''}
                 onChange={(e) => set('videoUrl', e.target.value)}
                 placeholder="/images/vid3.mp4 hoặc https://..."
-                className="rounded-none"
+                className="rounded-lg"
               />
               <p className="text-xs text-neutral-400">Nếu có cả ảnh và video, video sẽ được ưu tiên hiển thị.</p>
             </div>
@@ -368,7 +368,7 @@ export default function AdminHeroPage() {
                   type="number"
                   value={form.sortOrder ?? 0}
                   onChange={(e) => set('sortOrder', parseInt(e.target.value) || 0)}
-                  className="rounded-none"
+                  className="rounded-lg"
                 />
               </div>
               <label className="flex items-center gap-2 text-sm cursor-pointer mt-5">
@@ -383,8 +383,8 @@ export default function AdminHeroPage() {
             </div>
           </div>
           <div className="flex justify-end gap-3 pt-2">
-            <Button variant="outline" onClick={() => setDialogOpen(false)} className="rounded-none">Hủy</Button>
-            <Button onClick={handleSave} disabled={saving} className="rounded-none">
+            <Button variant="outline" onClick={() => setDialogOpen(false)} className="rounded-lg">Hủy</Button>
+            <Button onClick={handleSave} disabled={saving} className="rounded-lg">
               {saving ? 'Đang lưu...' : editId ? 'Cập nhật' : 'Thêm slide'}
             </Button>
           </div>

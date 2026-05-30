@@ -139,10 +139,10 @@ export default function ModelDetailClient({ model, promotion }: Props) {
               </div>
               <div className="flex gap-3">
                 <Link href="/lien-he">
-                  <Button variant="outline" size="sm" className="rounded-none text-xs uppercase tracking-wide hidden md:flex">Nhận báo giá</Button>
+                  <Button variant="outline" size="sm" className="rounded-lg text-xs uppercase tracking-wide hidden md:flex">Nhận báo giá</Button>
                 </Link>
                 <Link href="/dang-ky-lai-thu">
-                  <Button size="sm" className="rounded-none text-xs uppercase tracking-wide">Lái thử</Button>
+                  <Button size="sm" className="rounded-lg text-xs uppercase tracking-wide">Lái thử</Button>
                 </Link>
               </div>
             </div>
@@ -164,12 +164,12 @@ export default function ModelDetailClient({ model, promotion }: Props) {
               <p className="text-2xl font-bold text-white mb-8">Từ <span className="text-3xl">{model.priceDisplay}</span>₫</p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/dang-ky-lai-thu">
-                  <Button className="rounded-none bg-white text-black hover:bg-neutral-200 uppercase tracking-widest text-xs font-semibold px-8 h-12 w-full sm:w-auto">
+                  <Button className="rounded-lg bg-white text-black hover:bg-neutral-200 uppercase tracking-widest text-xs font-semibold px-8 h-12 w-full sm:w-auto">
                     Đăng ký lái thử
                   </Button>
                 </Link>
                 <Link href="/lien-he">
-                  <Button variant="outline" className="rounded-none border-neutral-700 text-white hover:bg-white hover:text-black uppercase tracking-widest text-xs font-semibold px-8 h-12 bg-transparent w-full sm:w-auto">
+                  <Button variant="outline" className="rounded-lg border-neutral-700 text-white hover:bg-white hover:text-black uppercase tracking-widest text-xs font-semibold px-8 h-12 bg-transparent w-full sm:w-auto">
                     Nhận báo giá
                   </Button>
                 </Link>
@@ -345,7 +345,7 @@ export default function ModelDetailClient({ model, promotion }: Props) {
                     )}
                   </div>
                   <Link href="/dang-ky-lai-thu" className="block">
-                    <Button className="w-full rounded-none h-12 bg-black text-white hover:bg-neutral-800 uppercase tracking-widest text-xs font-bold">
+                    <Button className="w-full rounded-lg h-12 bg-black text-white hover:bg-neutral-800 uppercase tracking-widest text-xs font-bold">
                       Đăng ký nhận ưu đãi →
                     </Button>
                   </Link>
@@ -391,12 +391,12 @@ export default function ModelDetailClient({ model, promotion }: Props) {
             </div>
             <div className="flex flex-col sm:flex-row gap-4 lg:justify-end">
               <Link href="/dang-ky-lai-thu">
-                <Button className="rounded-none bg-white text-black hover:bg-neutral-200 uppercase tracking-widest text-xs font-semibold px-10 h-12 w-full sm:w-auto">
+                <Button className="rounded-lg bg-white text-black hover:bg-neutral-200 uppercase tracking-widest text-xs font-semibold px-10 h-12 w-full sm:w-auto">
                   Lái thử miễn phí
                 </Button>
               </Link>
               <a href="tel:0981058232" className="w-full sm:w-auto">
-                <Button variant="outline" className="rounded-none border-neutral-700 text-white hover:bg-white hover:text-black uppercase tracking-widest text-xs font-semibold px-10 h-12 bg-transparent w-full">
+                <Button variant="outline" className="rounded-lg border-neutral-700 text-white hover:bg-white hover:text-black uppercase tracking-widest text-xs font-semibold px-10 h-12 bg-transparent w-full">
                   <span className="mr-2">Gọi ngay</span> 098 105 8232
                 </Button>
               </a>

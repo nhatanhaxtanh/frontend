@@ -89,8 +89,8 @@ export default function AdminNewsPage() {
           <p className="text-neutral-500 text-sm mt-1">{posts.length} bài viết</p>
         </div>
         <div className="flex gap-2">
-          <Button onClick={fetch} variant="outline" size="sm" className="rounded-none"><RefreshCw size={14} /></Button>
-          <Button onClick={openCreate} size="sm" className="rounded-none gap-2"><Plus size={14} /> Thêm bài</Button>
+          <Button onClick={fetch} variant="outline" size="sm" className="rounded-lg"><RefreshCw size={14} /></Button>
+          <Button onClick={openCreate} size="sm" className="rounded-lg gap-2"><Plus size={14} /> Thêm bài</Button>
         </div>
       </div>
 
@@ -168,24 +168,24 @@ export default function AdminNewsPage() {
       </div>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="max-w-2xl rounded-none max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl rounded-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{editId ? 'Chỉnh sửa bài viết' : 'Thêm bài viết mới'}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-1.5">
               <Label>Tiêu đề *</Label>
-              <Input value={form.title || ''} onChange={(e) => { set('title', e.target.value); if (!editId) set('slug', autoSlug(e.target.value)) }} className="rounded-none" placeholder="Tiêu đề bài viết" />
+              <Input value={form.title || ''} onChange={(e) => { set('title', e.target.value); if (!editId) set('slug', autoSlug(e.target.value)) }} className="rounded-lg" placeholder="Tiêu đề bài viết" />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <Label>Slug (URL)</Label>
-                <Input value={form.slug || ''} onChange={(e) => set('slug', e.target.value)} className="rounded-none" placeholder="tieu-de-bai-viet" />
+                <Input value={form.slug || ''} onChange={(e) => set('slug', e.target.value)} className="rounded-lg" placeholder="tieu-de-bai-viet" />
               </div>
               <div className="space-y-1.5">
                 <Label>Danh mục</Label>
                 <Select value={form.category || 'Xe mới'} onValueChange={(v) => set('category', v)}>
-                  <SelectTrigger className="rounded-none"><SelectValue /></SelectTrigger>
+                  <SelectTrigger className="rounded-lg"><SelectValue /></SelectTrigger>
                   <SelectContent>{CATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
@@ -193,7 +193,7 @@ export default function AdminNewsPage() {
             <div className="space-y-1.5">
               <Label>Ảnh đại diện</Label>
               <div className="flex gap-2">
-                <Input value={form.imageUrl || ''} onChange={(e) => set('imageUrl', e.target.value)} className="rounded-none flex-1" placeholder="/images/news/... hoặc https://..." />
+                <Input value={form.imageUrl || ''} onChange={(e) => set('imageUrl', e.target.value)} className="rounded-lg flex-1" placeholder="/images/news/... hoặc https://..." />
                 {editId && (
                   <label className="cursor-pointer shrink-0">
                     <input type="file" accept="image/*" className="hidden" onChange={async (e) => {
@@ -207,7 +207,7 @@ export default function AdminNewsPage() {
                         toast.success('Upload ảnh thành công')
                       } catch { toast.error('Upload ảnh thất bại') }
                     }} />
-                    <Button type="button" variant="outline" size="sm" className="rounded-none h-10 gap-1.5 pointer-events-none">
+                    <Button type="button" variant="outline" size="sm" className="rounded-lg h-10 gap-1.5 pointer-events-none">
                       <ImageIcon size={13} /> Upload
                     </Button>
                   </label>
@@ -220,11 +220,11 @@ export default function AdminNewsPage() {
             </div>
             <div className="space-y-1.5">
               <Label>Mô tả ngắn</Label>
-              <Textarea value={form.excerpt || ''} onChange={(e) => set('excerpt', e.target.value)} className="rounded-none resize-none" rows={2} placeholder="Tóm tắt nội dung bài viết..." />
+              <Textarea value={form.excerpt || ''} onChange={(e) => set('excerpt', e.target.value)} className="rounded-lg resize-none" rows={2} placeholder="Tóm tắt nội dung bài viết..." />
             </div>
             <div className="space-y-1.5">
               <Label>Nội dung (HTML)</Label>
-              <Textarea value={form.content || ''} onChange={(e) => set('content', e.target.value)} className="rounded-none resize-none font-mono text-xs" rows={8} placeholder="<p>Nội dung bài viết...</p>" />
+              <Textarea value={form.content || ''} onChange={(e) => set('content', e.target.value)} className="rounded-lg resize-none font-mono text-xs" rows={8} placeholder="<p>Nội dung bài viết...</p>" />
             </div>
             <label className="flex items-center gap-2 text-sm cursor-pointer">
               <input type="checkbox" checked={!!form.published} onChange={(e) => set('published', e.target.checked)} className="w-4 h-4" />
@@ -232,8 +232,8 @@ export default function AdminNewsPage() {
             </label>
           </div>
           <div className="flex justify-end gap-3 pt-2">
-            <Button variant="outline" onClick={() => setDialogOpen(false)} className="rounded-none">Hủy</Button>
-            <Button onClick={handleSave} disabled={saving} className="rounded-none">
+            <Button variant="outline" onClick={() => setDialogOpen(false)} className="rounded-lg">Hủy</Button>
+            <Button onClick={handleSave} disabled={saving} className="rounded-lg">
               {saving ? 'Đang lưu...' : editId ? 'Cập nhật' : 'Đăng bài'}
             </Button>
           </div>

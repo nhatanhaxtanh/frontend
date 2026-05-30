@@ -227,10 +227,10 @@ export default function AdminModelsPage() {
           <p className="text-neutral-500 text-sm mt-1">{models.length} xe</p>
         </div>
         <div className="flex gap-2">
-          <Button onClick={fetch} variant="outline" size="sm" className="rounded-none gap-2">
+          <Button onClick={fetch} variant="outline" size="sm" className="rounded-lg gap-2">
             <RefreshCw size={14} />
           </Button>
-          <Button onClick={openCreate} size="sm" className="rounded-none gap-2">
+          <Button onClick={openCreate} size="sm" className="rounded-lg gap-2">
             <Plus size={14} /> Thêm xe
           </Button>
         </div>
@@ -312,7 +312,7 @@ export default function AdminModelsPage() {
                       </div>
                     </TableCell>
                     <TableCell>
-                      <Badge variant="outline" className="rounded-none text-xs">{model.category}</Badge>
+                      <Badge variant="outline" className="rounded-lg text-xs">{model.category}</Badge>
                     </TableCell>
                     <TableCell className="text-sm text-neutral-600">{model.priceDisplay}₫</TableCell>
                     <TableCell>
@@ -359,7 +359,7 @@ export default function AdminModelsPage() {
       </div>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="max-w-2xl rounded-none max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl rounded-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{editId ? 'Chỉnh sửa xe' : 'Thêm xe mới'}</DialogTitle>
           </DialogHeader>
@@ -370,17 +370,17 @@ export default function AdminModelsPage() {
                 value={form.name || ''}
                 onChange={(e) => { set('name', e.target.value); if (!editId) set('slug', autoSlug(e.target.value)) }}
                 placeholder="VD: Tiguan Facelift"
-                className="rounded-none"
+                className="rounded-lg"
               />
             </div>
             <div className="space-y-1.5">
               <Label>Slug (URL)</Label>
-              <Input value={form.slug || ''} onChange={(e) => set('slug', e.target.value)} placeholder="tiguan-facelift" className="rounded-none" />
+              <Input value={form.slug || ''} onChange={(e) => set('slug', e.target.value)} placeholder="tiguan-facelift" className="rounded-lg" />
             </div>
             <div className="space-y-1.5">
               <Label>Danh mục</Label>
               <Select value={form.category || 'SUV'} onValueChange={(v) => set('category', v)}>
-                <SelectTrigger className="rounded-none"><SelectValue /></SelectTrigger>
+                <SelectTrigger className="rounded-lg"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   {['SUV', 'MPV', 'Sedan', 'Coupe'].map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
                 </SelectContent>
@@ -397,7 +397,7 @@ export default function AdminModelsPage() {
                   set('priceDisplay', n > 0 ? new Intl.NumberFormat('vi-VN').format(n) : '')
                 }}
                 placeholder="1699000000"
-                className="rounded-none"
+                className="rounded-lg"
               />
               {(form.price ?? 0) > 0 && (
                 <p className="text-xs text-neutral-400">Hiển thị: {new Intl.NumberFormat('vi-VN').format(form.price!)}₫</p>
@@ -405,32 +405,32 @@ export default function AdminModelsPage() {
             </div>
             <div className="space-y-1.5">
               <Label>Số chỗ</Label>
-              <Input type="number" value={form.seats || 5} onChange={(e) => set('seats', parseInt(e.target.value))} className="rounded-none" />
+              <Input type="number" value={form.seats || 5} onChange={(e) => set('seats', parseInt(e.target.value))} className="rounded-lg" />
             </div>
             <div className="col-span-2 space-y-1.5">
               <Label>Mô tả ngắn</Label>
-              <Input value={form.shortDescription || ''} onChange={(e) => set('shortDescription', e.target.value)} placeholder="SUV đô thị thông minh..." className="rounded-none" />
+              <Input value={form.shortDescription || ''} onChange={(e) => set('shortDescription', e.target.value)} placeholder="SUV đô thị thông minh..." className="rounded-lg" />
             </div>
             <div className="space-y-1.5">
               <Label>Động cơ</Label>
-              <Input value={form.engine || ''} onChange={(e) => set('engine', e.target.value)} placeholder="2.0L TSI" className="rounded-none" />
+              <Input value={form.engine || ''} onChange={(e) => set('engine', e.target.value)} placeholder="2.0L TSI" className="rounded-lg" />
             </div>
             <div className="space-y-1.5">
               <Label>Công suất</Label>
-              <Input value={form.power || ''} onChange={(e) => set('power', e.target.value)} placeholder="190 mã lực" className="rounded-none" />
+              <Input value={form.power || ''} onChange={(e) => set('power', e.target.value)} placeholder="190 mã lực" className="rounded-lg" />
             </div>
             <div className="space-y-1.5">
               <Label>Mô-men xoắn</Label>
-              <Input value={form.torque || ''} onChange={(e) => set('torque', e.target.value)} placeholder="320 Nm" className="rounded-none" />
+              <Input value={form.torque || ''} onChange={(e) => set('torque', e.target.value)} placeholder="320 Nm" className="rounded-lg" />
             </div>
             <div className="space-y-1.5">
               <Label>Hộp số</Label>
-              <Input value={form.transmission || ''} onChange={(e) => set('transmission', e.target.value)} placeholder="DSG 7 cấp" className="rounded-none" />
+              <Input value={form.transmission || ''} onChange={(e) => set('transmission', e.target.value)} placeholder="DSG 7 cấp" className="rounded-lg" />
             </div>
             <div className="space-y-1.5">
               <Label>Nhiên liệu</Label>
               <Select value={form.fuelType || 'Xăng'} onValueChange={(v) => set('fuelType', v)}>
-                <SelectTrigger className="rounded-none"><SelectValue /></SelectTrigger>
+                <SelectTrigger className="rounded-lg"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   {['Xăng', 'Xăng Hybrid', 'Diesel', 'Điện'].map((f) => <SelectItem key={f} value={f}>{f}</SelectItem>)}
                 </SelectContent>
@@ -438,15 +438,15 @@ export default function AdminModelsPage() {
             </div>
             <div className="col-span-2 space-y-1.5">
               <Label>Mô tả đầy đủ</Label>
-              <Textarea value={form.description || ''} onChange={(e) => set('description', e.target.value)} rows={4} className="rounded-none resize-none" />
+              <Textarea value={form.description || ''} onChange={(e) => set('description', e.target.value)} rows={4} className="rounded-lg resize-none" />
             </div>
             <div className="space-y-1.5">
               <Label>URL ảnh chính</Label>
-              <Input value={form.imageUrl || ''} onChange={(e) => set('imageUrl', e.target.value)} placeholder="https://..." className="rounded-none" />
+              <Input value={form.imageUrl || ''} onChange={(e) => set('imageUrl', e.target.value)} placeholder="https://..." className="rounded-lg" />
             </div>
             <div className="space-y-1.5">
               <Label>YouTube Video ID</Label>
-              <Input value={form.videoUrl || ''} onChange={(e) => set('videoUrl', e.target.value)} placeholder="dQw4w9WgXcQ" className="rounded-none" />
+              <Input value={form.videoUrl || ''} onChange={(e) => set('videoUrl', e.target.value)} placeholder="dQw4w9WgXcQ" className="rounded-lg" />
             </div>
             <div className="flex items-end gap-4 pb-1">
               <label className="flex items-center gap-2 text-sm cursor-pointer">
@@ -460,8 +460,8 @@ export default function AdminModelsPage() {
             </div>
           </div>
           <div className="flex justify-end gap-3 pt-2">
-            <Button variant="outline" onClick={() => setDialogOpen(false)} className="rounded-none">Hủy</Button>
-            <Button onClick={handleSave} disabled={saving} className="rounded-none">
+            <Button variant="outline" onClick={() => setDialogOpen(false)} className="rounded-lg">Hủy</Button>
+            <Button onClick={handleSave} disabled={saving} className="rounded-lg">
               {saving ? 'Đang lưu...' : editId ? 'Cập nhật' : 'Thêm xe'}
             </Button>
           </div>
@@ -470,7 +470,7 @@ export default function AdminModelsPage() {
 
       {/* Gallery dialog */}
       <Dialog open={!!galleryModel} onOpenChange={(o) => { if (!o) setGalleryModel(null) }}>
-        <DialogContent className="max-w-3xl rounded-none max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-3xl rounded-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Ảnh chi tiết — {galleryModel?.name}</DialogTitle>
           </DialogHeader>
@@ -479,7 +479,7 @@ export default function AdminModelsPage() {
               <p className="text-sm text-neutral-500">{galleryModel?.images?.length ?? 0} ảnh</p>
               <label className="cursor-pointer">
                 <input type="file" accept="image/*" className="hidden" onChange={handleGalleryUpload} disabled={galleryUploading} />
-                <Button size="sm" className="rounded-none gap-2 pointer-events-none" disabled={galleryUploading}>
+                <Button size="sm" className="rounded-lg gap-2 pointer-events-none" disabled={galleryUploading}>
                   {galleryUploading ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
                   Thêm ảnh
                 </Button>
@@ -519,14 +519,14 @@ export default function AdminModelsPage() {
             )}
           </div>
           <div className="flex justify-end">
-            <Button variant="outline" onClick={() => setGalleryModel(null)} className="rounded-none">Đóng</Button>
+            <Button variant="outline" onClick={() => setGalleryModel(null)} className="rounded-lg">Đóng</Button>
           </div>
         </DialogContent>
       </Dialog>
 
       {/* Promo dialog */}
       <Dialog open={!!promoModel} onOpenChange={(o) => { if (!o) { setPromoModel(null); setPromo(null) } }}>
-        <DialogContent className="max-w-2xl rounded-none max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl rounded-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Form ưu đãi — {promoModel?.name}</DialogTitle>
           </DialogHeader>
@@ -540,7 +540,7 @@ export default function AdminModelsPage() {
                   value={promo?.title ?? ''}
                   onChange={(e) => setPromo((p) => ({ ...p!, title: e.target.value }))}
                   placeholder="VD: Ưu đãi tháng 6 — Giảm ngay 50 triệu"
-                  className="rounded-none"
+                  className="rounded-lg"
                 />
               </div>
               <div className="space-y-1.5">
@@ -549,7 +549,7 @@ export default function AdminModelsPage() {
                   value={promo?.description ?? ''}
                   onChange={(e) => setPromo((p) => ({ ...p!, description: e.target.value }))}
                   placeholder="Mô tả chương trình ưu đãi..."
-                  className="rounded-none resize-none"
+                  className="rounded-lg resize-none"
                   rows={3}
                 />
               </div>
@@ -565,7 +565,7 @@ export default function AdminModelsPage() {
                         setPromo((p) => ({ ...p!, items }))
                       }}
                       placeholder={`Ưu đãi ${i + 1}`}
-                      className="rounded-none"
+                      className="rounded-lg"
                     />
                     <Button
                       variant="ghost"
@@ -580,7 +580,7 @@ export default function AdminModelsPage() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="rounded-none gap-1"
+                  className="rounded-lg gap-1"
                   onClick={() => setPromo((p) => ({ ...p!, items: [...(p?.items ?? []), ''] }))}
                 >
                   <Plus size={14} /> Thêm ưu đãi
@@ -592,7 +592,7 @@ export default function AdminModelsPage() {
                   value={promo?.validUntil ?? ''}
                   onChange={(e) => setPromo((p) => ({ ...p!, validUntil: e.target.value }))}
                   placeholder="VD: 30/06/2026"
-                  className="rounded-none"
+                  className="rounded-lg"
                 />
               </div>
               <label className="flex items-center gap-2 text-sm cursor-pointer">
@@ -607,8 +607,8 @@ export default function AdminModelsPage() {
             </div>
           )}
           <div className="flex justify-end gap-3 pt-2">
-            <Button variant="outline" onClick={() => { setPromoModel(null); setPromo(null) }} className="rounded-none">Hủy</Button>
-            <Button onClick={handleSavePromo} disabled={promoSaving || promoLoading} className="rounded-none">
+            <Button variant="outline" onClick={() => { setPromoModel(null); setPromo(null) }} className="rounded-lg">Hủy</Button>
+            <Button onClick={handleSavePromo} disabled={promoSaving || promoLoading} className="rounded-lg">
               {promoSaving ? 'Đang lưu...' : 'Lưu ưu đãi'}
             </Button>
           </div>

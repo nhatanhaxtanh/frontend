@@ -155,7 +155,7 @@ export default function TestDrivePopup() {
                 Chúng tôi đã nhận được yêu cầu lái thử của bạn.<br />
                 Chuyên viên sẽ liên hệ xác nhận sớm nhất.
               </p>
-              <Button onClick={() => dismiss(false)} className="mt-6 w-full rounded-none h-12 text-sm uppercase tracking-widest">
+              <Button onClick={() => dismiss(false)} className="mt-6 w-full rounded-lg h-12 text-sm uppercase tracking-widest">
                 Đóng
               </Button>
             </div>
@@ -169,7 +169,7 @@ export default function TestDrivePopup() {
                     value={form.fullName}
                     onChange={(e) => set('fullName', e.target.value)}
                     placeholder="Nguyễn Văn A"
-                    className="rounded-none h-12 text-base"
+                    className="rounded-lg h-12 text-base"
                   />
                   {errors.fullName && <p className="text-red-500 text-xs">{errors.fullName}</p>}
                 </div>
@@ -181,7 +181,7 @@ export default function TestDrivePopup() {
                     value={form.phone}
                     onChange={(e) => set('phone', e.target.value)}
                     placeholder="0901 234 567"
-                    className="rounded-none h-12 text-base"
+                    className="rounded-lg h-12 text-base"
                   />
                   {errors.phone && <p className="text-red-500 text-xs">{errors.phone}</p>}
                 </div>
@@ -197,7 +197,7 @@ export default function TestDrivePopup() {
                   value={form.email}
                   onChange={(e) => set('email', e.target.value)}
                   placeholder="example@gmail.com"
-                  className="rounded-none h-12 text-base"
+                  className="rounded-lg h-12 text-base"
                 />
                 {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
               </div>
@@ -212,7 +212,7 @@ export default function TestDrivePopup() {
                     setForm((prev) => ({ ...prev, modelId: id, modelName: name }))
                   }}
                 >
-                  <SelectTrigger className="rounded-none h-12 text-base">
+                  <SelectTrigger className="rounded-lg h-12 text-base">
                     <SelectValue placeholder="Chọn dòng xe (tùy chọn)" />
                   </SelectTrigger>
                   <SelectContent>
@@ -226,7 +226,7 @@ export default function TestDrivePopup() {
               <Button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-none h-12 uppercase tracking-widest font-semibold text-sm mt-1"
+                className="w-full rounded-lg h-12 uppercase tracking-widest font-semibold text-sm mt-1"
               >
                 {loading ? 'Đang gửi...' : 'Đăng ký ngay'}
               </Button>

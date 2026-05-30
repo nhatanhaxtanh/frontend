@@ -144,19 +144,19 @@ export default function TestDrivePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-1.5">
                 <Label htmlFor="fullName">Họ và tên *</Label>
-                <Input id="fullName" value={form.fullName} onChange={(e) => set('fullName', e.target.value)} placeholder="Nguyễn Văn A" className="rounded-none" />
+                <Input id="fullName" value={form.fullName} onChange={(e) => set('fullName', e.target.value)} placeholder="Nguyễn Văn A" className="rounded-lg" />
                 {errors.fullName && <p className="text-red-500 text-xs">{errors.fullName}</p>}
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="phone">Số điện thoại *</Label>
-                <Input id="phone" value={form.phone} onChange={(e) => set('phone', e.target.value)} placeholder="0901 234 567" className="rounded-none" />
+                <Input id="phone" value={form.phone} onChange={(e) => set('phone', e.target.value)} placeholder="0901 234 567" className="rounded-lg" />
                 {errors.phone && <p className="text-red-500 text-xs">{errors.phone}</p>}
               </div>
             </div>
 
             <div className="space-y-1.5">
               <Label htmlFor="email">Email (tùy chọn)</Label>
-              <Input id="email" type="email" value={form.email} onChange={(e) => set('email', e.target.value)} placeholder="example@email.com" className="rounded-none" />
+              <Input id="email" type="email" value={form.email} onChange={(e) => set('email', e.target.value)} placeholder="example@email.com" className="rounded-lg" />
               {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
             </div>
 
@@ -168,7 +168,7 @@ export default function TestDrivePage() {
                 setForm((prev) => ({ ...prev, modelId: id, modelName: name }))
                 if (errors.modelId) setErrors((prev) => ({ ...prev, modelId: '' }))
               }}>
-                <SelectTrigger className="rounded-none">
+                <SelectTrigger className="rounded-lg">
                   <SelectValue placeholder="Chọn dòng xe (tùy chọn)" />
                 </SelectTrigger>
                 <SelectContent>
@@ -188,14 +188,14 @@ export default function TestDrivePage() {
                   min={minDateStr}
                   value={form.preferredDate}
                   onChange={(e) => set('preferredDate', e.target.value)}
-                  className="rounded-none"
+                  className="rounded-lg"
                 />
                 {errors.preferredDate && <p className="text-red-500 text-xs">{errors.preferredDate}</p>}
               </div>
               <div className="space-y-1.5">
                 <Label>Giờ mong muốn *</Label>
                 <Select value={form.preferredTime} onValueChange={(val) => set('preferredTime', val ?? '')}>
-                  <SelectTrigger className="rounded-none">
+                  <SelectTrigger className="rounded-lg">
                     <SelectValue placeholder="Chọn giờ" />
                   </SelectTrigger>
                   <SelectContent>
@@ -215,7 +215,7 @@ export default function TestDrivePage() {
                 value={form.notes}
                 onChange={(e) => set('notes', e.target.value)}
                 placeholder="Yêu cầu đặc biệt, địa điểm lái thử mong muốn..."
-                className="rounded-none resize-none"
+                className="rounded-lg resize-none"
                 rows={4}
               />
             </div>
@@ -223,7 +223,7 @@ export default function TestDrivePage() {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full rounded-none h-12 uppercase tracking-widest font-semibold text-sm"
+              className="w-full rounded-lg h-12 uppercase tracking-widest font-semibold text-sm"
             >
               {loading ? 'Đang gửi...' : 'Gửi yêu cầu đăng ký'}
             </Button>

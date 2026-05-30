@@ -111,7 +111,7 @@ export default function Navbar() {
               variant={transparent ? 'outline' : 'default'}
               size="sm"
               className={cn(
-                'rounded-none tracking-wide text-xs uppercase font-semibold transition-all',
+                'rounded-lg tracking-wide text-xs uppercase font-semibold transition-all',
                 transparent && 'border-white text-white hover:bg-white hover:text-black bg-transparent'
               )}
             >
@@ -151,7 +151,7 @@ export default function Navbar() {
                 </Link>
               ))}
               <Link href="/dang-ky-lai-thu" className="mt-2">
-                <Button className="w-full rounded-none uppercase text-xs tracking-wide font-semibold">
+                <Button className="w-full rounded-lg uppercase text-xs tracking-wide font-semibold">
                   Đăng ký lái thử
                 </Button>
               </Link>

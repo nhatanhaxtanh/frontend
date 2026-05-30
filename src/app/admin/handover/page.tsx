@@ -157,10 +157,10 @@ export default function AdminHandoverPage() {
           <p className="text-neutral-500 text-sm mt-1">{photos.length} ảnh</p>
         </div>
         <div className="flex gap-2">
-          <Button onClick={fetch} variant="outline" size="sm" className="rounded-none">
+          <Button onClick={fetch} variant="outline" size="sm" className="rounded-lg">
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
           </Button>
-          <Button onClick={openCreate} size="sm" className="rounded-none gap-2">
+          <Button onClick={openCreate} size="sm" className="rounded-lg gap-2">
             <Plus size={14} /> Thêm ảnh
           </Button>
         </div>
@@ -233,7 +233,7 @@ export default function AdminHandoverPage() {
                         onChange={(e) => handleReplaceImage(photo.id, e)}
                         disabled={uploadingId === photo.id}
                       />
-                      <Button size="sm" variant="outline" className="rounded-none gap-1.5 text-xs h-7 px-3 pointer-events-none"
+                      <Button size="sm" variant="outline" className="rounded-lg gap-1.5 text-xs h-7 px-3 pointer-events-none"
                         disabled={uploadingId === photo.id}>
                         {uploadingId === photo.id
                           ? <Loader2 size={11} className="animate-spin" />
@@ -257,7 +257,7 @@ export default function AdminHandoverPage() {
 
       {/* Create / Edit dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="max-w-md rounded-none">
+        <DialogContent className="max-w-md rounded-lg">
           <DialogHeader>
             <DialogTitle>{editId ? 'Chỉnh sửa ảnh' : 'Thêm ảnh mới'}</DialogTitle>
           </DialogHeader>
@@ -282,7 +282,7 @@ export default function AdminHandoverPage() {
                     else setPendingFile(null)
                   }}
                 />
-                <Button type="button" variant="outline" size="sm" className="rounded-none gap-2 pointer-events-none w-full justify-center"
+                <Button type="button" variant="outline" size="sm" className="rounded-lg gap-2 pointer-events-none w-full justify-center"
                   onClick={() => fileInputRef.current?.click()}>
                   <ImageIcon size={13} />
                   {pendingFile ? pendingFile.name : 'Chọn file JPG / WEBP (tối đa 2MB)'}
@@ -296,7 +296,7 @@ export default function AdminHandoverPage() {
                 value={form.caption ?? ''}
                 onChange={(e) => set('caption', e.target.value)}
                 placeholder="Mô tả ngắn về bức ảnh..."
-                className="rounded-none"
+                className="rounded-lg"
               />
             </div>
 
@@ -312,8 +312,8 @@ export default function AdminHandoverPage() {
           </div>
 
           <div className="flex justify-end gap-3 pt-2">
-            <Button variant="outline" onClick={() => setDialogOpen(false)} className="rounded-none">Hủy</Button>
-            <Button onClick={handleSave} disabled={saving} className="rounded-none">
+            <Button variant="outline" onClick={() => setDialogOpen(false)} className="rounded-lg">Hủy</Button>
+            <Button onClick={handleSave} disabled={saving} className="rounded-lg">
               {saving ? <Loader2 size={14} className="animate-spin mr-1" /> : null}
               {saving ? 'Đang lưu...' : editId ? 'Cập nhật' : 'Thêm ảnh'}
             </Button>

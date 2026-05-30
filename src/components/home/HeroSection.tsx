@@ -119,12 +119,12 @@ export default function HeroSection() {
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <Link href="/models">
-            <Button size="lg" className="rounded-none bg-white text-black hover:bg-neutral-200 font-semibold tracking-wide uppercase text-sm px-10 h-12">
+            <Button size="lg" className="rounded-lg bg-white text-black hover:bg-neutral-200 font-semibold tracking-wide uppercase text-sm px-10 h-12">
               Khám phá dòng xe <ArrowRight size={16} className="ml-2" />
             </Button>
           </Link>
           <Link href="/dang-ky-lai-thu">
-            <Button size="lg" variant="outline" className="rounded-none border-white text-white hover:bg-white hover:text-black font-semibold tracking-wide uppercase text-sm px-10 h-12 bg-transparent">
+            <Button size="lg" variant="outline" className="rounded-lg border-white text-white hover:bg-white hover:text-black font-semibold tracking-wide uppercase text-sm px-10 h-12 bg-transparent">
               Đăng ký lái thử
             </Button>
           </Link>
