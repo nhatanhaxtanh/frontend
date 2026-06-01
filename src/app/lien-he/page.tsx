@@ -14,7 +14,7 @@ const contactInfo = [
   { icon: MapPin, label: 'Địa chỉ', value: '507C Võ Nguyên Giáp, An Khánh, Thủ Đức, TP.HCM' },
   { icon: Phone, label: 'Điện thoại', value: '098 105 8232', href: 'tel:0981058232' },
   { icon: Mail, label: 'Email', value: 'qui.maiphu@vwanphu.vn', href: 'mailto:qui.maiphu@vwanphu.vn' },
-  { icon: Clock, label: 'Giờ làm việc', value: '8:00 – 18:00, Thứ 2 – Chủ nhật' },
+  { icon: Clock, label: 'Giờ làm việc', value: '8:00 – 20:00, Thứ 2 – Chủ nhật' },
 ]
 
 export default function ContactPage() {

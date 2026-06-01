@@ -144,7 +144,7 @@ export default async function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Clock size={14} className="shrink-0 text-neutral-500" />
-                <span>8:00 – 18:00, Thứ 2 – Chủ nhật</span>
+                <span>8:00 – 20:00, Thứ 2 – Chủ nhật</span>
               </li>
             </ul>
           </div>
