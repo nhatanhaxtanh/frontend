@@ -39,7 +39,7 @@ const socials = [
   },
   {
     label: 'Zalo',
-    href: 'https://zalo.me/0981058232',
+    href: 'https://zalo.me/0983338527',
     icon: (
       <span className="text-[10px] font-bold leading-none tracking-wide">Zalo</span>
     ),
@@ -134,8 +134,8 @@ export default async function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Phone size={14} className="shrink-0 text-neutral-500" />
-                <a href="tel:0981058232" className="hover:text-white transition-colors">
-                  098 105 8232
+                <a href="tel:0983338527" className="hover:text-white transition-colors">
+                  098 3338 527
                 </a>
               </li>
               <li className="flex items-center gap-2">

@@ -84,7 +84,7 @@ export default function NewsDetailClient({ post, related }: Props) {
                 <div className="bg-neutral-950 p-6 mb-8">
                   <p className="text-xs tracking-[0.2em] text-neutral-500 uppercase mb-2">Tư vấn miễn phí</p>
                   <p className="text-white font-bold text-lg mb-1">Volkswagen An Phú</p>
-                  <a href="tel:0981058232" className="text-neutral-300 text-sm hover:text-white transition-colors block mb-4">098 105 8232</a>
+                  <a href="tel:0983338527" className="text-neutral-300 text-sm hover:text-white transition-colors block mb-4">098 3338 527</a>
                   <Link href="/dang-ky-lai-thu" className="block w-full bg-white text-black text-xs font-semibold uppercase tracking-widest text-center py-3 hover:bg-neutral-200 transition-colors">
                     Lái thử ngay
                   </Link>

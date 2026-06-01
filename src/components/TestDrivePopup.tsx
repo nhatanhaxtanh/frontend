@@ -116,7 +116,7 @@ export default function TestDrivePopup() {
       if (reshowTimer.current) clearTimeout(reshowTimer.current)
       setSubmitted(true)
     } catch {
-      toast.error('Có lỗi xảy ra. Vui lòng gọi trực tiếp: 098 105 8232')
+      toast.error('Có lỗi xảy ra. Vui lòng gọi trực tiếp: 098 3338 527')
     } finally {
       setLoading(false)
     }

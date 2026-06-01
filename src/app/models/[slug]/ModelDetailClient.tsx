@@ -351,8 +351,8 @@ export default function ModelDetailClient({ model, promotion }: Props) {
                   </Link>
                   <div className="mt-4 text-center">
                     <p className="text-neutral-400 text-xs mb-2">Hoặc gọi trực tiếp</p>
-                    <a href="tel:0981058232" className="text-black font-bold text-lg tracking-wide hover:text-neutral-700 transition-colors">
-                      098 105 8232
+                    <a href="tel:0983338527" className="text-black font-bold text-lg tracking-wide hover:text-neutral-700 transition-colors">
+                      098 3338 527
                     </a>
                   </div>
                 </div>
@@ -395,9 +395,9 @@ export default function ModelDetailClient({ model, promotion }: Props) {
                   Lái thử miễn phí
                 </Button>
               </Link>
-              <a href="tel:0981058232" className="w-full sm:w-auto">
+              <a href="tel:0983338527" className="w-full sm:w-auto">
                 <Button variant="outline" className="rounded-lg border-neutral-700 text-white hover:bg-white hover:text-black uppercase tracking-widest text-xs font-semibold px-10 h-12 bg-transparent w-full">
-                  <span className="mr-2">Gọi ngay</span> 098 105 8232
+                  <span className="mr-2">Gọi ngay</span> 098 3338 527
                 </Button>
               </a>
             </div>

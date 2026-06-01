@@ -46,7 +46,7 @@ const jsonLd = {
   logo: 'https://volkswagenanphu.vn/images/logo.png',
   image: 'https://volkswagenanphu.vn/images/hero.jpg',
   description: 'Đại lý ủy quyền chính thức của Volkswagen tại TP. Hồ Chí Minh.',
-  telephone: '+84981058232',
+  telephone: '+84983338527',
   email: 'qui.maiphu@vwanphu.vn',
   address: {
     '@type': 'PostalAddress',

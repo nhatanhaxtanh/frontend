@@ -89,7 +89,7 @@ export default function TestDrivePage() {
       await testDriveApi.submit(form)
       setSubmitted(true)
     } catch {
-      toast.error('Có lỗi xảy ra. Vui lòng thử lại hoặc gọi trực tiếp: 098 105 8232')
+      toast.error('Có lỗi xảy ra. Vui lòng thử lại hoặc gọi trực tiếp: 098 3338 527')
     } finally {
       setLoading(false)
     }
@@ -111,7 +111,7 @@ export default function TestDrivePage() {
           </p>
           <p className="text-neutral-400 text-sm mt-4">
             Nếu cần hỗ trợ khẩn, vui lòng gọi:{' '}
-            <a href="tel:0981058232" className="text-black font-semibold">098 105 8232</a>
+            <a href="tel:0983338527" className="text-black font-semibold">098 3338 527</a>
           </p>
         </motion.div>
       </div>
@@ -230,7 +230,7 @@ export default function TestDrivePage() {
 
             <p className="text-center text-xs text-neutral-400">
               Hoặc gọi trực tiếp:{' '}
-              <a href="tel:0981058232" className="text-black font-semibold">098 105 8232</a>
+              <a href="tel:0983338527" className="text-black font-semibold">098 3338 527</a>
             </p>
           </motion.form>
         </div>

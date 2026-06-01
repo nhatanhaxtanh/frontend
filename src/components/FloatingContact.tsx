@@ -4,8 +4,8 @@ import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Phone } from 'lucide-react'
 
-const PHONE = '0981058232'
-const PHONE_DISPLAY = '098 105 8232'
+const PHONE = '0983338527'
+const PHONE_DISPLAY = '098 3338 527'
 const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61576384566535'
 
 function FacebookIcon() {

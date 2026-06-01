@@ -97,14 +97,14 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center gap-4">
           <a
-            href="tel:0981058232"
+            href="tel:0983338527"
             className={cn(
               'flex items-center gap-1.5 text-sm font-medium transition-colors hover:opacity-70',
               transparent ? 'text-white' : 'text-black'
             )}
           >
             <Phone size={14} strokeWidth={2.5} />
-            098 105 8232
+            098 3338 527
           </a>
           <Link href="/dang-ky-lai-thu">
             <Button

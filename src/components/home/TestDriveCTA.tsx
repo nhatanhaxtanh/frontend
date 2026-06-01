@@ -49,11 +49,11 @@ export default function TestDriveCTA() {
                 </Button>
               </Link>
               <a
-                href="tel:0981058232"
+                href="tel:0983338527"
                 className="flex items-center gap-2 text-white hover:text-neutral-300 transition-colors font-medium"
               >
                 <Phone size={16} strokeWidth={2.5} />
-                098 105 8232
+                098 3338 527
               </a>
             </div>
           </motion.div>
