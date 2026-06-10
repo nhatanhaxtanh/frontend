@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Đăng ký lái thử miễn phí xe Volkswagen tại TP.HCM',
-  description: 'Đăng ký lái thử miễn phí Tiguan, Teramont, Touareg, Viloran, Golf tại Volkswagen An Phú — 507C Võ Nguyên Giáp, Thủ Đức. Xác nhận trong 24 giờ.',
+  description: 'Đăng ký lái thử miễn phí Tiguan, Teramont, Touareg, Viloran, Golf tại Volkswagen An Phú — 5 Đường Số 3, An Khánh, Thủ Đức. Xác nhận trong 24 giờ.',
   alternates: { canonical: 'https://volkswagenanphu.vn/dang-ky-lai-thu' },
   openGraph: {
     title: 'Đăng ký lái thử miễn phí | Volkswagen An Phú',

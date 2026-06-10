@@ -51,7 +51,7 @@ const jsonLd = {
   email: 'qui.maiphu@vwanphu.vn',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '507C Võ Nguyên Giáp, An Khánh',
+    streetAddress: '5 Đường Số 3, An Khánh',
     addressLocality: 'Thủ Đức',
     addressRegion: 'TP. Hồ Chí Minh',
     addressCountry: 'VN',

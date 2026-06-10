@@ -11,7 +11,7 @@ import { toast } from 'sonner'
 import axios from 'axios'
 
 const contactInfo = [
-  { icon: MapPin, label: 'Địa chỉ', value: '507C Võ Nguyên Giáp, An Khánh, Thủ Đức, TP.HCM' },
+  { icon: MapPin, label: 'Địa chỉ', value: '5 Đường Số 3, An Khánh, Thủ Đức, TP.HCM' },
   { icon: Phone, label: 'Điện thoại', value: '098 3338 527', href: 'tel:0983338527' },
   { icon: Mail, label: 'Email', value: 'qui.maiphu@vwanphu.vn', href: 'mailto:qui.maiphu@vwanphu.vn' },
   { icon: Clock, label: 'Giờ làm việc', value: '8:00 – 20:00, Thứ 2 – Chủ nhật' },
@@ -113,14 +113,14 @@ export default function ContactPage() {
       {/* Google Maps */}
       <div className="w-full h-[450px] border-t border-neutral-200">
         <iframe
-          src="https://maps.google.com/maps?q=507C+V%C3%B5+Nguy%C3%AAn+Gi%C3%A1p%2C+An+Kh%C3%A1nh%2C+Th%E1%BB%A7+%C4%90%E1%BB%A9c%2C+TP.HCM&output=embed&hl=vi"
+          src="https://maps.google.com/maps?q=5+%C4%91%C6%B0%E1%BB%9Dng+s%E1%BB%91+3%2C+An+Kh%C3%A1nh%2C+Th%E1%BB%A7+%C4%90%E1%BB%A9c%2C+TP.HCM&output=embed&hl=vi"
           width="100%"
           height="100%"
           style={{ border: 0 }}
           allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          title="Volkswagen An Phú — 507C Võ Nguyên Giáp"
+          title="Volkswagen An Phú — 5 Đường Số 3, An Khánh"
         />
       </div>
     </div>

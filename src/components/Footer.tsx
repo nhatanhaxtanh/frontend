@@ -130,7 +130,7 @@ export default async function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2">
                 <MapPin size={14} className="mt-0.5 shrink-0 text-neutral-500" />
-                <span>507C Võ Nguyên Giáp, An Khánh, Thủ Đức, TP.HCM</span>
+                <span>5 Đường Số 3, An Khánh, Thủ Đức, TP.HCM</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone size={14} className="shrink-0 text-neutral-500" />
