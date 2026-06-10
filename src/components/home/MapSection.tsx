@@ -34,7 +34,7 @@ export default function MapSection() {
 
           <div className="lg:col-span-2 h-[420px] overflow-hidden border border-neutral-200">
             <iframe
-              src="https://maps.google.com/maps?q=10.8087952,106.7547279&output=embed&hl=vi"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d981!2d106.7526711!3d10.8088033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317527956ba0b2ab%3A0x5ff339e4ae3e781a!2sVolkswagen%20An%20Ph%C3%BA%20(Flagship)!5e0!3m2!1svi!2svn!4v1749520000000"
               width="100%"
               height="100%"
               style={{ border: 0 }}
