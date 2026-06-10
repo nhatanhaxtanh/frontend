@@ -23,7 +23,7 @@ export default function MapSection() {
               </div>
             </div>
             <a
-              href="https://maps.google.com/maps?q=10.8087952,106.7547279"
+              href="https://www.google.com/maps/place/Volkswagen+An+Ph%C3%BA+(Flagship)/@10.8088033,106.7526711,581m/data=!3m1!1e3!4m6!3m5!1s0x317527956ba0b2ab:0x5ff339e4ae3e781a!8m2!3d10.8087952!4d106.7547279!16s%2Fg%2F11npmfh7j3?entry=ttu"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block mt-2 text-sm font-semibold uppercase tracking-widest border border-black px-5 py-2.5 hover:bg-black hover:text-white transition-colors duration-200"
