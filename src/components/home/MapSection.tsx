@@ -23,7 +23,7 @@ export default function MapSection() {
               </div>
             </div>
             <a
-              href="https://maps.google.com/maps?q=5+%C4%91%C6%B0%E1%BB%9Dng+s%E1%BB%91+3%2C+An+Kh%C3%A1nh%2C+Th%E1%BB%A7+%C4%90%E1%BB%A9c%2C+TP.HCM"
+              href="https://maps.google.com/maps?q=10.8087952,106.7547279"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block mt-2 text-sm font-semibold uppercase tracking-widest border border-black px-5 py-2.5 hover:bg-black hover:text-white transition-colors duration-200"
@@ -34,7 +34,7 @@ export default function MapSection() {
 
           <div className="lg:col-span-2 h-[420px] overflow-hidden border border-neutral-200">
             <iframe
-              src="https://maps.google.com/maps?q=5+%C4%91%C6%B0%E1%BB%9Dng+s%E1%BB%91+3%2C+An+Kh%C3%A1nh%2C+Th%E1%BB%A7+%C4%90%E1%BB%A9c%2C+TP.HCM&output=embed&hl=vi"
+              src="https://maps.google.com/maps?q=10.8087952,106.7547279&output=embed&hl=vi"
               width="100%"
               height="100%"
               style={{ border: 0 }}
