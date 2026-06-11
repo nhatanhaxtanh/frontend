@@ -39,7 +39,7 @@ const buttons: ButtonItem[] = [
   {
     key: 'zalo',
     label: 'Chat Zalo',
-    href: 'https://zalo.me/0983338527',
+    href: 'https://zalo.me/84983338527',
     color: '#0068FF',
     ping: true,
     icon: <span className="text-white font-bold text-sm tracking-wide">Zalo</span>,

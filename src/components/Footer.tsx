@@ -39,7 +39,7 @@ const socials = [
   },
   {
     label: 'Zalo',
-    href: 'https://zalo.me/0983338527',
+    href: 'https://zalo.me/84983338527',
     icon: (
       <span className="text-[10px] font-bold leading-none tracking-wide">Zalo</span>
     ),
