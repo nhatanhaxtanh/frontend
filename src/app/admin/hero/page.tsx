@@ -15,6 +15,10 @@ const emptySlide = (): Partial<HeroSlide> => ({
   label: '', heading: '', sub: '', description: '', imageUrl: '', videoUrl: '', sortOrder: 0, active: true,
 })
 
+// Cùng tiêu chí với backend (sortOrder ASC, id ASC) để thứ tự hiển thị luôn ổn định
+const sortSlides = (list: HeroSlide[]) =>
+  [...list].sort((a, b) => a.sortOrder - b.sortOrder || a.id - b.id)
+
 export default function AdminHeroPage() {
   const [slides, setSlides] = useState<HeroSlide[]>([])
   const [loading, setLoading] = useState(true)
@@ -40,7 +44,8 @@ export default function AdminHeroPage() {
   useEffect(() => { fetch() }, [])
 
   const openCreate = () => {
-    setForm({ ...emptySlide(), sortOrder: slides.length })
+    const maxOrder = slides.reduce((max, s) => Math.max(max, s.sortOrder), -1)
+    setForm({ ...emptySlide(), sortOrder: maxOrder + 1 })
     setEditId(null)
     setDialogOpen(true)
   }
@@ -95,18 +100,27 @@ export default function AdminHeroPage() {
   }
 
   const handleReorder = async (slide: HeroSlide, dir: -1 | 1) => {
-    const sorted = [...slides].sort((a, b) => a.sortOrder - b.sortOrder)
-    const idx = sorted.findIndex((s) => s.id === slide.id)
+    const current = sortSlides(slides)
+    const idx = current.findIndex((s) => s.id === slide.id)
     const swapIdx = idx + dir
-    if (swapIdx < 0 || swapIdx >= sorted.length) return
-    const other = sorted[swapIdx]
+    if (swapIdx < 0 || swapIdx >= current.length) return
+
+    const next = [...current]
+    ;[next[idx], next[swapIdx]] = [next[swapIdx], next[idx]]
+
+    // Đánh lại sortOrder cho cả danh sách: nếu chỉ hoán đổi giá trị giữa 2 slide
+    // thì các slide trùng sortOrder sẽ ghi đè cùng một số và thứ tự không đổi.
+    const reindexed = next.map((s, i) => ({ ...s, sortOrder: i }))
+    const previous = slides
+    const changed = reindexed.filter(
+      (s) => current.find((c) => c.id === s.id)?.sortOrder !== s.sortOrder,
+    )
+    setSlides(reindexed)
     try {
-      await Promise.all([
-        heroApi.update(slide.id, { ...slide, sortOrder: other.sortOrder }),
-        heroApi.update(other.id, { ...other, sortOrder: slide.sortOrder }),
-      ])
+      await Promise.all(changed.map((s) => heroApi.update(s.id, s)))
       fetch()
     } catch {
+      setSlides(previous)
       toast.error('Sắp xếp thất bại')
     }
   }
@@ -145,7 +159,7 @@ export default function AdminHeroPage() {
     }
   }
 
-  const sorted = [...slides].sort((a, b) => a.sortOrder - b.sortOrder)
+  const sorted = sortSlides(slides)
 
   return (
     <div>
