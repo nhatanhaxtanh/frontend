@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { CheckCircle2 } from 'lucide-react'
+import MapSection from '@/components/MapSection'
 
 const TIME_SLOTS = ['08:00', '09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00']
 
@@ -234,6 +235,10 @@ export default function TestDrivePage() {
             </p>
           </motion.form>
         </div>
+      </div>
+
+      <div className="border-t border-neutral-100">
+        <MapSection />
       </div>
     </div>
   )

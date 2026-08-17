@@ -5,7 +5,7 @@ import TestDriveCTA from '@/components/home/TestDriveCTA'
 import TestimonialsSection from '@/components/home/TestimonialsSection'
 import WhyVWSection from '@/components/home/WhyVWSection'
 import NewsSection from '@/components/home/NewsSection'
-import MapSection from '@/components/home/MapSection'
+import MapSection from '@/components/MapSection'
 
 export default function HomePage() {
   return (
