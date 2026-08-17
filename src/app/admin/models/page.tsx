@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { carModelApi } from '@/lib/api'
-import type { CarModel, CarPromotion } from '@/lib/types'
+import type { CarHighlight, CarModel, CarPromotion } from '@/lib/types'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -13,8 +13,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
-import { Plus, Pencil, Trash2, RefreshCw, ImageIcon, Loader2, MoreVertical, Images, Tag, ChevronUp, ChevronDown } from 'lucide-react'
+import { Plus, Pencil, Trash2, RefreshCw, ImageIcon, Loader2, MoreVertical, Images, Tag, ChevronUp, ChevronDown, Sparkles } from 'lucide-react'
 import { getModelImage } from '@/lib/model-images'
+import { DEFAULT_MODEL_HIGHLIGHTS, FALLBACK_HIGHLIGHTS } from '@/lib/model-highlights'
 
 const DEFAULT_PROMOS: Record<string, Partial<CarPromotion>> = {
   'tiguan-facelift': { title: 'Ưu đãi đặc biệt — Tiguan Facelift', description: 'Cơ hội sở hữu Tiguan Facelift với ưu đãi hấp dẫn. Liên hệ ngay để nhận tư vấn chi tiết.', items: ['Giảm ngay 30 triệu tiền mặt', 'Tặng bảo hiểm thân vỏ 1 năm trị giá 15 triệu', 'Gói phụ kiện chính hãng 10 triệu', 'Hỗ trợ vay 0% lãi suất 12 tháng đầu'], validUntil: '30/06/2026', active: true },
@@ -66,6 +67,10 @@ export default function AdminModelsPage() {
   const [promo, setPromo] = useState<Partial<CarPromotion> | null>(null)
   const [promoLoading, setPromoLoading] = useState(false)
   const [promoSaving, setPromoSaving] = useState(false)
+  const [highlightModel, setHighlightModel] = useState<CarModel | null>(null)
+  const [highlights, setHighlights] = useState<CarHighlight[]>([])
+  const [highlightsPrefilled, setHighlightsPrefilled] = useState(false)
+  const [highlightSaving, setHighlightSaving] = useState(false)
 
   const fetch = async () => {
     setLoading(true)
@@ -197,6 +202,38 @@ export default function AdminModelsPage() {
       toast.error('Lưu thất bại')
     } finally {
       setPromoSaving(false)
+    }
+  }
+
+  const openHighlights = (model: CarModel) => {
+    const saved = (model.highlights ?? []).filter((h) => h?.title?.trim())
+    setHighlightModel(model)
+    setHighlightsPrefilled(saved.length === 0)
+    setHighlights(
+      saved.length > 0
+        ? saved.map((h) => ({ ...h }))
+        : (DEFAULT_MODEL_HIGHLIGHTS[model.slug] ?? FALLBACK_HIGHLIGHTS).map((h) => ({ ...h })),
+    )
+  }
+
+  const setHighlight = (i: number, key: keyof CarHighlight, value: string) =>
+    setHighlights((prev) => prev.map((h, idx) => (idx === i ? { ...h, [key]: value } : h)))
+
+  const handleSaveHighlights = async () => {
+    if (!highlightModel) return
+    const cleaned = highlights
+      .map((h) => ({ title: h.title.trim(), description: h.description.trim() }))
+      .filter((h) => h.title)
+    setHighlightSaving(true)
+    try {
+      const res = await carModelApi.update(highlightModel.id, { ...highlightModel, highlights: cleaned })
+      setModels((prev) => prev.map((m) => (m.id === highlightModel.id ? res.data : m)))
+      toast.success('Lưu điểm nổi bật thành công')
+      setHighlightModel(null)
+    } catch {
+      toast.error('Lưu thất bại')
+    } finally {
+      setHighlightSaving(false)
     }
   }
 
@@ -345,6 +382,9 @@ export default function AdminModelsPage() {
                           </DropdownMenuItem>
                           <DropdownMenuItem onClick={() => setGalleryModel(model)} className="gap-2 cursor-pointer">
                             <Images size={14} /> Ảnh chi tiết
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => openHighlights(model)} className="gap-2 cursor-pointer">
+                            <Sparkles size={14} /> Điểm nổi bật
                           </DropdownMenuItem>
                           <DropdownMenuItem onClick={() => openPromo(model)} className="gap-2 cursor-pointer">
                             <Tag size={14} /> Form ưu đãi
@@ -529,6 +569,81 @@ export default function AdminModelsPage() {
           </div>
           <div className="flex justify-end">
             <Button variant="outline" onClick={() => setGalleryModel(null)} className="rounded-lg">Đóng</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Highlights dialog — phần "Tại sao chọn ..." trên trang chi tiết xe */}
+      <Dialog open={!!highlightModel} onOpenChange={(o) => { if (!o) setHighlightModel(null) }}>
+        <DialogContent className="max-w-2xl rounded-lg max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Điểm nổi bật — {highlightModel?.name}</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-5 py-4">
+            <p className="text-sm text-neutral-500">
+              Hiển thị ở mục <span className="font-medium text-neutral-700">&quot;Tại sao chọn {highlightModel?.name}?&quot;</span> trên trang chi tiết xe.
+              {highlightsPrefilled && (
+                <span className="block mt-1 text-xs text-amber-600">
+                  Đang hiển thị nội dung mặc định — chỉnh sửa rồi nhấn Lưu để dùng nội dung của bạn.
+                </span>
+              )}
+            </p>
+
+            {highlights.length === 0 ? (
+              <div className="border border-dashed border-neutral-300 rounded py-12 text-center text-neutral-400 text-sm">
+                Chưa có điểm nổi bật nào. Nhấn &quot;Thêm điểm nổi bật&quot; để bắt đầu.
+              </div>
+            ) : (
+              highlights.map((h, i) => (
+                <div key={i} className="border border-neutral-200 rounded-lg p-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-neutral-400">{String(i + 1).padStart(2, '0')}</span>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-7 w-7 p-0 text-neutral-400 hover:text-red-600"
+                      onClick={() => setHighlights((prev) => prev.filter((_, idx) => idx !== i))}
+                    >
+                      <Trash2 size={14} />
+                    </Button>
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label>Tiêu đề</Label>
+                    <Input
+                      value={h.title}
+                      onChange={(e) => setHighlight(i, 'title', e.target.value)}
+                      placeholder="VD: IQ.DRIVE"
+                      className="rounded-lg"
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label>Mô tả</Label>
+                    <Textarea
+                      value={h.description}
+                      onChange={(e) => setHighlight(i, 'description', e.target.value)}
+                      placeholder="Mô tả ngắn về điểm nổi bật này..."
+                      rows={2}
+                      className="rounded-lg resize-none"
+                    />
+                  </div>
+                </div>
+              ))
+            )}
+
+            <Button
+              variant="outline"
+              size="sm"
+              className="rounded-lg gap-1"
+              onClick={() => setHighlights((prev) => [...prev, { title: '', description: '' }])}
+            >
+              <Plus size={14} /> Thêm điểm nổi bật
+            </Button>
+          </div>
+          <div className="flex justify-end gap-3 pt-2">
+            <Button variant="outline" onClick={() => setHighlightModel(null)} className="rounded-lg">Hủy</Button>
+            <Button onClick={handleSaveHighlights} disabled={highlightSaving} className="rounded-lg">
+              {highlightSaving ? 'Đang lưu...' : 'Lưu'}
+            </Button>
           </div>
         </DialogContent>
       </Dialog>

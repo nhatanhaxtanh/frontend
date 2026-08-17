@@ -1,3 +1,8 @@
+export interface CarHighlight {
+  title: string
+  description: string
+}
+
 export interface CarModel {
   id: number
   name: string
@@ -16,6 +21,7 @@ export interface CarModel {
   imageUrl: string
   videoUrl?: string
   images: string[]
+  highlights?: CarHighlight[]
   sortOrder: number
   featured: boolean
   active: boolean
