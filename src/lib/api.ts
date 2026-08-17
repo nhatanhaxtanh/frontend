@@ -49,6 +49,15 @@ export const carModelApi = {
   },
   galleryRemove: (id: number, url: string) =>
     api.delete<CarModel>(`/admin/models/${id}/images`, { data: { url } }),
+  descriptionImageUpload: (id: number, file: File) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    return api.post<CarModel>(`/admin/models/${id}/description-images`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+  },
+  descriptionImageRemove: (id: number, url: string) =>
+    api.delete<CarModel>(`/admin/models/${id}/description-images`, { data: { url } }),
   getPromotion: (id: number) =>
     api.get<CarPromotion>(`/admin/models/${id}/promotion`),
   getPromotionBySlug: (slug: string) =>

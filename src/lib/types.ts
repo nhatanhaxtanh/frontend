@@ -3,6 +3,11 @@ export interface CarHighlight {
   description: string
 }
 
+export interface DescriptionImage {
+  imageUrl: string
+  caption?: string
+}
+
 export interface CarModel {
   id: number
   name: string
@@ -23,6 +28,7 @@ export interface CarModel {
   videoUrl?: string
   images: string[]
   highlights?: CarHighlight[]
+  descriptionImages?: DescriptionImage[]
   sortOrder: number
   featured: boolean
   active: boolean

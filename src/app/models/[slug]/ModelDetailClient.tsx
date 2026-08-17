@@ -4,7 +4,7 @@ import { useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import type { CarModel, CarPromotion } from '@/lib/types'
+import type { CarModel, CarPromotion, DescriptionImage } from '@/lib/types'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft, Fuel, Users, Zap, Settings2, Gauge, GitMerge, ChevronLeft, ChevronRight, CheckCircle2, Clock } from 'lucide-react'
 import Lightbox from '@/components/Lightbox'
@@ -13,6 +13,25 @@ import { getModelGallery } from '@/lib/model-gallery'
 import { getModelHighlights } from '@/lib/model-highlights'
 import { ESTIMATED_PRICE_NOTE, pricePrefix } from '@/lib/price'
 import { cn } from '@/lib/utils'
+
+function DescriptionFigure({ image }: { image: DescriptionImage }) {
+  return (
+    <figure>
+      <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
+        <Image
+          src={image.imageUrl}
+          alt={image.caption || ''}
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, 768px"
+        />
+      </div>
+      {image.caption && (
+        <figcaption className="text-neutral-400 text-sm mt-2 text-center">{image.caption}</figcaption>
+      )}
+    </figure>
+  )
+}
 
 interface Props {
   model: CarModel
@@ -40,6 +59,12 @@ export default function ModelDetailClient({ model, promotion }: Props) {
     : getModelGallery(model.slug, mainImage)
 
   const highlights = getModelHighlights(model.slug, model.highlights)
+
+  const paragraphs = (model.description ?? '')
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean)
+  const descriptionImages = (model.descriptionImages ?? []).filter((img) => img?.imageUrl)
 
   const specs = [
     { icon: Zap, label: 'Công suất', value: model.power || '—' },
@@ -231,12 +256,22 @@ export default function ModelDetailClient({ model, promotion }: Props) {
         </div>
       </div>
 
-      {/* Description */}
-      {model.description && (
+      {/* Description — ảnh chèn xen giữa các đoạn văn, ảnh dư dồn xuống cuối */}
+      {(model.description || descriptionImages.length > 0) && (
         <div className="bg-white py-16 px-6">
           <div className="container mx-auto max-w-3xl">
             <h2 className="text-2xl font-bold text-black mb-6">Giới thiệu</h2>
-            <div className="text-neutral-600 leading-relaxed whitespace-pre-wrap text-base">{model.description}</div>
+            <div className="text-neutral-600 leading-relaxed text-base space-y-6">
+              {paragraphs.map((paragraph, i) => (
+                <div key={i} className="space-y-6">
+                  <p className="whitespace-pre-wrap">{paragraph}</p>
+                  {descriptionImages[i] && <DescriptionFigure image={descriptionImages[i]} />}
+                </div>
+              ))}
+              {descriptionImages.slice(paragraphs.length).map((image, i) => (
+                <DescriptionFigure key={`extra-${i}`} image={image} />
+              ))}
+            </div>
           </div>
         </div>
       )}

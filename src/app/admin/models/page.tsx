@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { carModelApi } from '@/lib/api'
-import type { CarHighlight, CarModel, CarPromotion } from '@/lib/types'
+import type { CarHighlight, CarModel, CarPromotion, DescriptionImage } from '@/lib/types'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -13,7 +13,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
-import { Plus, Pencil, Trash2, RefreshCw, ImageIcon, Loader2, MoreVertical, Images, Tag, ChevronUp, ChevronDown, Sparkles } from 'lucide-react'
+import { Plus, Pencil, Trash2, RefreshCw, ImageIcon, Loader2, MoreVertical, Images, Tag, ChevronUp, ChevronDown, Sparkles, FileImage } from 'lucide-react'
 import { getModelImage } from '@/lib/model-images'
 import { DEFAULT_MODEL_HIGHLIGHTS, FALLBACK_HIGHLIGHTS } from '@/lib/model-highlights'
 
@@ -71,6 +71,10 @@ export default function AdminModelsPage() {
   const [highlights, setHighlights] = useState<CarHighlight[]>([])
   const [highlightsPrefilled, setHighlightsPrefilled] = useState(false)
   const [highlightSaving, setHighlightSaving] = useState(false)
+  const [descModel, setDescModel] = useState<CarModel | null>(null)
+  const [descImages, setDescImages] = useState<DescriptionImage[]>([])
+  const [descUploading, setDescUploading] = useState(false)
+  const [descSaving, setDescSaving] = useState(false)
 
   const fetch = async () => {
     setLoading(true)
@@ -106,12 +110,15 @@ export default function AdminModelsPage() {
   const handleSave = async () => {
     if (!form.name?.trim()) { toast.error('Tên xe không được trống'); return }
     setSaving(true)
+    // Ảnh giới thiệu và điểm nổi bật có dialog riêng — không gửi kèm để form cũ
+    // không ghi đè thay đổi vừa làm ở dialog khác
+    const payload = { ...form, highlights: undefined, descriptionImages: undefined }
     try {
       if (editId) {
-        await carModelApi.update(editId, form)
+        await carModelApi.update(editId, payload)
         toast.success('Cập nhật thành công')
       } else {
-        await carModelApi.create(form)
+        await carModelApi.create(payload)
         toast.success('Thêm xe thành công')
       }
       setDialogOpen(false)
@@ -234,6 +241,75 @@ export default function AdminModelsPage() {
       toast.error('Lưu thất bại')
     } finally {
       setHighlightSaving(false)
+    }
+  }
+
+  const openDescImages = (model: CarModel) => {
+    setDescModel(model)
+    setDescImages((model.descriptionImages ?? []).map((img) => ({ ...img })))
+  }
+
+  const syncDescModel = (updated: CarModel) => {
+    setModels((prev) => prev.map((m) => (m.id === updated.id ? updated : m)))
+    setDescModel(updated)
+    setDescImages((updated.descriptionImages ?? []).map((img) => ({ ...img })))
+  }
+
+  const handleDescUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!descModel) return
+    const file = e.target.files?.[0]
+    if (!file) return
+    e.target.value = ''
+    if (file.size > 2 * 1024 * 1024) { toast.error('Ảnh phải nhỏ hơn 2MB'); return }
+    setDescUploading(true)
+    try {
+      // Lưu chú thích đang sửa dở trước, vì upload trả về danh sách mới từ server
+      if (descModel.descriptionImages?.length || descImages.length) {
+        await carModelApi.update(descModel.id, { ...descModel, descriptionImages: descImages })
+      }
+      const res = await carModelApi.descriptionImageUpload(descModel.id, file)
+      syncDescModel(res.data)
+      toast.success('Thêm ảnh thành công')
+    } catch {
+      toast.error('Upload ảnh thất bại')
+    } finally {
+      setDescUploading(false)
+    }
+  }
+
+  const handleDescRemove = async (url: string) => {
+    if (!descModel) return
+    try {
+      const res = await carModelApi.descriptionImageRemove(descModel.id, url)
+      syncDescModel(res.data)
+      toast.success('Đã xóa ảnh')
+    } catch {
+      toast.error('Xóa ảnh thất bại')
+    }
+  }
+
+  const moveDescImage = (i: number, dir: -1 | 1) => {
+    const j = i + dir
+    if (j < 0 || j >= descImages.length) return
+    setDescImages((prev) => {
+      const next = [...prev]
+      ;[next[i], next[j]] = [next[j], next[i]]
+      return next
+    })
+  }
+
+  const handleSaveDescImages = async () => {
+    if (!descModel) return
+    setDescSaving(true)
+    try {
+      const res = await carModelApi.update(descModel.id, { ...descModel, descriptionImages: descImages })
+      setModels((prev) => prev.map((m) => (m.id === descModel.id ? res.data : m)))
+      toast.success('Lưu ảnh giới thiệu thành công')
+      setDescModel(null)
+    } catch {
+      toast.error('Lưu thất bại')
+    } finally {
+      setDescSaving(false)
     }
   }
 
@@ -387,6 +463,9 @@ export default function AdminModelsPage() {
                           </DropdownMenuItem>
                           <DropdownMenuItem onClick={() => setGalleryModel(model)} className="gap-2 cursor-pointer">
                             <Images size={14} /> Ảnh chi tiết
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => openDescImages(model)} className="gap-2 cursor-pointer">
+                            <FileImage size={14} /> Ảnh giới thiệu
                           </DropdownMenuItem>
                           <DropdownMenuItem onClick={() => openHighlights(model)} className="gap-2 cursor-pointer">
                             <Sparkles size={14} /> Điểm nổi bật
@@ -583,6 +662,86 @@ export default function AdminModelsPage() {
           </div>
           <div className="flex justify-end">
             <Button variant="outline" onClick={() => setGalleryModel(null)} className="rounded-lg">Đóng</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Description images dialog — ảnh chèn vào phần "Giới thiệu" */}
+      <Dialog open={!!descModel} onOpenChange={(o) => { if (!o) setDescModel(null) }}>
+        <DialogContent className="max-w-2xl rounded-lg max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Ảnh giới thiệu — {descModel?.name}</DialogTitle>
+          </DialogHeader>
+          <div className="py-4 space-y-4">
+            <div className="flex items-start justify-between gap-4">
+              <p className="text-sm text-neutral-500">
+                Ảnh 1 chèn sau đoạn văn 1, ảnh 2 sau đoạn văn 2… trong mục &quot;Giới thiệu&quot; ở trang chi tiết xe.
+                Ảnh dư sẽ nằm ở cuối bài.
+              </p>
+              <label className="cursor-pointer shrink-0">
+                <input type="file" accept="image/*" className="hidden" onChange={handleDescUpload} disabled={descUploading} />
+                <Button size="sm" className="rounded-lg gap-2 pointer-events-none" disabled={descUploading}>
+                  {descUploading ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
+                  Thêm ảnh
+                </Button>
+              </label>
+            </div>
+
+            {descImages.length === 0 ? (
+              <div className="border border-dashed border-neutral-300 rounded py-16 text-center text-neutral-400 text-sm">
+                Chưa có ảnh nào. Nhấn &quot;Thêm ảnh&quot; để upload từ máy.
+              </div>
+            ) : (
+              descImages.map((img, i) => (
+                <div key={img.imageUrl} className="flex gap-4 border border-neutral-200 rounded-lg p-3">
+                  <div className="flex flex-col gap-0.5 shrink-0">
+                    <button
+                      onClick={() => moveDescImage(i, -1)}
+                      disabled={i === 0}
+                      className="w-6 h-6 flex items-center justify-center border border-neutral-200 hover:bg-neutral-50 disabled:opacity-30 disabled:cursor-not-allowed"
+                    >
+                      <ChevronUp size={12} />
+                    </button>
+                    <button
+                      onClick={() => moveDescImage(i, 1)}
+                      disabled={i === descImages.length - 1}
+                      className="w-6 h-6 flex items-center justify-center border border-neutral-200 hover:bg-neutral-50 disabled:opacity-30 disabled:cursor-not-allowed"
+                    >
+                      <ChevronDown size={12} />
+                    </button>
+                  </div>
+                  <div className="w-32 aspect-video bg-neutral-100 overflow-hidden shrink-0">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={img.imageUrl} alt="" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="flex-1 space-y-1.5">
+                    <Label className="text-xs text-neutral-400">Sau đoạn văn {i + 1} · chú thích</Label>
+                    <Input
+                      value={img.caption ?? ''}
+                      onChange={(e) =>
+                        setDescImages((prev) => prev.map((it, idx) => (idx === i ? { ...it, caption: e.target.value } : it)))
+                      }
+                      placeholder="VD: Đèn LED ma trận IQ.Light"
+                      className="rounded-lg"
+                    />
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 w-8 p-0 text-neutral-400 hover:text-red-600 shrink-0"
+                    onClick={() => handleDescRemove(img.imageUrl)}
+                  >
+                    <Trash2 size={14} />
+                  </Button>
+                </div>
+              ))
+            )}
+          </div>
+          <div className="flex justify-end gap-3 pt-2">
+            <Button variant="outline" onClick={() => setDescModel(null)} className="rounded-lg">Hủy</Button>
+            <Button onClick={handleSaveDescImages} disabled={descSaving || descUploading} className="rounded-lg">
+              {descSaving ? 'Đang lưu...' : 'Lưu'}
+            </Button>
           </div>
         </DialogContent>
       </Dialog>
