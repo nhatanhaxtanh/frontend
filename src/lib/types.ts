@@ -10,6 +10,7 @@ export interface CarModel {
   category: string
   price: number
   priceDisplay: string
+  priceEstimated?: boolean
   shortDescription: string
   description: string
   engine: string

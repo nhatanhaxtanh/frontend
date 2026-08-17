@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ArrowRight } from 'lucide-react'
 import { getModelImage } from '@/lib/model-images'
+import { pricePrefix } from '@/lib/price'
 
 const CATEGORIES = ['Tất cả', 'SUV', 'MPV', 'Hatchback']
 
@@ -77,7 +78,9 @@ export default function ModelsClient({ models }: { models: Partial<CarModel>[] }
                     <ArrowRight size={18} className="text-neutral-300 group-hover:text-black group-hover:translate-x-1 transition-all mt-1 shrink-0" />
                   </div>
                   <div className="mt-4 pt-4 border-t border-neutral-100 flex items-center justify-between">
-                    <span className="text-black font-bold">Từ {model.priceDisplay}₫</span>
+                    <span className="text-black font-bold">
+                      {pricePrefix(model.priceEstimated)} {model.priceDisplay}₫
+                    </span>
                     <span className="text-xs text-neutral-400 uppercase tracking-wide">Xem chi tiết</span>
                   </div>
                 </Link>

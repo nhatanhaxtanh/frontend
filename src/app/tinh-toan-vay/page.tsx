@@ -9,7 +9,9 @@ import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { carModelApi } from '@/lib/api'
 
-const FALLBACK_MODELS = [
+type LoanModel = { id: number; name: string; price: number; priceDisplay: string; priceEstimated?: boolean }
+
+const FALLBACK_MODELS: LoanModel[] = [
   { id: 1,  name: 'Tiguan Facelift',      price: 1699000000, priceDisplay: '1.699.000.000' },
   { id: 2,  name: 'Teramont USA Base',    price: 1999000000, priceDisplay: '1.999.000.000' },
   { id: 3,  name: 'Teramont USA Limited', price: 2299000000, priceDisplay: '2.299.000.000' },
@@ -45,7 +47,7 @@ export default function LoanCalculatorPage() {
             const price = (m.price && m.price > 0)
               ? m.price
               : parseInt((m.priceDisplay ?? '').replace(/\./g, '')) || 0
-            return { id: m.id ?? 0, name: m.name ?? '', price, priceDisplay: m.priceDisplay ?? '' }
+            return { id: m.id ?? 0, name: m.name ?? '', price, priceDisplay: m.priceDisplay ?? '', priceEstimated: m.priceEstimated }
           })
           .filter((m) => m.price > 0)
         if (data.length > 0) setModels(data)
@@ -106,7 +108,10 @@ export default function LoanCalculatorPage() {
                     ))}
                   </SelectContent>
                 </Select>
-                <p className="text-xs text-neutral-400">Giá xe: <span className="font-semibold text-black">{selected?.priceDisplay}₫</span></p>
+                <p className="text-xs text-neutral-400">
+                  Giá xe: <span className="font-semibold text-black">{selected?.priceDisplay}₫</span>
+                  {selected?.priceEstimated && <span className="text-amber-600 font-medium"> (giá dự kiến)</span>}
+                </p>
               </div>
 
               {/* % vay */}

@@ -48,7 +48,7 @@ const LOCAL_GALLERY: Record<string, string> = {
 }
 
 const emptyForm = (sortOrder = 0): Partial<CarModel> => ({
-  name: '', slug: '', category: 'SUV', price: 0, priceDisplay: '',
+  name: '', slug: '', category: 'SUV', price: 0, priceDisplay: '', priceEstimated: false,
   shortDescription: '', description: '', engine: '', power: '', torque: '',
   seats: 5, fuelType: 'Xăng', transmission: '', imageUrl: '', sortOrder, featured: false, active: true,
 })
@@ -360,7 +360,12 @@ export default function AdminModelsPage() {
                     <TableCell>
                       <Badge variant="outline" className="rounded-lg text-xs">{model.category}</Badge>
                     </TableCell>
-                    <TableCell className="text-sm text-neutral-600">{model.priceDisplay}₫</TableCell>
+                    <TableCell className="text-sm text-neutral-600">
+                      {model.priceDisplay}₫
+                      {model.priceEstimated && (
+                        <span className="block text-[11px] font-medium text-amber-600">Giá dự kiến</span>
+                      )}
+                    </TableCell>
                     <TableCell>
                       <span className={model.featured ? 'text-green-600 text-xs font-medium' : 'text-neutral-400 text-xs'}>
                         {model.featured ? 'Có' : 'Không'}
@@ -451,6 +456,15 @@ export default function AdminModelsPage() {
               {(form.price ?? 0) > 0 && (
                 <p className="text-xs text-neutral-400">Hiển thị: {new Intl.NumberFormat('vi-VN').format(form.price!)}₫</p>
               )}
+              <label className="flex items-center gap-2 text-sm cursor-pointer pt-1">
+                <input
+                  type="checkbox"
+                  checked={!!form.priceEstimated}
+                  onChange={(e) => set('priceEstimated', e.target.checked)}
+                  className="w-4 h-4"
+                />
+                Giá dự kiến (chưa có giá chính thức)
+              </label>
             </div>
             <div className="space-y-1.5">
               <Label>Số chỗ</Label>

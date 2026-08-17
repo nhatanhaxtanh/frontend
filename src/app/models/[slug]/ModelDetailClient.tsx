@@ -11,6 +11,7 @@ import Lightbox from '@/components/Lightbox'
 import { getModelImage } from '@/lib/model-images'
 import { getModelGallery } from '@/lib/model-gallery'
 import { getModelHighlights } from '@/lib/model-highlights'
+import { ESTIMATED_PRICE_NOTE, pricePrefix } from '@/lib/price'
 import { cn } from '@/lib/utils'
 
 interface Props {
@@ -67,7 +68,7 @@ export default function ModelDetailClient({ model, promotion }: Props) {
                   <ArrowLeft size={16} />
                 </Link>
                 <span className="font-bold text-black">{model.name}</span>
-                <span className="text-neutral-400 text-sm hidden md:block">Từ {model.priceDisplay}₫</span>
+                <span className="text-neutral-400 text-sm hidden md:block">{pricePrefix(model.priceEstimated)} {model.priceDisplay}₫</span>
               </div>
               <div className="flex gap-3">
                 <Link href="/lien-he">
@@ -93,7 +94,19 @@ export default function ModelDetailClient({ model, promotion }: Props) {
               <span className="text-xs tracking-[0.25em] text-neutral-500 uppercase">{model.category}</span>
               <h1 className="text-5xl md:text-6xl font-bold text-white mt-2 mb-4">{model.name}</h1>
               <p className="text-neutral-400 text-lg leading-relaxed mb-6">{model.shortDescription}</p>
-              <p className="text-2xl font-bold text-white mb-8">Từ <span className="text-3xl">{model.priceDisplay}</span>₫</p>
+              <div className="mb-8">
+                {model.priceEstimated && (
+                  <span className="inline-block mb-2 px-2.5 py-1 border border-amber-400/40 bg-amber-400/10 text-amber-300 text-[11px] uppercase tracking-widest font-semibold">
+                    Giá dự kiến
+                  </span>
+                )}
+                <p className="text-2xl font-bold text-white">
+                  {pricePrefix(model.priceEstimated)} <span className="text-3xl">{model.priceDisplay}</span>₫
+                </p>
+                {model.priceEstimated && (
+                  <p className="text-neutral-500 text-xs mt-2 max-w-md leading-relaxed">{ESTIMATED_PRICE_NOTE}</p>
+                )}
+              </div>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/dang-ky-lai-thu">
                   <Button className="rounded-lg bg-white text-black hover:bg-neutral-200 uppercase tracking-widest text-xs font-semibold px-8 h-12 w-full sm:w-auto">

@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     if (!res.ok) throw new Error('not found')
     const model = await res.json()
     const title = model.name
-    const description = model.shortDescription || `Khám phá ${model.name} tại Volkswagen An Phú. ${model.engine ? `Động cơ ${model.engine}, ${model.power}.` : ''} Giá từ ${model.priceDisplay} VNĐ.`
+    const description = model.shortDescription || `Khám phá ${model.name} tại Volkswagen An Phú. ${model.engine ? `Động cơ ${model.engine}, ${model.power}.` : ''} ${model.priceEstimated ? 'Giá dự kiến' : 'Giá từ'} ${model.priceDisplay} VNĐ.`
     const imageUrl = `${BASE_URL}/images/models/${slug}.jpg`
     return {
       title,
