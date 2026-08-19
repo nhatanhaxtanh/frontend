@@ -22,16 +22,26 @@ const variants = {
   exit: (dir: number) => ({ opacity: 0, x: dir > 0 ? -60 : 60 }),
 }
 
-export default function HeroSection() {
-  const [slides, setSlides] = useState<HeroSlide[]>(FALLBACK_SLIDES)
+interface Props {
+  /** Slide lấy sẵn từ server. Rỗng nghĩa là server fetch hỏng, client sẽ tự gọi lại. */
+  initialSlides?: HeroSlide[]
+}
+
+export default function HeroSection({ initialSlides }: Props) {
+  const hasInitial = !!initialSlides?.length
+  const [slides, setSlides] = useState<HeroSlide[]>(
+    hasInitial ? initialSlides! : FALLBACK_SLIDES
+  )
   const [index, setIndex] = useState(0)
   const [direction, setDirection] = useState(1)
 
   useEffect(() => {
+    // Có dữ liệu từ server rồi thì thôi, gọi lại chỉ tốn request mà không đổi gì.
+    if (hasInitial) return
     heroApi.getAll()
       .then((res) => { if (res.data.length > 0) setSlides(res.data) })
       .catch(() => {})
-  }, [])
+  }, [hasInitial])
 
   const go = useCallback((next: number, dir: number) => {
     setDirection(dir)
