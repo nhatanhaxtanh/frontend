@@ -5,3 +5,9 @@ export function pricePrefix(priceEstimated?: boolean): string {
 
 export const ESTIMATED_PRICE_NOTE =
   'Giá dự kiến, chưa phải giá công bố chính thức. Vui lòng liên hệ để được báo giá mới nhất.'
+
+/**
+ * Số đơn hàng dự kiến của đại lý cho các mẫu chưa công bố giá chính thức.
+ * Con số dự báo, cố định trong code — sửa trực tiếp ở đây khi cần cập nhật.
+ */
+export const ORDER_FORECAST = 208

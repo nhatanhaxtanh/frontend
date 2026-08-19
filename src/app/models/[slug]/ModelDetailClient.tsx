@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -11,7 +11,9 @@ import Lightbox from '@/components/Lightbox'
 import { getModelImage } from '@/lib/model-images'
 import { getModelGallery } from '@/lib/model-gallery'
 import { getModelHighlights } from '@/lib/model-highlights'
-import { ESTIMATED_PRICE_NOTE, pricePrefix } from '@/lib/price'
+import { ESTIMATED_PRICE_NOTE, ORDER_FORECAST, pricePrefix } from '@/lib/price'
+import { interestLabel } from '@/lib/interest'
+import { carModelApi } from '@/lib/api'
 import { cn } from '@/lib/utils'
 
 function DescriptionFigure({ image }: { image: DescriptionImage }) {
@@ -43,7 +45,15 @@ export default function ModelDetailClient({ model, promotion }: Props) {
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(0)
   const [sticky, setSticky] = useState(false)
+  const [interestCount, setInterestCount] = useState(0)
   const heroRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!model.priceEstimated) return
+    carModelApi.getInterestCounts()
+      .then((res) => setInterestCount(res.data[String(model.id)] ?? 0))
+      .catch(() => {})
+  }, [model.id, model.priceEstimated])
 
   // Scroll listener for sticky bar — attached via ref callback to avoid SSR issues
   const attachScroll = (el: HTMLDivElement | null) => {
@@ -129,6 +139,11 @@ export default function ModelDetailClient({ model, promotion }: Props) {
                   {pricePrefix(model.priceEstimated)} <span className="text-3xl">{model.priceDisplay}</span>₫
                 </p>
                 {model.priceEstimated && (
+                  <p className="text-amber-300/90 text-sm font-medium mt-2">
+                    Dự kiến đơn hàng: <span className="font-bold">{ORDER_FORECAST}</span>
+                  </p>
+                )}
+                {model.priceEstimated && (
                   <p className="text-neutral-500 text-xs mt-2 max-w-md leading-relaxed">{ESTIMATED_PRICE_NOTE}</p>
                 )}
               </div>
@@ -144,6 +159,11 @@ export default function ModelDetailClient({ model, promotion }: Props) {
                   </Button>
                 </Link>
               </div>
+              {model.priceEstimated && interestCount > 0 && (
+                <p className="text-amber-300/90 text-sm font-medium mt-6">
+                  {interestLabel(interestCount)}
+                </p>
+              )}
             </motion.div>
             <motion.div
               initial={{ opacity: 0, x: 30 }}

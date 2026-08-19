@@ -30,6 +30,8 @@ export const carModelApi = {
   adminGetAll: () => api.get<CarModel[]>('/admin/models'),
   getFeatured: () => api.get<CarModel[]>('/models/featured'),
   getBySlug: (slug: string) => api.get<CarModel>(`/models/${slug}`),
+  /** { modelId: số lượt đăng ký lái thử }. Dòng xe chưa có đơn nào sẽ không có key. */
+  getInterestCounts: () => api.get<Record<string, number>>('/models/interest-counts'),
   create: (data: Partial<CarModel>) => api.post<CarModel>('/admin/models', data),
   update: (id: number, data: Partial<CarModel>) => api.put<CarModel>(`/admin/models/${id}`, data),
   delete: (id: number) => api.delete(`/admin/models/${id}`),

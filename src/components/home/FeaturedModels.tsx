@@ -10,6 +10,7 @@ import type { CarModel } from '@/lib/types'
 import { Badge } from '@/components/ui/badge'
 import { getModelImage } from '@/lib/model-images'
 import { pricePrefix } from '@/lib/price'
+import { interestLabel } from '@/lib/interest'
 
 const FALLBACK_MODELS: Partial<CarModel>[] = [
   { id: 1, name: 'Tiguan Facelift', slug: 'tiguan-facelift', category: 'SUV', priceDisplay: '1.699.000.000', shortDescription: 'SUV đô thị thông minh với công nghệ tiên tiến' },
@@ -22,6 +23,7 @@ const FALLBACK_MODELS: Partial<CarModel>[] = [
 
 export default function FeaturedModels() {
   const [models, setModels] = useState<Partial<CarModel>[]>(FALLBACK_MODELS)
+  const [interest, setInterest] = useState<Record<string, number>>({})
   const [index, setIndex] = useState(0)
   const trackRef = useRef<HTMLDivElement>(null)
   const [perView, setPerView] = useState(3)
@@ -30,6 +32,12 @@ export default function FeaturedModels() {
     carModelApi.getFeatured().then((res) => {
       if (res.data.length > 0) setModels(res.data)
     }).catch(() => {})
+  }, [])
+
+  useEffect(() => {
+    carModelApi.getInterestCounts()
+      .then((res) => setInterest(res.data))
+      .catch(() => {})
   }, [])
 
   // Responsive: số card hiển thị cùng lúc
@@ -124,6 +132,11 @@ export default function FeaturedModels() {
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
                   </div>
+                  {model.priceEstimated && !!interest[String(model.id)] && (
+                    <p className="text-amber-600 text-xs font-semibold mb-1.5">
+                      {interestLabel(interest[String(model.id)])}
+                    </p>
+                  )}
                   <Badge variant="outline" className="text-xs rounded-lg border-neutral-300 text-neutral-500 mb-1">
                     {model.category}
                   </Badge>
