@@ -6,16 +6,6 @@ import { Phone } from 'lucide-react'
 
 const PHONE = '0983338527'
 const PHONE_DISPLAY = '098 3338 527'
-const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61576384566535'
-
-function FacebookIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="white">
-      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-    </svg>
-  )
-}
-
 
 type ButtonItem = {
   key: string
@@ -28,14 +18,6 @@ type ButtonItem = {
 
 
 const buttons: ButtonItem[] = [
-  {
-    key: 'facebook',
-    label: 'Facebook',
-    href: FACEBOOK_URL,
-    color: '#1877F2',
-    ping: true,
-    icon: <FacebookIcon />,
-  },
   {
     key: 'zalo',
     label: 'Chat Zalo',

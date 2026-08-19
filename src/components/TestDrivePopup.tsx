@@ -22,7 +22,7 @@ import {
 import { CheckCircle2, X } from 'lucide-react'
 
 const DELAY_MS = 2000
-const RESHOW_MS = 30000
+const RESHOW_MS = 120000
 
 const FALLBACK_MODELS = [
   { id: 1,  name: 'Tiguan Facelift' },
