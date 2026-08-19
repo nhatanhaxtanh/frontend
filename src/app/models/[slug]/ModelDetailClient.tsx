@@ -1,12 +1,12 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import type { CarModel, CarPromotion, DescriptionImage } from '@/lib/types'
 import { Button } from '@/components/ui/button'
-import { ArrowLeft, Fuel, Users, Zap, Settings2, Gauge, GitMerge, ChevronLeft, ChevronRight, CheckCircle2, Clock } from 'lucide-react'
+import { ArrowLeft, Fuel, Users, Zap, Settings2, Gauge, GitMerge, ChevronLeft, ChevronRight, CheckCircle2, Clock, Flame } from 'lucide-react'
 import Lightbox from '@/components/Lightbox'
 import { getModelImage } from '@/lib/model-images'
 import { getModelGallery } from '@/lib/model-gallery'
@@ -14,6 +14,7 @@ import { getModelHighlights } from '@/lib/model-highlights'
 import { ESTIMATED_PRICE_NOTE, ORDER_FORECAST, pricePrefix } from '@/lib/price'
 import { interestLabel } from '@/lib/interest'
 import { carModelApi } from '@/lib/api'
+import CountUp from '@/components/CountUp'
 import { cn } from '@/lib/utils'
 
 function DescriptionFigure({ image }: { image: DescriptionImage }) {
@@ -47,6 +48,7 @@ export default function ModelDetailClient({ model, promotion }: Props) {
   const [sticky, setSticky] = useState(false)
   const [interestCount, setInterestCount] = useState(0)
   const heroRef = useRef<HTMLDivElement>(null)
+  const reduceMotion = useReducedMotion()
 
   useEffect(() => {
     if (!model.priceEstimated) return
@@ -139,9 +141,39 @@ export default function ModelDetailClient({ model, promotion }: Props) {
                   {pricePrefix(model.priceEstimated)} <span className="text-3xl">{model.priceDisplay}</span>₫
                 </p>
                 {model.priceEstimated && (
-                  <p className="text-amber-300/90 text-sm font-medium mt-2">
-                    Dự kiến đơn hàng: <span className="font-bold">{ORDER_FORECAST}</span>
-                  </p>
+                  <div className="mt-4 inline-block border border-amber-400/40 bg-amber-400/10 rounded-lg px-4 py-3 min-w-[280px]">
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="flex items-center gap-2 text-amber-200/80 text-[11px] uppercase tracking-widest font-semibold whitespace-nowrap">
+                        {/* Ngọn lửa nhấp nháy: scale + xoay nhẹ lệch pha nhau cho giống lửa thật. */}
+                        <motion.span
+                          className="text-amber-400 shrink-0 origin-bottom"
+                          animate={reduceMotion ? undefined : {
+                            scaleY: [1, 1.18, 0.94, 1.12, 1],
+                            scaleX: [1, 0.94, 1.06, 0.97, 1],
+                            rotate: [0, -5, 4, -3, 0],
+                            opacity: [1, 0.82, 1, 0.88, 1],
+                          }}
+                          transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+                        >
+                          <Flame size={16} fill="currentColor" />
+                        </motion.span>
+                        Dự kiến đơn hàng
+                      </span>
+                      <CountUp
+                        to={ORDER_FORECAST}
+                        className="text-amber-300 text-3xl font-bold tabular-nums leading-none"
+                      />
+                    </div>
+                    {/* Thanh chạy đầy một lần cùng nhịp với số, rồi dừng ở mức đầy. */}
+                    <div className="mt-2.5 h-1.5 w-full bg-amber-400/15 rounded-full overflow-hidden">
+                      <motion.div
+                        className="h-full bg-amber-400 rounded-full"
+                        initial={{ width: reduceMotion ? '100%' : 0 }}
+                        animate={{ width: '100%' }}
+                        transition={{ duration: reduceMotion ? 0 : 1.4, ease: 'easeOut' }}
+                      />
+                    </div>
+                  </div>
                 )}
                 {model.priceEstimated && (
                   <p className="text-neutral-500 text-xs mt-2 max-w-md leading-relaxed">{ESTIMATED_PRICE_NOTE}</p>

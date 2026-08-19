@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ArrowRight } from 'lucide-react'
 import { getModelImage } from '@/lib/model-images'
-import { pricePrefix } from '@/lib/price'
+import { ORDER_FORECAST, pricePrefix } from '@/lib/price'
 
 const CATEGORIES = ['Tất cả', 'SUV', 'MPV', 'Hatchback']
 
@@ -83,6 +83,11 @@ export default function ModelsClient({ models }: { models: Partial<CarModel>[] }
                     </span>
                     <span className="text-xs text-neutral-400 uppercase tracking-wide">Xem chi tiết</span>
                   </div>
+                  {model.priceEstimated && (
+                    <p className="text-amber-600 text-xs font-semibold mt-2">
+                      Dự kiến đơn hàng: {ORDER_FORECAST}
+                    </p>
+                  )}
                 </Link>
               </motion.div>
             ))}
