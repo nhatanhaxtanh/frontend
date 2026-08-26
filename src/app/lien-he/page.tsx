@@ -11,7 +11,7 @@ import { toast } from 'sonner'
 import axios from 'axios'
 
 const contactInfo = [
-  { icon: MapPin, label: 'Địa chỉ', value: '5 Đường Số 3, An Khánh, Thủ Đức, TP.HCM' },
+  { icon: MapPin, label: 'Địa chỉ', value: '5 Đường Số 2, An Khánh, Thủ Đức, TP.HCM' },
   { icon: Phone, label: 'Điện thoại', value: '098 3338 527', href: 'tel:0983338527' },
   { icon: Mail, label: 'Email', value: 'qui.maiphu@vwanphu.vn', href: 'mailto:qui.maiphu@vwanphu.vn' },
   { icon: Clock, label: 'Giờ làm việc', value: '8:00 – 20:00, Thứ 2 – Chủ nhật' },
@@ -120,7 +120,7 @@ export default function ContactPage() {
           allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          title="Volkswagen An Phú — 5 Đường Số 3, An Khánh"
+          title="Volkswagen An Phú — 5 Đường Số 2, An Khánh"
         />
       </div>
     </div>

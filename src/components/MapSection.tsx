@@ -18,7 +18,7 @@ export default function MapSection() {
               <div>
                 <p className="text-xs text-neutral-400 uppercase tracking-widest mb-1">Địa chỉ showroom</p>
                 <p className="text-black font-medium leading-relaxed">
-                  5 Đường Số 3, An Khánh, Thủ Đức, TP.HCM
+                  5 Đường Số 2, An Khánh, Thủ Đức, TP.HCM
                 </p>
               </div>
             </div>
@@ -41,7 +41,7 @@ export default function MapSection() {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Volkswagen An Phú — 5 Đường Số 3, An Khánh"
+              title="Volkswagen An Phú — 5 Đường Số 2, An Khánh"
             />
           </div>
         </div>
