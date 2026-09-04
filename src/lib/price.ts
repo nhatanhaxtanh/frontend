@@ -10,4 +10,4 @@ export const ESTIMATED_PRICE_NOTE =
  * Số đơn hàng dự kiến của đại lý cho các mẫu chưa công bố giá chính thức.
  * Con số dự báo, cố định trong code — sửa trực tiếp ở đây khi cần cập nhật.
  */
-export const ORDER_FORECAST = 208
+export const ORDER_FORECAST = 273
