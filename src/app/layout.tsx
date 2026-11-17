@@ -19,20 +19,20 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Volkswagen An Phú — Đại lý ủy quyền chính thức",
-    template: "%s | Volkswagen An Phú",
+    default: "Volkswagen Flagship — Đại lý ủy quyền chính thức",
+    template: "%s | Volkswagen Flagship",
   },
   description:
     "Đại lý ủy quyền chính thức của Volkswagen tại TP. Hồ Chí Minh. Khám phá các dòng xe Tiguan, Teramont, Touareg và đăng ký lái thử miễn phí.",
-  keywords: ["Volkswagen", "VW An Phú", "Tiguan", "Teramont", "Touareg", "xe Đức", "đại lý Volkswagen", "đại lý VW TP.HCM"],
+  keywords: ["Volkswagen", "VW Flagship", "Tiguan", "Teramont", "Touareg", "xe Đức", "đại lý Volkswagen", "đại lý VW TP.HCM"],
   openGraph: {
     type: 'website',
     locale: 'vi_VN',
     url: SITE_URL,
-    siteName: 'Volkswagen An Phú',
-    title: 'Volkswagen An Phú — Đại lý ủy quyền chính thức',
+    siteName: 'Volkswagen Flagship',
+    title: 'Volkswagen Flagship — Đại lý ủy quyền chính thức',
     description: 'Đại lý ủy quyền chính thức của Volkswagen tại TP. Hồ Chí Minh. Khám phá các dòng xe Tiguan, Teramont, Touareg và đăng ký lái thử miễn phí.',
-    images: [{ url: '/images/hero.jpg', width: 1200, height: 630, alt: 'Volkswagen An Phú' }],
+    images: [{ url: '/images/hero.jpg', width: 1200, height: 630, alt: 'Volkswagen Flagship' }],
   },
   alternates: { canonical: SITE_URL },
   robots: { index: true, follow: true },
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'AutoDealer',
-  name: 'Volkswagen An Phú',
+  name: 'Volkswagen Flagship',
   url: SITE_URL,
   logo: `${SITE_URL}/images/logo.png`,
   image: `${SITE_URL}/images/hero.jpg`,

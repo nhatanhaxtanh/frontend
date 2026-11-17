@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: 'Danh sách đầy đủ các dòng xe Volkswagen chính hãng tại TP.HCM: Tiguan Facelift, Teramont, Touareg, Viloran, Golf. Xem giá, thông số kỹ thuật và đăng ký lái thử.',
   alternates: { canonical: `${SITE_URL}/models` },
   openGraph: {
-    title: 'Dòng xe Volkswagen tại Volkswagen An Phú TP.HCM',
+    title: 'Dòng xe Volkswagen tại Volkswagen Flagship TP.HCM',
     description: 'SUV, MPV và Hatchback Volkswagen chính hãng. Tiguan từ 1.699 tỷ, Teramont từ 1.999 tỷ, Touareg từ 2.899 tỷ. Lái thử miễn phí tại showroom.',
     url: `${SITE_URL}/models`,
   },

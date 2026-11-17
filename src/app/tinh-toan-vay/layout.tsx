@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SITE_URL } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Tính toán khoản vay mua xe Volkswagen | Volkswagen An Phú',
+  title: 'Tính toán khoản vay mua xe Volkswagen | Volkswagen Flagship',
   description: 'Công cụ tính toán trả góp xe Volkswagen: chọn dòng xe, tỷ lệ vay đến 85%, thời hạn đến 96 tháng. Ước tính khoản trả góp hàng tháng nhanh chóng, chính xác.',
   alternates: { canonical: `${SITE_URL}/tinh-toan-vay` },
   openGraph: {

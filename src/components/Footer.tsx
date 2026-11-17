@@ -57,7 +57,7 @@ export default async function Footer() {
             <div className="flex items-center gap-2.5 mb-4">
               <VWLogo size={36} className="text-white" />
               <span className="text-white text-sm font-semibold tracking-[0.15em] uppercase">
-                Volkswagen An Phú
+                Volkswagen Flagship
               </span>
             </div>
             <p className="text-sm leading-relaxed text-neutral-400">
@@ -153,7 +153,7 @@ export default async function Footer() {
         <Separator className="my-10 bg-neutral-800" />
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-neutral-500">
-          <p>© {new Date().getFullYear()} Volkswagen An Phú. Bảo lưu mọi quyền.</p>
+          <p>© {new Date().getFullYear()} Volkswagen Flagship. Bảo lưu mọi quyền.</p>
           <div className="flex gap-6">
             <Link href="/chinh-sach-bao-mat" className="hover:text-white transition-colors">
               Chính sách bảo mật

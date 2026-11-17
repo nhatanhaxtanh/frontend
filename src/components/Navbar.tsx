@@ -63,7 +63,7 @@ export default function Navbar() {
               transparent ? 'text-white' : 'text-black'
             )}
           >
-            Volkswagen An Phú
+            Volkswagen Flagship
           </span>
         </Link>
 

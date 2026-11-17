@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title,
       description,
       openGraph: {
-        title: `${title} | Volkswagen An Phú`,
+        title: `${title} | Volkswagen Flagship`,
         description,
         url: `${SITE_URL}/tin-tuc/${slug}`,
         images: [{ url: imageUrl, width: 1200, height: 630, alt: title }],
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   } catch {
     return {
       title: 'Bài viết',
-      description: 'Tin tức mới nhất từ Volkswagen An Phú.',
+      description: 'Tin tức mới nhất từ Volkswagen Flagship.',
     }
   }
 }

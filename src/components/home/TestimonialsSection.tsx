@@ -38,7 +38,7 @@ const testimonials = [
     name: 'Đỗ Quốc Hùng',
     role: 'Luật sư',
     initials: 'ĐH',
-    text: 'Touareg là chiếc xe tôi luôn mơ ước. Showroom Volkswagen An Phú đã giúp tôi hiện thực hóa điều đó với mức giá và dịch vụ tốt nhất.',
+    text: 'Touareg là chiếc xe tôi luôn mơ ước. Showroom Volkswagen Flagship đã giúp tôi hiện thực hóa điều đó với mức giá và dịch vụ tốt nhất.',
   },
   {
     name: 'Nguyễn Thị Mai',

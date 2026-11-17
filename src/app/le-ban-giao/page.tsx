@@ -8,12 +8,12 @@ import { SITE_URL } from '@/lib/site'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Lễ Bàn Giao Xe | Volkswagen An Phú',
-  description: 'Những khoảnh khắc đáng nhớ trong lễ bàn giao xe Volkswagen tại đại lý An Phú TP.HCM.',
+  title: 'Lễ Bàn Giao Xe | Volkswagen Flagship',
+  description: 'Những khoảnh khắc đáng nhớ trong lễ bàn giao xe Volkswagen tại đại lý Volkswagen Flagship TP.HCM.',
   alternates: { canonical: `${SITE_URL}/le-ban-giao` },
   openGraph: {
-    title: 'Lễ Bàn Giao Xe | Volkswagen An Phú',
-    description: 'Những khoảnh khắc đáng nhớ trong lễ bàn giao xe Volkswagen tại đại lý An Phú.',
+    title: 'Lễ Bàn Giao Xe | Volkswagen Flagship',
+    description: 'Những khoảnh khắc đáng nhớ trong lễ bàn giao xe Volkswagen tại đại lý Volkswagen Flagship.',
     url: `${SITE_URL}/le-ban-giao`,
   },
 }
@@ -50,7 +50,7 @@ export default async function HandoverPage() {
       {/* CTA */}
       <div className="border-t border-neutral-200 bg-neutral-50 py-16 px-6 text-center">
         <p className="text-neutral-500 text-sm mb-6 max-w-md mx-auto">
-          Trải nghiệm lễ bàn giao xe đặc biệt khi sở hữu xe Volkswagen tại An Phú
+          Trải nghiệm lễ bàn giao xe đặc biệt khi sở hữu xe Volkswagen tại Volkswagen Flagship
         </p>
         <Link
           href="/dang-ky-lai-thu"

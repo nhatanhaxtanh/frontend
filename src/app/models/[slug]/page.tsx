@@ -52,13 +52,13 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { slug } = await params
   const model = await fetchModel(slug) ?? FALLBACK_MODELS[slug] ?? null
-  if (!model) return { title: 'Dòng xe | Volkswagen An Phú' }
+  if (!model) return { title: 'Dòng xe | Volkswagen Flagship' }
   return {
-    title: `${model.name} — Giá & Thông số kỹ thuật | Volkswagen An Phú`,
+    title: `${model.name} — Giá & Thông số kỹ thuật | Volkswagen Flagship`,
     description: model.shortDescription,
     alternates: { canonical: `${SITE_URL}/models/${slug}` },
     openGraph: {
-      title: `${model.name} | Volkswagen An Phú`,
+      title: `${model.name} | Volkswagen Flagship`,
       description: model.shortDescription,
       url: `${SITE_URL}/models/${slug}`,
       ...(model.imageUrl ? { images: [{ url: model.imageUrl, width: 1200, height: 630, alt: model.name }] } : {}),
@@ -90,7 +90,7 @@ export default async function ModelDetailPage(
       priceCurrency: 'VND',
       availability: 'https://schema.org/InStock',
       url: `${SITE_URL}/models/${slug}`,
-      seller: { '@type': 'AutoDealer', name: 'Volkswagen An Phú' },
+      seller: { '@type': 'AutoDealer', name: 'Volkswagen Flagship' },
     },
   }
 
