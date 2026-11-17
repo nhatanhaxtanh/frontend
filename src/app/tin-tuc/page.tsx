@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import type { NewsPost } from '@/lib/types'
 import NewsClient from './NewsClient'
+import { SITE_URL } from '@/lib/site'
 
 export const dynamic = 'force-dynamic'
 
@@ -11,11 +12,11 @@ const BACKEND = process.env.BACKEND_URL
 export const metadata: Metadata = {
   title: 'Tin tức & Sự kiện Volkswagen mới nhất tại TP.HCM',
   description: 'Cập nhật tin tức Volkswagen mới nhất: ra mắt xe mới, sự kiện, khuyến mãi và chương trình ưu đãi tại Volkswagen An Phú TP.HCM.',
-  alternates: { canonical: 'https://volkswagenanphu.vn/tin-tuc' },
+  alternates: { canonical: `${SITE_URL}/tin-tuc` },
   openGraph: {
     title: 'Tin tức & Sự kiện | Volkswagen An Phú',
     description: 'Ra mắt xe mới, sự kiện, khuyến mãi và ưu đãi mới nhất từ Volkswagen An Phú TP.HCM.',
-    url: 'https://volkswagenanphu.vn/tin-tuc',
+    url: `${SITE_URL}/tin-tuc`,
   },
 }
 

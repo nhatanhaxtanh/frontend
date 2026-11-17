@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import type { CarModel, CarPromotion } from '@/lib/types'
 import ModelDetailClient from './ModelDetailClient'
+import { SITE_URL } from '@/lib/site'
 
 const BACKEND = process.env.BACKEND_URL
   ? `${process.env.BACKEND_URL}/api`
@@ -46,8 +47,6 @@ async function fetchPromotion(slug: string): Promise<CarPromotion | null> {
   }
 }
 
-const BASE_URL = 'https://volkswagenanphu.vn'
-
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
@@ -57,11 +56,11 @@ export async function generateMetadata(
   return {
     title: `${model.name} — Giá & Thông số kỹ thuật | Volkswagen An Phú`,
     description: model.shortDescription,
-    alternates: { canonical: `${BASE_URL}/models/${slug}` },
+    alternates: { canonical: `${SITE_URL}/models/${slug}` },
     openGraph: {
       title: `${model.name} | Volkswagen An Phú`,
       description: model.shortDescription,
-      url: `${BASE_URL}/models/${slug}`,
+      url: `${SITE_URL}/models/${slug}`,
       ...(model.imageUrl ? { images: [{ url: model.imageUrl, width: 1200, height: 630, alt: model.name }] } : {}),
     },
   }
@@ -90,7 +89,7 @@ export default async function ModelDetailPage(
       price: resolvedModel.price,
       priceCurrency: 'VND',
       availability: 'https://schema.org/InStock',
-      url: `${BASE_URL}/models/${slug}`,
+      url: `${SITE_URL}/models/${slug}`,
       seller: { '@type': 'AutoDealer', name: 'Volkswagen An Phú' },
     },
   }

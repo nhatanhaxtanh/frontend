@@ -2,12 +2,11 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import type { NewsPost } from '@/lib/types'
 import NewsDetailClient from './NewsDetailClient'
+import { SITE_URL } from '@/lib/site'
 
 const BACKEND = process.env.BACKEND_URL
   ? `${process.env.BACKEND_URL}/api`
   : 'http://localhost:8080/api'
-
-const BASE_URL = 'https://volkswagenanphu.vn'
 
 const FALLBACK_POSTS: NewsPost[] = [
   { id: 1, slug: 'tiguan-facelift-2025', category: 'Xe mới', title: 'Volkswagen Tiguan Facelift 2025 chính thức ra mắt tại Việt Nam', excerpt: 'Phiên bản nâng cấp mang đến thiết kế hiện đại hơn cùng loạt công nghệ an toàn tiên tiến.', imageUrl: '/images/news/news1.jpg', createdAt: '2025-03-15T00:00:00', published: true, content: '<p>Nội dung bài viết...</p>' },
@@ -45,14 +44,14 @@ export async function generateMetadata(
   return {
     title: post.title,
     description: post.excerpt,
-    alternates: { canonical: `${BASE_URL}/tin-tuc/${slug}` },
+    alternates: { canonical: `${SITE_URL}/tin-tuc/${slug}` },
     openGraph: {
       type: 'article',
       title: post.title,
       description: post.excerpt,
-      url: `${BASE_URL}/tin-tuc/${slug}`,
+      url: `${SITE_URL}/tin-tuc/${slug}`,
       publishedTime: post.createdAt,
-      ...(post.imageUrl ? { images: [{ url: post.imageUrl.startsWith('http') ? post.imageUrl : `${BASE_URL}${post.imageUrl}`, width: 1200, height: 630, alt: post.title }] } : {}),
+      ...(post.imageUrl ? { images: [{ url: post.imageUrl.startsWith('http') ? post.imageUrl : `${SITE_URL}${post.imageUrl}`, width: 1200, height: 630, alt: post.title }] } : {}),
     },
   }
 }
@@ -69,13 +68,13 @@ export default async function NewsDetailPage(
     '@type': 'NewsArticle',
     headline: post.title,
     description: post.excerpt,
-    image: post.imageUrl?.startsWith('http') ? post.imageUrl : `${BASE_URL}${post.imageUrl}`,
+    image: post.imageUrl?.startsWith('http') ? post.imageUrl : `${SITE_URL}${post.imageUrl}`,
     datePublished: post.createdAt,
-    url: `${BASE_URL}/tin-tuc/${slug}`,
+    url: `${SITE_URL}/tin-tuc/${slug}`,
     publisher: {
       '@type': 'Organization',
       name: 'Volkswagen An Phú',
-      logo: { '@type': 'ImageObject', url: `${BASE_URL}/images/logo.png` },
+      logo: { '@type': 'ImageObject', url: `${SITE_URL}/images/logo.png` },
     },
     author: { '@type': 'Organization', name: 'Volkswagen An Phú' },
   }

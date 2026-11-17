@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { SITE_URL } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Tin tức',
@@ -6,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Tin tức Volkswagen | Volkswagen An Phú',
     description: 'Tin tức mới nhất về xe Volkswagen: ra mắt xe mới, sự kiện, khuyến mãi và thông tin kỹ thuật từ Volkswagen An Phú.',
-    url: 'https://volkswagenanphu.vn/tin-tuc',
+    url: `${SITE_URL}/tin-tuc`,
   },
 }
 

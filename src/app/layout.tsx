@@ -8,6 +8,7 @@ import FloatingContact from "@/components/FloatingContact";
 import ScrollToTop from "@/components/ScrollToTop";
 import TestDrivePopup from "@/components/TestDrivePopup";
 import { Toaster } from "@/components/ui/sonner";
+import { SITE_URL } from "@/lib/site";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
@@ -15,10 +16,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const BASE_URL = 'https://volkswagenanphu.vn'
-
 export const metadata: Metadata = {
-  metadataBase: new URL(BASE_URL),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Volkswagen An Phú — Đại lý ủy quyền chính thức",
     template: "%s | Volkswagen An Phú",
@@ -29,13 +28,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'vi_VN',
-    url: BASE_URL,
+    url: SITE_URL,
     siteName: 'Volkswagen An Phú',
     title: 'Volkswagen An Phú — Đại lý ủy quyền chính thức',
     description: 'Đại lý ủy quyền chính thức của Volkswagen tại TP. Hồ Chí Minh. Khám phá các dòng xe Tiguan, Teramont, Touareg và đăng ký lái thử miễn phí.',
     images: [{ url: '/images/hero.jpg', width: 1200, height: 630, alt: 'Volkswagen An Phú' }],
   },
-  alternates: { canonical: BASE_URL },
+  alternates: { canonical: SITE_URL },
   robots: { index: true, follow: true },
 };
 
@@ -43,9 +42,9 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'AutoDealer',
   name: 'Volkswagen An Phú',
-  url: 'https://volkswagenanphu.vn',
-  logo: 'https://volkswagenanphu.vn/images/logo.png',
-  image: 'https://volkswagenanphu.vn/images/hero.jpg',
+  url: SITE_URL,
+  logo: `${SITE_URL}/images/logo.png`,
+  image: `${SITE_URL}/images/hero.jpg`,
   description: 'Đại lý ủy quyền chính thức của Volkswagen tại TP. Hồ Chí Minh.',
   telephone: '+84983338527',
   email: 'qui.maiphu@vwanphu.vn',

@@ -3,17 +3,18 @@ import type { HandoverPhoto } from '@/lib/types'
 import Link from 'next/link'
 import HandoverGallery from './HandoverGallery'
 import HandoverHero from './HandoverHero'
+import { SITE_URL } from '@/lib/site'
 
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Lễ Bàn Giao Xe | Volkswagen An Phú',
   description: 'Những khoảnh khắc đáng nhớ trong lễ bàn giao xe Volkswagen tại đại lý An Phú TP.HCM.',
-  alternates: { canonical: 'https://volkswagenanphu.vn/le-ban-giao' },
+  alternates: { canonical: `${SITE_URL}/le-ban-giao` },
   openGraph: {
     title: 'Lễ Bàn Giao Xe | Volkswagen An Phú',
     description: 'Những khoảnh khắc đáng nhớ trong lễ bàn giao xe Volkswagen tại đại lý An Phú.',
-    url: 'https://volkswagenanphu.vn/le-ban-giao',
+    url: `${SITE_URL}/le-ban-giao`,
   },
 }
 

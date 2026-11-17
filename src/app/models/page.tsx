@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import type { CarModel } from '@/lib/types'
 import ModelsClient from './ModelsClient'
+import { SITE_URL } from '@/lib/site'
 
 export const dynamic = 'force-dynamic'
 
@@ -11,11 +12,11 @@ const BACKEND = process.env.BACKEND_URL
 export const metadata: Metadata = {
   title: 'Khám phá dòng xe Volkswagen — Tiguan, Teramont, Touareg, Viloran, Golf',
   description: 'Danh sách đầy đủ các dòng xe Volkswagen chính hãng tại TP.HCM: Tiguan Facelift, Teramont, Touareg, Viloran, Golf. Xem giá, thông số kỹ thuật và đăng ký lái thử.',
-  alternates: { canonical: 'https://volkswagenanphu.vn/models' },
+  alternates: { canonical: `${SITE_URL}/models` },
   openGraph: {
     title: 'Dòng xe Volkswagen tại Volkswagen An Phú TP.HCM',
     description: 'SUV, MPV và Hatchback Volkswagen chính hãng. Tiguan từ 1.699 tỷ, Teramont từ 1.999 tỷ, Touareg từ 2.899 tỷ. Lái thử miễn phí tại showroom.',
-    url: 'https://volkswagenanphu.vn/models',
+    url: `${SITE_URL}/models`,
   },
 }
 

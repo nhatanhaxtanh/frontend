@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
+import { SITE_URL } from '@/lib/site'
 
 const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:8080'
-const BASE_URL = 'https://volkswagenanphu.vn'
-
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   try {
@@ -11,18 +10,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const model = await res.json()
     const title = model.name
     const description = model.shortDescription || `Khám phá ${model.name} tại Volkswagen An Phú. ${model.engine ? `Động cơ ${model.engine}, ${model.power}.` : ''} ${model.priceEstimated ? 'Giá dự kiến' : 'Giá từ'} ${model.priceDisplay} VNĐ.`
-    const imageUrl = `${BASE_URL}/images/models/${slug}.jpg`
+    const imageUrl = `${SITE_URL}/images/models/${slug}.jpg`
     return {
       title,
       description,
       openGraph: {
         title: `${title} | Volkswagen An Phú`,
         description,
-        url: `${BASE_URL}/models/${slug}`,
+        url: `${SITE_URL}/models/${slug}`,
         images: [{ url: imageUrl, width: 1200, height: 630, alt: title }],
         type: 'website',
       },
-      alternates: { canonical: `${BASE_URL}/models/${slug}` },
+      alternates: { canonical: `${SITE_URL}/models/${slug}` },
     }
   } catch {
     return {
