@@ -16,6 +16,7 @@ import { interestLabel } from '@/lib/interest'
 import { carModelApi } from '@/lib/api'
 import CountUp from '@/components/CountUp'
 import { cn } from '@/lib/utils'
+import ShortDescription from '@/components/ShortDescription'
 
 function DescriptionFigure({ image }: { image: DescriptionImage }) {
   return (
@@ -130,7 +131,7 @@ export default function ModelDetailClient({ model, promotion }: Props) {
             <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }}>
               <span className="text-xs tracking-[0.25em] text-neutral-500 uppercase">{model.category}</span>
               <h1 className="text-5xl md:text-6xl font-bold text-white mt-2 mb-4">{model.name}</h1>
-              <p className="text-neutral-400 text-lg leading-relaxed mb-6">{model.shortDescription}</p>
+              <ShortDescription text={model.shortDescription} className="mb-6" bodyClassName="text-neutral-400 text-lg leading-relaxed" />
               <div className="mb-8">
                 {model.priceEstimated && (
                   <span className="inline-block mb-2 px-2.5 py-1 border border-amber-400/40 bg-amber-400/10 text-amber-300 text-[11px] uppercase tracking-widest font-semibold">

@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { ArrowRight } from 'lucide-react'
 import { getModelImage } from '@/lib/model-images'
 import { ORDER_FORECAST, pricePrefix } from '@/lib/price'
+import ShortDescription from '@/components/ShortDescription'
 
 const CATEGORIES = ['Tất cả', 'SUV', 'MPV', 'Hatchback']
 
@@ -72,7 +73,7 @@ export default function ModelsClient({ models }: { models: Partial<CarModel>[] }
                   <div className="flex items-start justify-between">
                     <div>
                       <h2 className="font-bold text-xl text-black mb-1 group-hover:underline underline-offset-4">{model.name}</h2>
-                      <p className="text-neutral-500 text-sm">{model.shortDescription}</p>
+                      <ShortDescription text={model.shortDescription} bodyClassName="text-neutral-500 text-sm" />
                       {model.seats && <p className="text-neutral-400 text-xs mt-1">{model.seats} chỗ ngồi</p>}
                     </div>
                     <ArrowRight size={18} className="text-neutral-300 group-hover:text-black group-hover:translate-x-1 transition-all mt-1 shrink-0" />

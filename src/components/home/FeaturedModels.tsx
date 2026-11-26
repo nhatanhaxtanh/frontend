@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/badge'
 import { getModelImage } from '@/lib/model-images'
 import { pricePrefix } from '@/lib/price'
 import { interestLabel } from '@/lib/interest'
+import ShortDescription from '@/components/ShortDescription'
 
 const FALLBACK_MODELS: Partial<CarModel>[] = [
   { id: 1, name: 'Tiguan Facelift', slug: 'tiguan-facelift', category: 'SUV', priceDisplay: '1.699.000.000', shortDescription: 'SUV đô thị thông minh với công nghệ tiên tiến' },
@@ -143,7 +144,7 @@ export default function FeaturedModels() {
                   <h3 className="font-bold text-lg text-black group-hover:underline underline-offset-2">
                     {model.name}
                   </h3>
-                  <p className="text-neutral-500 text-sm mt-1 line-clamp-2">{model.shortDescription}</p>
+                  <ShortDescription text={model.shortDescription} className="mt-1" bodyClassName="text-neutral-500 text-sm line-clamp-2" />
                   <p className="text-black font-semibold mt-3 text-sm">
                     {pricePrefix(model.priceEstimated)} {model.priceDisplay}₫
                   </p>
